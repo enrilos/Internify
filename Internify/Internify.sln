@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{477B0102-7476-4267-B662-12B831B94743}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{A3620858-DA47-41B1-B5AF-86401015DBEB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{736375F2-C64C-4649-8E5F-805F40D71476}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FCF58098-CCD7-45CD-ABD9-6EC853E15BEC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{C95D6A68-560B-48DD-A9CF-2C40326B8D55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internify.Web", "Web\Internify.Web\Internify.Web.csproj", "{48A169F2-B38A-464C-B71A-07B9D672B456}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48A169F2-B38A-464C-B71A-07B9D672B456}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48A169F2-B38A-464C-B71A-07B9D672B456}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48A169F2-B38A-464C-B71A-07B9D672B456}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48A169F2-B38A-464C-B71A-07B9D672B456}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{48A169F2-B38A-464C-B71A-07B9D672B456} = {C95D6A68-560B-48DD-A9CF-2C40326B8D55}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9273A6D3-A1D2-4F84-ADF0-B4930F8AE344}
+	EndGlobalSection
+EndGlobal
