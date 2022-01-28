@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+::selection {
+    color: #333333;
+    background: #00ffd9;
+}
+
+.container-header {
+    padding: 6px;
+    background-color: #292929;
+}
+
+.container-header-nav {
+    display: flex;
+    background-color: inherit;
+    align-items: center;
+    justify-content: space-between;
+    padding: .8em 2em;
+}
+
+.container-nav-title-content {
+    font-family: 'Lato', sans-serif;
+    color: #00ffd9;
+    font-size: 4em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.container-nav-menu-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.container-nav-menu-content a:not(:last-child) {
+    text-decoration: none;
+    color: whitesmoke;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    font-size: 1.3em;
+    padding: 15px 30px;
+    margin: 0 14px;
+    border: 2px solid whitesmoke;
+    border-radius: 3px;
+    transition: .5s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.container-nav-menu-content a:hover:not(:last-child) {
+    border: 2px solid #00ffd9;
+    color: #00ffd9;
+    transition: .5s ease;
+}
+
+.ripple {
+    position: absolute;
+    background: white;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    border-radius: 50%;
+    animation: nav-ripple .7s linear;
+}
+
+@keyframes nav-ripple {
+    0% {
+        width: 0px;
+        height: 0px;
+        opacity: .5;
+    }
+
+    100% {
+        width: 500px;
+        height: 500px;
+        opacity: 0;
+    }
+}
+
+.container-nav-menu-content-auth-btn {
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    padding: 20px;
+    margin-left: 40px;
+    border-radius: 50%;
+    background-color: #00ffd9;
+    box-shadow: 0 0 20px 8px rgba(0, 255, 217, 0.2);
+    transition: .5s ease;
+    position: relative;
+}
+
+.container-nav-menu-content-auth-btn:before,
+.container-nav-menu-content-auth-btn:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 1px solid #00ffd9;
+    border-radius: 50%;
+}
+
+.container-nav-menu-content-auth-btn:before {
+    animation: auth-ripple 2s linear infinite;
+}
+
+.container-nav-menu-content-auth-btn:after {
+    animation: auth-ripple 2s linear 1s infinite;
+}
+
+@keyframes auth-ripple {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.3);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+.container-nav-menu-content-auth-btn:hover {
+    transform: scale(1.1);
+    transition: .5s ease;
+}
+
+.container-nav-menu-content-auth-btn i {
+    color: #292929;
+}
