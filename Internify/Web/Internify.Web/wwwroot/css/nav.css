@@ -97,8 +97,8 @@
     position: relative;
 }
 
-.container-nav-menu-content-auth-btn:before,
-.container-nav-menu-content-auth-btn:after {
+.container-nav-menu-content-auth-btn::before,
+.container-nav-menu-content-auth-btn::after {
     content: '';
     display: block;
     position: absolute;
@@ -110,11 +110,11 @@
     border-radius: 50%;
 }
 
-.container-nav-menu-content-auth-btn:before {
+.container-nav-menu-content-auth-btn::before {
     animation: auth-ripple 2s linear infinite;
 }
 
-.container-nav-menu-content-auth-btn:after {
+.container-nav-menu-content-auth-btn::after {
     animation: auth-ripple 2s linear 1s infinite;
 }
 
