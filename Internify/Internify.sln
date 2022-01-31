@@ -15,9 +15,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{C95D6A68-560
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Internify.Web", "Web\Internify.Web\Internify.Web.csproj", "{48A169F2-B38A-464C-B71A-07B9D672B456}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internify.Data", "Data\Internify.Data\Internify.Data.csproj", "{5488B462-CCFD-483A-82C9-AB7BD1F05EF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Internify.Data", "Data\Internify.Data\Internify.Data.csproj", "{5488B462-CCFD-483A-82C9-AB7BD1F05EF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internify.Data.Models", "Data\Internify.Data.Models\Internify.Data.Models.csproj", "{D3F3E6BC-F517-4CFD-821D-0B8A1B5323EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Internify.Data.Models", "Data\Internify.Data.Models\Internify.Data.Models.csproj", "{D3F3E6BC-F517-4CFD-821D-0B8A1B5323EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internify.Web.Infrastructure", "Web\Internify.Web.Infrastructure\Internify.Web.Infrastructure.csproj", "{9D3D3FFF-AC2F-48E9-9EBF-FF4044F9B04A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internify.Models.InputModels", "Models\Internify.Models.InputModels\Internify.Models.InputModels.csproj", "{627CA9BA-9190-4090-A766-7974474692A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internify.Models.ViewModels", "Models\Internify.Models.ViewModels\Internify.Models.ViewModels.csproj", "{1941998E-B73D-4E66-B6F3-940039CDED06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +43,18 @@ Global
 		{D3F3E6BC-F517-4CFD-821D-0B8A1B5323EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3F3E6BC-F517-4CFD-821D-0B8A1B5323EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3F3E6BC-F517-4CFD-821D-0B8A1B5323EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D3D3FFF-AC2F-48E9-9EBF-FF4044F9B04A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D3D3FFF-AC2F-48E9-9EBF-FF4044F9B04A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D3D3FFF-AC2F-48E9-9EBF-FF4044F9B04A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D3D3FFF-AC2F-48E9-9EBF-FF4044F9B04A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{627CA9BA-9190-4090-A766-7974474692A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{627CA9BA-9190-4090-A766-7974474692A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{627CA9BA-9190-4090-A766-7974474692A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{627CA9BA-9190-4090-A766-7974474692A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1941998E-B73D-4E66-B6F3-940039CDED06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1941998E-B73D-4E66-B6F3-940039CDED06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1941998E-B73D-4E66-B6F3-940039CDED06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1941998E-B73D-4E66-B6F3-940039CDED06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,6 +63,9 @@ Global
 		{48A169F2-B38A-464C-B71A-07B9D672B456} = {C95D6A68-560B-48DD-A9CF-2C40326B8D55}
 		{5488B462-CCFD-483A-82C9-AB7BD1F05EF4} = {477B0102-7476-4267-B662-12B831B94743}
 		{D3F3E6BC-F517-4CFD-821D-0B8A1B5323EC} = {477B0102-7476-4267-B662-12B831B94743}
+		{9D3D3FFF-AC2F-48E9-9EBF-FF4044F9B04A} = {C95D6A68-560B-48DD-A9CF-2C40326B8D55}
+		{627CA9BA-9190-4090-A766-7974474692A4} = {A3620858-DA47-41B1-B5AF-86401015DBEB}
+		{1941998E-B73D-4E66-B6F3-940039CDED06} = {A3620858-DA47-41B1-B5AF-86401015DBEB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9273A6D3-A1D2-4F84-ADF0-B4930F8AE344}
