@@ -2,17 +2,36 @@
 {
     public class DataConstants
     {
-        public const string SQLCharType = "char";
-        public const int IdGuidLength = 36;
-
-        public class ApplicationUser
-        {
-            public const int NameMaxLength = 50;
-        }
+        public const int UrlMaxLength = 500;
+        public const int DescriptionMaxLength = 1000;
+        public const int NameMaxLength = 50;
 
         public class Candidate
         {
-            public const int StudyFieldMaxLength = 40;
+            public const int StudyFieldMaxLength = 50;
+        }
+
+        public class Company
+        {
+            public const int IndustryMaxLength = 30;
+            public const int CEOMaxLength = 40;
+        }
+
+        public class Internship
+        {
+            public const int RoleMaxLength = 50;
+        }
+
+        public class Article
+        {
+            public const int TitleMaxLength = 50;
+            public const int ContentMaxLength = 5000;
+        }
+
+        public class Review
+        {
+            public const int TitleMaxLength = 50;
+            public const int ContentMaxLength = 2000;
         }
     }
 }
