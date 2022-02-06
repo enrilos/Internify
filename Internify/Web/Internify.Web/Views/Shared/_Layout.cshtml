@@ -16,12 +16,12 @@
             </section>
             <section>
                 <article class="container-nav-menu-content">
-                    <a href="/Internships/All">Internships</a>
-                    <a href="/Companies/All">Companies</a>
-                    <a href="/Candidates/All">Candidates</a>
-                    <a href="/Universities/All">Universities</a>
-                    <a href="/Home/About">About</a>
-                    <a href="/Users/Select" class="container-nav-menu-content-auth-btn">
+                    <a asp-area="" asp-controller="Internship" asp-action="All">Internships</a>
+                    <a asp-area="" asp-controller="Company" asp-action="All">Companies</a>
+                    <a asp-area="" asp-controller="Candidate" asp-action="All">Candidates</a>
+                    <a asp-area="" asp-controller="University" asp-action="All">Universities</a>
+                    <a asp-area="" asp-controller="Home" asp-action="About">About</a>
+                    <a asp-area="" asp-controller="Home" asp-action="SelectRole" class="container-nav-menu-content-auth-btn">
                         <i class="far fa-user fa-2x"></i>
                     </a>
                 </article>
