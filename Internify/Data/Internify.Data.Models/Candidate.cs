@@ -4,7 +4,6 @@
     using System.ComponentModel.DataAnnotations;
 
     using static Internify.Data.Common.DataConstants;
-    using static Internify.Data.Common.DataConstants.Candidate;
 
     public class Candidate : ApplicationUser
     {
