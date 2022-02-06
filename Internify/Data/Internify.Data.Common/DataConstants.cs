@@ -6,11 +6,6 @@
         public const int DescriptionMaxLength = 2000;
         public const int NameMaxLength = 70;
 
-        public class Candidate
-        {
-            public const int FieldOfStudyMaxLength = 70;
-        }
-
         public class Company
         {
             public const int IndustryMaxLength = 50;
