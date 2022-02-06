@@ -8,8 +8,7 @@
 
         public class Company
         {
-            public const int IndustryMaxLength = 50;
-            public const int CEOMaxLength = 40;
+            public const int CEOMaxLength = 50;
         }
 
         public class Internship

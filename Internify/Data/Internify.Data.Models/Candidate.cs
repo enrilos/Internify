@@ -5,10 +5,18 @@
 
     using static Internify.Data.Common.DataConstants;
 
-    public class Candidate : ApplicationUser
+    public class Candidate
     {
         [Key]
         public string CandidateId { get; init; } = Guid.NewGuid().ToString();
+
+        [Required]
+        [MaxLength(NameMaxLength)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [MaxLength(NameMaxLength)]
+        public string LastName { get; set; }
 
         [Required]
         public string UserId { get; set; }
@@ -20,7 +28,7 @@
         [MaxLength(UrlMaxLength)]
         public string WebsiteUrl { get; set; }
 
-        [Range(minimum: 18, 100)]
+        [Range(minimum: 18, maximum: 100)]
         public int Age { get; set; }
 
         [EnumDataType(typeof(Gender))]
@@ -29,9 +37,9 @@
         public bool IsAvailable { get; set; }
 
         [Required]
-        public string FieldOfStudyId { get; set; }
+        public string SpecializationId { get; set; }
 
-        public Industry FieldOfStudy { get; set; }
+        public Specialization Specialization { get; set; }
 
         // Not Required owing to the fact that there could be candidates who have chosen private education (better) over public/government-backed.
         public string UniversityId { get; set; }
@@ -49,6 +57,7 @@
 
         public ICollection<Application> Applications { get; set; } = new List<Application>();
 
+        // TODO: Only former interns should be allowed to write reviews
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
     }
 }

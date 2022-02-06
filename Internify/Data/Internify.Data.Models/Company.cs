@@ -5,10 +5,14 @@
     using static Common.DataConstants;
     using static Common.DataConstants.Company;
 
-    public class Company : ApplicationUser
+    public class Company
     {
         [Key]
         public string CompanyId { get; init; } = Guid.NewGuid().ToString();
+
+        [Required]
+        [MaxLength(NameMaxLength)]
+        public string Name { get; set; }
 
         [Required]
         public string UserId { get; set; }
@@ -24,12 +28,14 @@
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
+        [Range(typeof(decimal), "0", "999999999999999")]
         public decimal Revenue { get; set; }
 
         [Required]
         [MaxLength(CEOMaxLength)]
         public string CEO { get; set; }
 
+        [Range(minimum: 0, maximum: 999999999)]
         public int EmployeesCount { get; set; }
 
         // E.g. People can own part of the company (shares)
@@ -38,9 +44,9 @@
         public bool IsGovernmentOwned { get; set; }
 
         [Required]
-        public string IndustryId { get; set; }
+        public string SpecializationId { get; set; }
 
-        public Industry Industry { get; set; }
+        public Specialization Specialization { get; set; }
 
         [Required]
         public string CountryId { get; set; }
@@ -51,10 +57,9 @@
 
         public ICollection<Candidate> Interns { get; set; } = new List<Candidate>();
 
-        public ICollection<Candidate> FormerInterns { get; set; } = new List<Candidate>();
-
         public ICollection<Article> Articles { get; set; } = new List<Article>();
 
+        // TODO: Only former interns should be allowed to write reviews
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
     }
 }

@@ -4,10 +4,14 @@
 
     using static Common.DataConstants;
 
-    public class University : ApplicationUser
+    public class University
     {
         [Key]
         public string UniversityId { get; init; } = Guid.NewGuid().ToString();
+
+        [Required]
+        [MaxLength(NameMaxLength)]
+        public string Name { get; set; }
 
         [Required]
         public string UserId { get; set; }

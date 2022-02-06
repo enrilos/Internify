@@ -36,12 +36,6 @@
 
         public Country Country { get; set; }
 
-        // Not Required. It takes time to find a suitable intern.
-        public string ApprovedCandidateId { get; set; }
-
-        public Candidate ApprovedCandidate { get; set; }
-
-        // Apply Now form/btn (for candidate)
         public ICollection<Application> Applications { get; set; } = new List<Application>();
 
         public DateTime CreatedOn { get; init; } = DateTime.UtcNow;

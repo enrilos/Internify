@@ -4,10 +4,10 @@
 
     using static Common.DataConstants;
 
-    public class Country
+    public class Specialization
     {
         [Key]
-        public string CountryId { get; init; } = Guid.NewGuid().ToString();
+        public string SpecializationId { get; init; } = Guid.NewGuid().ToString();
 
         [Required]
         [MaxLength(NameMaxLength)]
@@ -16,7 +16,5 @@
         public ICollection<Candidate> Candidates { get; set; } = new List<Candidate>();
 
         public ICollection<Company> Companies { get; set; } = new List<Company>();
-
-        public ICollection<University> Universities { get; set; } = new List<University>();
     }
 }
