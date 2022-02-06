@@ -20,6 +20,8 @@
 
         public DbSet<Internship> Internships { get; set; }
 
+        public DbSet<Application> Applications { get; set; }
+
         public DbSet<Article> Articles { get; set; }
 
         public DbSet<Review> Reviews { get; set; }

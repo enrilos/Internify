@@ -41,7 +41,8 @@
 
         public Candidate ApprovedCandidate { get; set; }
 
-        public ICollection<Candidate> PendingCandidates { get; set; } = new List<Candidate>();
+        // Apply Now form/btn (for candidate)
+        public ICollection<Application> Applications { get; set; } = new List<Application>();
 
         public DateTime CreatedOn { get; init; } = DateTime.UtcNow;
 

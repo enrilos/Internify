@@ -3,7 +3,7 @@
     public class DataConstants
     {
         public const int UrlMaxLength = 500;
-        public const int DescriptionMaxLength = 2000;
+        public const int DescriptionMaxLength = 6000;
         public const int NameMaxLength = 70;
 
         public class Company
@@ -15,6 +15,11 @@
         public class Internship
         {
             public const int RoleMaxLength = 50;
+        }
+
+        public class Application
+        {
+            public const int MotivationLetterMaxLength = 3000;
         }
 
         public class Article

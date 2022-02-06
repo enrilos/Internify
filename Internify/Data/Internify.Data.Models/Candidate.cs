@@ -47,6 +47,8 @@
 
         public Company Company { get; set; }
 
+        public ICollection<Application> Applications { get; set; } = new List<Application>();
+
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
     }
 }
