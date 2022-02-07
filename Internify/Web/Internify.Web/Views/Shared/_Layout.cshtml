@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Internify.Data.Models
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -21,18 +26,21 @@
 
             <section class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 
-                <article class="navbar-nav flex-grow-1 nav ml-auto justify-content-end align-items-center">
-                    <a class="nav-item nav-link text-secondary h3 mx-2 p-3 container-nav-menu-content-link" asp-area="" asp-controller="Internship" asp-action="All">Internships</a>
-                    <a class="nav-item nav-link text-secondary h3 mx-2 p-3 container-nav-menu-content-link" asp-area="" asp-controller="Company" asp-action="All">Companies</a>
-                    <a class="nav-item nav-link text-secondary h3 mx-2 p-3 container-nav-menu-content-link" asp-area="" asp-controller="Candidate" asp-action="All">Candidates</a>
-                    <a class="nav-item nav-link text-secondary h3 mx-2 p-3 container-nav-menu-content-link" asp-area="" asp-controller="University" asp-action="All">Universities</a>
-                    <a class="nav-item nav-link text-secondary h3 mx-2 p-3 container-nav-menu-content-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
-                    <a class="nav-item nav-link text-dark h4 mx-3" asp-area="" asp-controller="Home" asp-action="SelectRole" class="container-nav-menu-content-auth-btn">
-                        <i class="far fa-user fa-2x"></i>
-                    </a>
+                <article class="navbar-nav flex-grow-1 nav ml-auto justify-content-center align-items-center">
+                    <a class="nav-item nav-link text-secondary h4 mx-2 p-3 container-nav-menu-content-link" asp-area="" asp-controller="Internship" asp-action="All">Internships</a>
+                    <a class="nav-item nav-link text-secondary h4 mx-2 p-3 container-nav-menu-content-link" asp-area="" asp-controller="Company" asp-action="All">Companies</a>
+                    <a class="nav-item nav-link text-secondary h4 mx-2 p-3 container-nav-menu-content-link" asp-area="" asp-controller="Candidate" asp-action="All">Candidates</a>
+                    <a class="nav-item nav-link text-secondary h4 mx-2 p-3 container-nav-menu-content-link" asp-area="" asp-controller="University" asp-action="All">Universities</a>
+                    <a class="nav-item nav-link text-secondary h4 mx-2 p-3 container-nav-menu-content-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a class="nav-item nav-link text-dark h4 mx-3" asp-area="" asp-controller="Home" asp-action="SelectRole">
+                            <i class="far fa-user fa-2x"></i>
+                        </a>
+                    }
                 </article>
 
-                @*<partial name="_LoginPartial" />*@
+                <partial name="_LoginPartial" />
             </section>
         </section>
     </nav>
