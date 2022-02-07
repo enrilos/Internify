@@ -1,6 +1,7 @@
 ﻿namespace Internify.Web.Areas.Identity.Pages.Account
 {
-    using Internify.Data.Models;
+    using Data.Models;
+    using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -64,6 +65,14 @@
 
                 if (result.Succeeded)
                 {
+                    if (!User.IsAdmin()
+                        && !User.IsCandidate()
+                        && !User.IsCompany()
+                        && !User.IsUniversity())
+                    {
+                        return RedirectToAction("SelectRole", "Home");
+                    }
+
                     return LocalRedirect(returnUrl);
                 }
                 else
@@ -72,7 +81,7 @@
                     return Page();
                 }
             }
-            
+
             //var errors = ModelState.Select(x => x.Value.Errors)
             //               .Where(y => y.Count > 0)
             //               .ToList();

@@ -2,8 +2,25 @@
     ViewData["Title"] = "Select Role";
 }
 
-<section class="text-center">
-    <a class="mx-3" asp-area="" asp-controller="Candidate" asp-action="Become">Become a Candidate.</a>
-    <a class="mx-3" asp-area="" asp-controller="Company" asp-action="Register">Register your Company.</a>
-    <a class="mx-3" asp-area="" asp-controller="University" asp-action="Register">Register your University.</a>
+<section class="text-center container mt-xxl-5">
+    <section class="row justify-content-center">
+        <article class="col-md-3 p-3 mx-2 border border-primary border-1">
+            <p class="h3">
+                Become a candidate and apply for your favourite internships!
+            </p>
+            <a class="btn btn-primary m-4" asp-area="" asp-controller="Candidate" asp-action="Become">Become a Candidate</a>
+        </article>
+        <article class="col-md-3 p-3 mx-2 border border-success border-1">
+            <p class="h3">
+                Register your Company and list your internships!
+            </p>
+            <a class="btn btn-success m-4" asp-area="" asp-controller="Company" asp-action="Register">Register your Company</a>
+        </article>
+        <article class="col-md-3 p-3 mx-2 border border-warning border-1">
+            <p class="h3">
+                Register your University and endorse your alumni!
+            </p>
+            <a class="btn btn-warning m-4" asp-area="" asp-controller="University" asp-action="Register">Register your University</a>
+        </article>
+    </section>
 </section>

@@ -1,23 +1,18 @@
-﻿@using Internify.Data.Models
-@using Microsoft.AspNetCore.Identity
-
-@inject SignInManager<ApplicationUser> SignInManager
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Internify</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/nav.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
         <section class="container-fluid">
 
-            <a class="container-nav-title-content display-1 p-2" asp-area="" asp-controller="Home" asp-action="Index">Internify</a>
+            <a class="container-nav-title-content display-2 p-2" asp-area="" asp-controller="Home" asp-action="Index">Internify</a>
 
             <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -27,17 +22,11 @@
             <section class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 
                 <article class="navbar-nav flex-grow-1 nav ml-auto justify-content-center align-items-center">
-                    <a class="nav-item nav-link text-secondary h4 mx-2 p-3 container-nav-menu-content-link" asp-area="" asp-controller="Internship" asp-action="All">Internships</a>
-                    <a class="nav-item nav-link text-secondary h4 mx-2 p-3 container-nav-menu-content-link" asp-area="" asp-controller="Company" asp-action="All">Companies</a>
-                    <a class="nav-item nav-link text-secondary h4 mx-2 p-3 container-nav-menu-content-link" asp-area="" asp-controller="Candidate" asp-action="All">Candidates</a>
-                    <a class="nav-item nav-link text-secondary h4 mx-2 p-3 container-nav-menu-content-link" asp-area="" asp-controller="University" asp-action="All">Universities</a>
-                    <a class="nav-item nav-link text-secondary h4 mx-2 p-3 container-nav-menu-content-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <a class="nav-item nav-link text-dark h4 mx-3" asp-area="" asp-controller="Home" asp-action="SelectRole">
-                            <i class="far fa-user fa-2x"></i>
-                        </a>
-                    }
+                    <a class="nav-item nav-link text-dark h4 mx-2 p-3 border rounded" asp-area="" asp-controller="Internship" asp-action="All">Internships</a>
+                    <a class="nav-item nav-link text-dark h4 mx-2 p-3 border rounded" asp-area="" asp-controller="Company" asp-action="All">Companies</a>
+                    <a class="nav-item nav-link text-dark h4 mx-2 p-3 border rounded" asp-area="" asp-controller="Candidate" asp-action="All">Candidates</a>
+                    <a class="nav-item nav-link text-dark h4 mx-2 p-3 border rounded" asp-area="" asp-controller="University" asp-action="All">Universities</a>
+                    <a class="nav-item nav-link text-dark h4 mx-2 p-3 border rounded" asp-area="" asp-controller="Home" asp-action="About">About</a>
                 </article>
 
                 <partial name="_LoginPartial" />

@@ -27,6 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Internify.Data\Internify.Data.csproj" />
     <ProjectReference Include="..\Internify.Web.Common\Internify.Web.Common.csproj" />
+    <ProjectReference Include="..\Internify.Web.Infrastructure\Internify.Web.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

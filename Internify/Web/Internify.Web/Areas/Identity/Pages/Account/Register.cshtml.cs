@@ -71,7 +71,7 @@
                 {
                     await signInManager.SignInAsync(user, isPersistent: false);
 
-                    return LocalRedirect(returnUrl);
+                    return RedirectToAction("SelectRole", "Home");
                 }
                 foreach (var error in result.Errors)
                 {
