@@ -1,5 +1,6 @@
 ﻿namespace Internify.Web.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
     using System.Diagnostics;
@@ -14,6 +15,9 @@
         }
 
         public IActionResult Index() => View();
+
+        [Authorize]
+        public IActionResult SelectRole() => View();
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
