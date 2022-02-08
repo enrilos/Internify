@@ -1,6 +1,7 @@
 ﻿namespace Internify.Data.Models
 {
     using Enums;
+    using Common.Attributes;
     using System.ComponentModel.DataAnnotations;
 
     using static Internify.Data.Common.DataConstants;
@@ -27,13 +28,14 @@
         [MaxLength(UrlMaxLength)]
         public string WebsiteUrl { get; set; }
 
+        [BirthDate]
         public DateTime BirthDate { get; set; }
 
 
         [EnumDataType(typeof(Gender))]
         public Gender Gender { get; set; }
 
-        public bool IsAvailable { get; set; }
+        public bool IsAvailable { get; set; } = true;
 
         [Required]
         public string SpecializationId { get; set; }
