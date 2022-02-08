@@ -9,7 +9,7 @@
     public class Application : IAuditInfo, IDeletableEntity
     {
         [Key]
-        public string ApplicationId { get; init; } = Guid.NewGuid().ToString();
+        public string Id { get; init; } = Guid.NewGuid().ToString();
 
         [Required]
         public string InternshipId { get; set; }

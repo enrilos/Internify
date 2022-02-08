@@ -9,7 +9,7 @@
     public class Internship : IAuditInfo, IDeletableEntity
     {
         [Key]
-        public string InternshipId { get; init; } = Guid.NewGuid().ToString();
+        public string Id { get; init; } = Guid.NewGuid().ToString();
 
         [Required]
         [MaxLength(RoleMaxLength)]

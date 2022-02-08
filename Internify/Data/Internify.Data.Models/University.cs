@@ -7,7 +7,7 @@
     public class University
     {
         [Key]
-        public string UniversityId { get; init; } = Guid.NewGuid().ToString();
+        public string Id { get; init; } = Guid.NewGuid().ToString();
 
         [Required]
         [MaxLength(NameMaxLength)]

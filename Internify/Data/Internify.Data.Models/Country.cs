@@ -7,7 +7,7 @@
     public class Country
     {
         [Key]
-        public string CountryId { get; init; } = Guid.NewGuid().ToString();
+        public string Id { get; init; } = Guid.NewGuid().ToString();
 
         [Required]
         [MaxLength(NameMaxLength)]

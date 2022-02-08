@@ -8,7 +8,7 @@
     public class Review : IAuditInfo, IDeletableEntity
     {
         [Key]
-        public string ReviewId { get; init; } = Guid.NewGuid().ToString();
+        public string Id { get; init; } = Guid.NewGuid().ToString();
 
         [Required]
         [MaxLength(TitleMaxLength)]

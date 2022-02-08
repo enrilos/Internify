@@ -9,7 +9,7 @@
     public class Article : IAuditInfo, IDeletableEntity
     {
         [Key]
-        public string ArticleId { get; init; } = Guid.NewGuid().ToString();
+        public string Id { get; init; } = Guid.NewGuid().ToString();
 
         [Required]
         [MaxLength(TitleMaxLength)]

@@ -8,7 +8,7 @@
     public class Candidate
     {
         [Key]
-        public string CandidateId { get; init; } = Guid.NewGuid().ToString();
+        public string Id { get; init; } = Guid.NewGuid().ToString();
 
         [Required]
         [MaxLength(NameMaxLength)]
@@ -42,6 +42,8 @@
         public Specialization Specialization { get; set; }
 
         // Not Required owing to the fact that there could be candidates who have chosen private education (better) over public/government-backed.
+        // Candidate will have to apply to the univesities alumni which is decided by each university.
+        // After each university realizes that a/the candidate is one of their graduate, they will accept the individual in their alumni list.
         public string UniversityId { get; set; }
 
         public University University { get; set; }

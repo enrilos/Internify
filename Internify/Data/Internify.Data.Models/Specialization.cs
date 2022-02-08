@@ -7,7 +7,7 @@
     public class Specialization
     {
         [Key]
-        public string SpecializationId { get; init; } = Guid.NewGuid().ToString();
+        public string Id { get; init; } = Guid.NewGuid().ToString();
 
         [Required]
         [MaxLength(NameMaxLength)]
