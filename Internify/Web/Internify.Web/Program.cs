@@ -2,6 +2,8 @@ using Internify.Data;
 using Internify.Data.Models;
 using Internify.Services.Candidate;
 using Internify.Services.Company;
+using Internify.Services.Country;
+using Internify.Services.Specialization;
 using Internify.Services.University;
 using Internify.Web.Infrastructure;
 using Internify.Web.Infrastructure.Extensions;
@@ -39,17 +41,21 @@ builder.Services
     })
     .AddRazorRuntimeCompilation();
 
-builder.Services.AddAutoMapper(typeof(Program));
+// typeof(Program) did not work.
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddTransient<ICandidateService, CandidateService>();
 builder.Services.AddTransient<ICompanyService, CompanyService>();
 builder.Services.AddTransient<IUniversityService, UniversityService>();
+builder.Services.AddTransient<ICountryService, CountryService>();
+builder.Services.AddTransient<ISpecializationService, SpecializationService>();
 
+// Singleton?
 builder.Services.AddTransient<RoleChecker>();
 
 var app = builder.Build();
 
-//app.PrepareDatabase();
+app.PrepareDatabase();
 
 if (app.Environment.IsDevelopment())
 {

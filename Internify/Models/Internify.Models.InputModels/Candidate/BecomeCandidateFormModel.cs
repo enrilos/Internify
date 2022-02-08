@@ -1,5 +1,6 @@
 ﻿namespace Internify.Models.InputModels.Candidate
 {
+    using Data.Common.Attributes;
     using Data.Models.Enums;
     using System.ComponentModel.DataAnnotations;
     using ViewModels.Country;
@@ -27,9 +28,11 @@
         [Display(Name = "Website URL")]
         public string WebsiteUrl { get; set; }
 
+        [BirthDate]
+        [Display(Name = "Birth Date")]
         public DateTime BirthDate { get; set; }
 
-        [EnumDataType(typeof(Gender))]
+        [EnumDataType(typeof(Gender), ErrorMessage = "Invalid Gender Type.")]
         public Gender Gender { get; set; }
 
         [Required]

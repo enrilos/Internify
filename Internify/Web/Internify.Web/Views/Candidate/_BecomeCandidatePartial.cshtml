@@ -17,17 +17,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="ImageUrl"></label>
-                <input asp-for="ImageUrl" class="form-control">
+                <input asp-for="ImageUrl" class="form-control" placeholder="Not Required">
                 <span asp-validation-for="ImageUrl" class="small text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="WebsiteUrl"></label>
-                <input asp-for="WebsiteUrl" class="form-control">
+                <input asp-for="WebsiteUrl" class="form-control" placeholder="Not Required">
                 <span asp-validation-for="WebsiteUrl" class="small text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="BirthDate"></label>
-                <input asp-for="BirthDate" class="form-control">
+                <input asp-for="BirthDate" class="form-control" type="date" value="DateTime.UtcNow">
                 <span asp-validation-for="BirthDate" class="small text-danger"></span>
             </div>
             <div class="form-group">

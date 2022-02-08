@@ -87,6 +87,7 @@
                     // For other roles...
                     var isInAnyOtherRole = roleChecker.IsUserInAnyRole(user.Id);
 
+                    // NOTE: Make the code ASYNC! Having both sync and async code creates ambiguities and the below method passes in some cases.
                     if (!isAdmin && !isInAnyOtherRole)
                     {
                         return RedirectToAction("SelectRole", "Home");

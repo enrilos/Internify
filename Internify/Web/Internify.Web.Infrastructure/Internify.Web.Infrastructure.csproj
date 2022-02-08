@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Internify.Data\Internify.Data.csproj" />
+    <ProjectReference Include="..\..\Models\Internify.Models.InputModels\Internify.Models.InputModels.csproj" />
+    <ProjectReference Include="..\..\Models\Internify.Models.ViewModels\Internify.Models.ViewModels.csproj" />
     <ProjectReference Include="..\..\Services\Internify.Services\Internify.Services.csproj" />
     <ProjectReference Include="..\Internify.Web.Common\Internify.Web.Common.csproj" />
   </ItemGroup>
