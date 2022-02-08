@@ -1,1 +1,18 @@
-﻿
+﻿@model IEnumerable<CandidateListingViewModel>
+
+@{
+    ViewData["Title"] = "All Candidates";
+}
+
+<section class="row">
+    @foreach (var candidate in @Model)
+    {
+        <section class="col-md-4">
+            <section class="card mb-3">
+                <p>@candidate.FirstName @candidate.LastName (@candidate.Age)</p>
+                <p>@candidate.Specialization</p>
+                <p>@candidate.Country</p>
+            </section>
+        </section>
+    }
+</section>

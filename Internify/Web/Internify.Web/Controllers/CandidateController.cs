@@ -91,12 +91,14 @@
             // TODO: Implement post-action messages.
             TempData[GlobalMessageKey] = "Thank you for becoming a candidate!";
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(All));
         }
 
         public IActionResult All()
         {
-            return null;
+            var candidates = candidateService.All();
+
+            return View(candidates);
         }
     }
 }
