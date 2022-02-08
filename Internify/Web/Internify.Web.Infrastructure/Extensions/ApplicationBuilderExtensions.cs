@@ -19,9 +19,10 @@
             MigrateDatabase(services);
 
             // Seed required data...
+            // TODO: Seed other users (with different roles) as well.
             SeedRoles(services);
             SeedAdministrator(services);
-            SeedIndustries(services);
+            SeedSpecializations(services);
             SeedCountries(services);
 
             return app;
@@ -72,7 +73,6 @@
                     {
                         Email = adminEmail,
                         UserName = adminEmail,
-                        Name = "Admin Adminski",
                     };
 
                     // Create User
@@ -85,48 +85,48 @@
                 .GetResult();
         }
 
-        private static void SeedIndustries(IServiceProvider services)
+        private static void SeedSpecializations(IServiceProvider services)
         {
-            var industries = new List<Industry>() {
-                new Industry { Name = "IT, Engineering, Technology"},
-                new Industry { Name = "Marketing, Advertising, PR"},
-                new Industry { Name = "Trade and Sales"},
-                new Industry { Name = "Management"},
-                new Industry { Name = "Human Resources (HR)"},
-                new Industry { Name = "Production"},
-                new Industry { Name = "Banking, Lending, Insurance"},
-                new Industry { Name = "Administrative, Office and Business Activities"},
-                new Industry { Name = "Restaurants, Hotels, Tourism"},
-                new Industry { Name = "Drivers, Couriers"},
-                new Industry { Name = "Architecture, Construction"},
-                new Industry { Name = "Customer service centers and business services"},
-                new Industry { Name = "Accounting, Audit, Finance"},
-                new Industry { Name = "Health and Pharmacy"},
-                new Industry { Name = "Logistics, Forwarding"},
-                new Industry { Name = "Repair and Installation Activities"},
-                new Industry { Name = "Physical / Manual labor"},
-                new Industry { Name = "Cars, Auto Repairs, Gas Stations"},
-                new Industry { Name = "Entertainment, Promotions, Sports, Beauty Salons"},
-                new Industry { Name = "Cleaning, Household Services"},
-                new Industry { Name = "Telecoms"},
-                new Industry { Name = "Education, Courses, Translations"},
-                new Industry { Name = "Energy, Plumbing, Utilities"},
-                new Industry { Name = "Research and Development"},
-                new Industry { Name = "Security and Protection"},
-                new Industry { Name = "Design, Creative, Art"},
-                new Industry { Name = "Agriculture, Horticulture and Forestry"},
-                new Industry { Name = "Real Estate"},
-                new Industry { Name = "State Administration, Institutions"},
-                new Industry { Name = "Law, Legal Services"},
-                new Industry { Name = "Media, Publishing House"},
-                new Industry { Name = "Aviation, Airports and Airlines"},
-                new Industry { Name = "Non-profit organizations"},
-                new Industry { Name = "Sea and River Transport"},
+            var specializations = new List<Specialization>() {
+                new Specialization { Name = "IT, Engineering, Technology"},
+                new Specialization { Name = "Marketing, Advertising, PR"},
+                new Specialization { Name = "Trade and Sales"},
+                new Specialization { Name = "Management"},
+                new Specialization { Name = "Human Resources (HR)"},
+                new Specialization { Name = "Production"},
+                new Specialization { Name = "Banking, Lending, Insurance"},
+                new Specialization { Name = "Administrative, Office and Business Activities"},
+                new Specialization { Name = "Restaurants, Hotels, Tourism"},
+                new Specialization { Name = "Drivers, Couriers"},
+                new Specialization { Name = "Architecture, Construction"},
+                new Specialization { Name = "Customer service centers and business services"},
+                new Specialization { Name = "Accounting, Audit, Finance"},
+                new Specialization { Name = "Health and Pharmacy"},
+                new Specialization { Name = "Logistics, Forwarding"},
+                new Specialization { Name = "Repair and Installation Activities"},
+                new Specialization { Name = "Physical / Manual labor"},
+                new Specialization { Name = "Cars, Auto Repairs, Gas Stations"},
+                new Specialization { Name = "Entertainment, Promotions, Sports, Beauty Salons"},
+                new Specialization { Name = "Cleaning, Household Services"},
+                new Specialization { Name = "Telecoms"},
+                new Specialization { Name = "Education, Courses, Translations"},
+                new Specialization { Name = "Energy, Plumbing, Utilities"},
+                new Specialization { Name = "Research and Development"},
+                new Specialization { Name = "Security and Protection"},
+                new Specialization { Name = "Design, Creative, Art"},
+                new Specialization { Name = "Agriculture, Horticulture and Forestry"},
+                new Specialization { Name = "Real Estate"},
+                new Specialization { Name = "State Administration, Institutions"},
+                new Specialization { Name = "Law, Legal Services"},
+                new Specialization { Name = "Media, Publishing House"},
+                new Specialization { Name = "Aviation, Airports and Airlines"},
+                new Specialization { Name = "Non-profit organizations"},
+                new Specialization { Name = "Sea and River Transport"},
             };
 
             var data = services.GetService<InternifyDbContext>();
 
-            data.Industries.AddRange(industries);
+            data.Specializations.AddRange(specializations);
 
             data.SaveChanges();
         }
