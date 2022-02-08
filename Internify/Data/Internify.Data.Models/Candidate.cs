@@ -27,8 +27,8 @@
         [MaxLength(UrlMaxLength)]
         public string WebsiteUrl { get; set; }
 
-        [Range(minimum: 18, maximum: 100)]
-        public int Age { get; set; }
+        public DateTime BirthDate { get; set; }
+
 
         [EnumDataType(typeof(Gender))]
         public Gender Gender { get; set; }
