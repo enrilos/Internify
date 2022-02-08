@@ -1,5 +1,7 @@
 ﻿namespace Internify.Web.Controllers
 {
+    using Infrastructure.Extensions;
+    using Infrastructure;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;
@@ -7,17 +9,29 @@
 
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> logger;
+        private readonly RoleChecker roleChecker;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            ILogger<HomeController> logger,
+            RoleChecker roleChecker)
         {
-            _logger = logger;
+            this.logger = logger;
+            this.roleChecker = roleChecker;
         }
 
         public IActionResult Index() => View();
 
         [Authorize]
-        public IActionResult SelectRole() => View();
+        public IActionResult SelectRole()
+        {
+            if (User.IsAdmin() || roleChecker.IsUserInAnyRole(User.Id()))
+            {
+                return BadRequest();
+            }
+
+            return View();
+        }
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

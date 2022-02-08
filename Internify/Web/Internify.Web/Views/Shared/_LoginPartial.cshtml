@@ -1,21 +1,31 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Internify.Data.Models;
+@using Internify.Data;
+@using Internify.Web.Infrastructure;
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject RoleChecker roleChecker
+@inject InternifyDbContext data
 
 <ul class="navbar-nav justify-content-center align-items-center">
     @if (SignInManager.IsSignedIn(User))
     {
-        @if (!User.IsAdmin()
-        &&  !User.IsCandidate()
-        && !User.IsCompany()
-        && !User.IsUniversity())
+        var user = await UserManager.FindByEmailAsync(User.Identity?.Name);
+
+        // Only for Admin since we have separate tables for other roles
+        var isAdmin = data.UserRoles.Any(x => x.UserId == user.Id);
+
+        // For other roles...
+        var isInAnyOtherRole = roleChecker.IsUserInAnyRole(user.Id);
+
+        @if (!isAdmin && !isInAnyOtherRole)
         {
             <a class="nav-item nav-link text-dark h4 mx-3" asp-area="" asp-controller="Home" asp-action="SelectRole">
                 <i class="far fa-user fa-2x"></i>
             </a>
         }
+
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity?.Name</a>
         </li>

@@ -19,11 +19,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Internify.Data", "Data\Inte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Internify.Data.Models", "Data\Internify.Data.Models\Internify.Data.Models.csproj", "{D3F3E6BC-F517-4CFD-821D-0B8A1B5323EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internify.Web.Infrastructure", "Web\Internify.Web.Infrastructure\Internify.Web.Infrastructure.csproj", "{9D3D3FFF-AC2F-48E9-9EBF-FF4044F9B04A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Internify.Web.Infrastructure", "Web\Internify.Web.Infrastructure\Internify.Web.Infrastructure.csproj", "{9D3D3FFF-AC2F-48E9-9EBF-FF4044F9B04A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internify.Models.InputModels", "Models\Internify.Models.InputModels\Internify.Models.InputModels.csproj", "{627CA9BA-9190-4090-A766-7974474692A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Internify.Models.InputModels", "Models\Internify.Models.InputModels\Internify.Models.InputModels.csproj", "{627CA9BA-9190-4090-A766-7974474692A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internify.Models.ViewModels", "Models\Internify.Models.ViewModels\Internify.Models.ViewModels.csproj", "{1941998E-B73D-4E66-B6F3-940039CDED06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Internify.Models.ViewModels", "Models\Internify.Models.ViewModels\Internify.Models.ViewModels.csproj", "{1941998E-B73D-4E66-B6F3-940039CDED06}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Internify.Web.Common", "Web\Internify.Web.Common\Internify.Web.Common.csproj", "{498C3550-9475-490E-9987-D39FA1189FEA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Internify.Data.Common", "Data\Internify.Data.Common\Internify.Data.Common.csproj", "{21ED4C95-3ECA-48F8-B485-1F4BED3C39EC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Internify.Tests", "Tests\Internify.Tests\Internify.Tests.csproj", "{222AF71A-CDF3-4387-9B15-9FE40E2C8B85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internify.Services", "Services\Internify.Services\Internify.Services.csproj", "{06A50C4C-2A64-47AD-91D4-176EC027A4D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +63,22 @@ Global
 		{1941998E-B73D-4E66-B6F3-940039CDED06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1941998E-B73D-4E66-B6F3-940039CDED06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1941998E-B73D-4E66-B6F3-940039CDED06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{498C3550-9475-490E-9987-D39FA1189FEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{498C3550-9475-490E-9987-D39FA1189FEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{498C3550-9475-490E-9987-D39FA1189FEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{498C3550-9475-490E-9987-D39FA1189FEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21ED4C95-3ECA-48F8-B485-1F4BED3C39EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21ED4C95-3ECA-48F8-B485-1F4BED3C39EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21ED4C95-3ECA-48F8-B485-1F4BED3C39EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21ED4C95-3ECA-48F8-B485-1F4BED3C39EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{222AF71A-CDF3-4387-9B15-9FE40E2C8B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{222AF71A-CDF3-4387-9B15-9FE40E2C8B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{222AF71A-CDF3-4387-9B15-9FE40E2C8B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{222AF71A-CDF3-4387-9B15-9FE40E2C8B85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06A50C4C-2A64-47AD-91D4-176EC027A4D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06A50C4C-2A64-47AD-91D4-176EC027A4D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06A50C4C-2A64-47AD-91D4-176EC027A4D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06A50C4C-2A64-47AD-91D4-176EC027A4D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +90,10 @@ Global
 		{9D3D3FFF-AC2F-48E9-9EBF-FF4044F9B04A} = {C95D6A68-560B-48DD-A9CF-2C40326B8D55}
 		{627CA9BA-9190-4090-A766-7974474692A4} = {A3620858-DA47-41B1-B5AF-86401015DBEB}
 		{1941998E-B73D-4E66-B6F3-940039CDED06} = {A3620858-DA47-41B1-B5AF-86401015DBEB}
+		{498C3550-9475-490E-9987-D39FA1189FEA} = {C95D6A68-560B-48DD-A9CF-2C40326B8D55}
+		{21ED4C95-3ECA-48F8-B485-1F4BED3C39EC} = {477B0102-7476-4267-B662-12B831B94743}
+		{222AF71A-CDF3-4387-9B15-9FE40E2C8B85} = {FCF58098-CCD7-45CD-ABD9-6EC853E15BEC}
+		{06A50C4C-2A64-47AD-91D4-176EC027A4D6} = {736375F2-C64C-4649-8E5F-805F40D71476}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9273A6D3-A1D2-4F84-ADF0-B4930F8AE344}

@@ -5,6 +5,7 @@
         public const int UrlMaxLength = 500;
         public const int DescriptionMaxLength = 6000;
         public const int NameMaxLength = 70;
+        public const int NameMinLength = 2;
 
         public class Company
         {

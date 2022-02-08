@@ -1,7 +1,8 @@
 ﻿namespace Internify.Web.Areas.Identity.Pages.Account
 {
     using Data.Models;
-    using Infrastructure.Extensions;
+    using Infrastructure;
+    using Internify.Data;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -13,10 +14,20 @@
     public class LoginModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly InternifyDbContext data;
+        private readonly RoleChecker roleChecker;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager)
+        public LoginModel(
+            SignInManager<ApplicationUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            InternifyDbContext data,
+            RoleChecker roleChecker)
         {
             this.signInManager = signInManager;
+            this.userManager = userManager;
+            this.data = data;
+            this.roleChecker = roleChecker;
         }
 
         [BindProperty]
@@ -62,13 +73,21 @@
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await signInManager.PasswordSignInAsync(Input.Email, Input.Password, false, lockoutOnFailure: false);
-
+                
                 if (result.Succeeded)
                 {
-                    if (!User.IsAdmin()
-                        && !User.IsCandidate()
-                        && !User.IsCompany()
-                        && !User.IsUniversity())
+                    // User is not authenticated yet.
+                    // This means that Role checking with User property won't work. It has to be done manually;
+
+                    var user = await userManager.FindByEmailAsync(Input.Email);
+
+                    // Only for Admin since we have separate tables for other roles
+                    var isAdmin = data.UserRoles.Any(x => x.UserId == user.Id);
+
+                    // For other roles...
+                    var isInAnyOtherRole = roleChecker.IsUserInAnyRole(user.Id);
+
+                    if (!isAdmin && !isInAnyOtherRole)
                     {
                         return RedirectToAction("SelectRole", "Home");
                     }

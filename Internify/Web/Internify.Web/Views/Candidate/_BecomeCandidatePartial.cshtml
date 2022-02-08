@@ -1,0 +1,73 @@
+﻿@model BecomeCandidateFormModel
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <h2 class="heading-margin text-center">@ViewData["Title"]</h2>
+        
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" class="form-control">
+                <span asp-validation-for="FirstName" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="form-control">
+                <span asp-validation-for="LastName" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" class="form-control">
+                <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WebsiteUrl"></label>
+                <input asp-for="WebsiteUrl" class="form-control">
+                <span asp-validation-for="WebsiteUrl" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BirthDate"></label>
+                <input asp-for="BirthDate" class="form-control">
+                <span asp-validation-for="BirthDate" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender"></label>
+                <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Internify.Data.Models.Enums.Gender>()" class="form-control"></select>
+                <span asp-validation-for="Gender" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpecializationId"></label>
+
+                <select asp-for="SpecializationId" class="form-control">
+
+                    @foreach (var specialization in Model.Specializations)
+                    {
+                        <option value="@specialization.Id">@specialization.Name</option>
+                    }
+
+                </select>
+
+                <span asp-validation-for="SpecializationId" class="small text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="CountryId"></label>
+
+                <select asp-for="CountryId" class="form-control">
+
+                    @foreach (var country in Model.Countries)
+                    {
+                        <option value="@country.Id">@country.Name</option>
+                    }
+
+                </select>
+
+                <span asp-validation-for="SpecializationId" class="small text-danger"></span>
+
+            </div>
+
+            <input class="btn btn-primary mt-3" type="submit" value="Submit" />
+        </form>
+
+    </div>
+</div>

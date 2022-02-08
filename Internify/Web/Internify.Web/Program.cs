@@ -1,6 +1,12 @@
 using Internify.Data;
 using Internify.Data.Models;
+using Internify.Services.Candidate;
+using Internify.Services.Company;
+using Internify.Services.University;
+using Internify.Web.Infrastructure;
+using Internify.Web.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +23,7 @@ builder.Services
 builder.Services
     .AddDefaultIdentity<ApplicationUser>(options =>
     {
-        options.Password.RequiredLength = 6;
+        options.Password.RequiredLength = 4;
         options.Password.RequireNonAlphanumeric = false;
         options.Password.RequireDigit = false;
         options.Password.RequireUppercase = false;
@@ -27,18 +33,23 @@ builder.Services
     .AddEntityFrameworkStores<InternifyDbContext>();
 
 builder.Services
-    .AddControllersWithViews()
+    .AddControllersWithViews(options =>
+    {
+        options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+    })
     .AddRazorRuntimeCompilation();
 
-builder.Services
-    .AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(Program));
 
-// IoC...
+builder.Services.AddTransient<ICandidateService, CandidateService>();
+builder.Services.AddTransient<ICompanyService, CompanyService>();
+builder.Services.AddTransient<IUniversityService, UniversityService>();
+
+builder.Services.AddTransient<RoleChecker>();
 
 var app = builder.Build();
 
-// TODO: Extensions...
-// app.PrepareDatabase();
+//app.PrepareDatabase();
 
 if (app.Environment.IsDevelopment())
 {
