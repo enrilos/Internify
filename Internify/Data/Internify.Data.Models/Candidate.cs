@@ -21,7 +21,6 @@
         [Required]
         public string UserId { get; set; }
 
-        [Required]
         [MaxLength(UrlMaxLength)]
         public string ImageUrl { get; set; }
 
