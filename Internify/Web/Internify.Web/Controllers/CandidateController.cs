@@ -85,6 +85,11 @@
 
             candidateData.UserId = userId;
 
+            if (candidateData.ImageUrl == null)
+            {
+                candidateData.ImageUrl = "https://freesvg.org/img/abstract-user-flat-1.png";
+            }
+
             data.Candidates.Add(candidateData);
             data.SaveChanges();
 
@@ -96,7 +101,10 @@
 
         public IActionResult All()
         {
-            var candidates = candidateService.All();
+            var candidates = candidateService
+                .All()
+                .OrderBy(x => x.FirstName)
+                .ThenBy(x => x.LastName);
 
             return View(candidates);
         }
