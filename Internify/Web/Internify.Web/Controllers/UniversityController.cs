@@ -9,6 +9,9 @@
     {
         private readonly RoleChecker roleChecker;
 
+        // TODO: Consider making ApiController that works with dynamic search bar functionality here.
+        // Search university by name dynamically.
+
         public UniversityController(RoleChecker roleChecker)
             => this.roleChecker = roleChecker;
 

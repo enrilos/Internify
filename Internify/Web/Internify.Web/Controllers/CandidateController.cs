@@ -87,22 +87,24 @@
 
             if (candidateData.ImageUrl == null)
             {
-                candidateData.ImageUrl = "https://freesvg.org/img/abstract-user-flat-1.png";
+                candidateData.ImageUrl = Path.Combine(HttpContext.Request.Host.Value, "/images/avatar.png");
             }
 
             data.Candidates.Add(candidateData);
             data.SaveChanges();
 
-            // TODO: Implement post-action messages.
             TempData[GlobalMessageKey] = "Thank you for becoming a candidate!";
 
             return RedirectToAction(nameof(All));
         }
 
-        public IActionResult All()
+        // Add filters (by country, specialization.., isAvailable) with query model class.
+        // Moreover, add firstName and lastName search with .Contains()
+        // https://stackoverflow.com/questions/32639759/search-bar-with-filter-bootstrap
+        public IActionResult All([FromQuery] CandidateListingQueryModel queryModel)
         {
             var candidates = candidateService
-                .All()
+                .All("", queryModel.IsAvailable, queryModel.SpecializationId, queryModel.CountryId)
                 .OrderBy(x => x.FirstName)
                 .ThenBy(x => x.LastName);
 
