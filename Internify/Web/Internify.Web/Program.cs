@@ -44,6 +44,8 @@ builder.Services
 // typeof(Program) did not work.
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddMemoryCache();
+
 builder.Services.AddTransient<ICandidateService, CandidateService>();
 builder.Services.AddTransient<ICompanyService, CompanyService>();
 builder.Services.AddTransient<IUniversityService, UniversityService>();

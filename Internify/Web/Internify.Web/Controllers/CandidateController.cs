@@ -6,8 +6,11 @@
     using Infrastructure;
     using Infrastructure.Extensions;
     using Internify.Models.InputModels.Candidate;
+    using Internify.Models.ViewModels.Country;
+    using Internify.Models.ViewModels.Specialization;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Memory;
     using Services.Candidate;
     using Services.Country;
     using Services.Specialization;
@@ -18,6 +21,7 @@
     {
         private readonly InternifyDbContext data;
         private readonly RoleChecker roleChecker;
+        private readonly IMemoryCache cache;
         private readonly IMapper mapper;
         private readonly ICountryService countryService;
         private readonly ISpecializationService specializationService;
@@ -26,6 +30,7 @@
         public CandidateController(
             InternifyDbContext data,
             RoleChecker roleChecker,
+            IMemoryCache cache,
             IMapper mapper,
             ICountryService countryService,
             ISpecializationService specializationService,
@@ -33,6 +38,7 @@
         {
             this.data = data;
             this.roleChecker = roleChecker;
+            this.cache = cache;
             this.mapper = mapper;
             this.countryService = countryService;
             this.specializationService = specializationService;
@@ -47,11 +53,10 @@
                 return BadRequest();
             }
 
-            var candidateModel = new BecomeCandidateFormModel
-            {
-                Countries = countryService.All(),
-                Specializations = specializationService.All()
-            };
+            var candidateModel = new BecomeCandidateFormModel();
+
+            candidateModel.Specializations = AcquireCachedSpecializations();
+            candidateModel.Countries = AcquireCachedCountries();
 
             return View(candidateModel);
         }
@@ -67,16 +72,20 @@
                 return BadRequest();
             }
 
-            if (!countryService.Exists(candidate.CountryId)
-                || !specializationService.Exists(candidate.SpecializationId))
+            if (!specializationService.Exists(candidate.SpecializationId))
             {
-                ModelState.AddModelError(nameof(candidate.CountryId), "Invalid data.");
+                ModelState.AddModelError(nameof(candidate.SpecializationId), "Invalid specizalition.");
+            }
+
+            if (!countryService.Exists(candidate.CountryId))
+            {
+                ModelState.AddModelError(nameof(candidate.CountryId), "Invalid country.");
             }
 
             if (!ModelState.IsValid)
             {
-                candidate.Countries = countryService.All();
-                candidate.Specializations = specializationService.All();
+                candidate.Specializations = AcquireCachedSpecializations();
+                candidate.Countries = AcquireCachedCountries();
 
                 return View(candidate);
             }
@@ -104,11 +113,35 @@
         public IActionResult All([FromQuery] CandidateListingQueryModel queryModel)
         {
             var candidates = candidateService
-                .All("", queryModel.IsAvailable, queryModel.SpecializationId, queryModel.CountryId)
-                .OrderBy(x => x.FirstName)
-                .ThenBy(x => x.LastName);
+                .All(queryModel.FullName, queryModel.IsAvailable, queryModel.SpecializationId, queryModel.CountryId);
 
             return View(candidates);
+        }
+
+        private IEnumerable<SpecializationListingViewModel> AcquireCachedSpecializations()
+        {
+            var specializations = cache.Get<IEnumerable<SpecializationListingViewModel>>(SpecializationsCacheKey);
+
+            if (specializations == null)
+            {
+                specializations = specializationService.All();
+                cache.Set(SpecializationsCacheKey, specializations);
+            }
+
+            return specializations;
+        }
+
+        private IEnumerable<CountryListingViewModel> AcquireCachedCountries()
+        {
+            var countries = cache.Get<IEnumerable<CountryListingViewModel>>(CountriesCacheKey);
+
+            if (countries == null)
+            {
+                countries = countryService.All();
+                cache.Set(CountriesCacheKey, countries);
+            }
+
+            return countries;
         }
     }
 }

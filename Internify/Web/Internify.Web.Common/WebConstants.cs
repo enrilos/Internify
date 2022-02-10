@@ -8,5 +8,8 @@
         public const string UniversityRoleName = "University";
 
         public const string GlobalMessageKey = "GlobalMessage";
+
+        public const string SpecializationsCacheKey = nameof(SpecializationsCacheKey);
+        public const string CountriesCacheKey = nameof(CountriesCacheKey);
     }
 }
