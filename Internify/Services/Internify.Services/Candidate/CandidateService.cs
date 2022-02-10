@@ -30,13 +30,19 @@
             .FirstOrDefault()?.Id;
 
         public IEnumerable<CandidateListingViewModel> All(
-            bool isAvailableFilter = true,
-            string specializationFilter = "",
-            string countryFilter = "")
+            string fullName = "",
+            bool isAvailable = true,
+            string specializationId = "",
+            string countryId = "")
             => data
             .Candidates
-            .Where(x => x.IsAvailable == isAvailableFilter)
-            .OrderBy(x => x.FirstName)
+            //.Where(x =>
+            //    (x.FirstName + " " + x.LastName).Contains(fullName.Trim())
+            //    && x.IsAvailable == isAvailable
+            //    && x.SpecializationId == specializationId
+            //    && x.CountryId == countryId)
+            .OrderByDescending(x => x.CreatedOn)
+            .ThenBy(x => x.FirstName)
             .ThenBy(x => x.LastName)
             .ProjectTo<CandidateListingViewModel>(mapper)
             .ToList();

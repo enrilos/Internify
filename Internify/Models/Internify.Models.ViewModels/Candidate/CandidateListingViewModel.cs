@@ -10,6 +10,8 @@
 
         public int Age { get; init; }
 
+        public string ImageUrl { get; set; }
+
         public string Specialization { get; init; }
 
         public string Country { get; init; }

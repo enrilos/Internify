@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Internify.Data.Migrations
 {
-    public partial class AddedCandidateDescriptionAndAuditDeletableEntityToUserConnectedTables : Migration
+    public partial class AddedCandidateDescription : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

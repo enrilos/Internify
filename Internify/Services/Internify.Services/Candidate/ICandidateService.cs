@@ -9,8 +9,9 @@
         public string GetIdByUserId(string userId);
 
         public IEnumerable<CandidateListingViewModel> All(
-            bool isAvailableFilter = true,
-            string specializationFilter = "",
-            string countryFilter = "");
+            string fullName = "",
+            bool isAvailable = true,
+            string specializationId = "",
+            string countryId = "");
     }
 }
