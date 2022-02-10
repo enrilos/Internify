@@ -1,10 +1,11 @@
 ﻿namespace Internify.Data.Models
 {
+    using Common;
     using System.ComponentModel.DataAnnotations;
 
     using static Common.DataConstants;
 
-    public class University
+    public class University : IAuditInfo, IDeletableEntity
     {
         [Key]
         public string Id { get; init; } = Guid.NewGuid().ToString();
@@ -34,5 +35,13 @@
         public Country Country { get; set; }
 
         public ICollection<Candidate> Alumni { get; set; } = new List<Candidate>();
+
+        public DateTime CreatedOn { get; init; } = DateTime.UtcNow;
+
+        public DateTime? ModifiedOn { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }

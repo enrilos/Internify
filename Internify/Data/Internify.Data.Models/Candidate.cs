@@ -1,12 +1,13 @@
 ﻿namespace Internify.Data.Models
 {
     using Enums;
+    using Common;
     using Common.Attributes;
     using System.ComponentModel.DataAnnotations;
 
-    using static Internify.Data.Common.DataConstants;
+    using static Common.DataConstants;
 
-    public class Candidate
+    public class Candidate : IAuditInfo, IDeletableEntity
     {
         [Key]
         public string Id { get; init; } = Guid.NewGuid().ToString();
@@ -21,6 +22,9 @@
 
         [Required]
         public string UserId { get; set; }
+
+        [MaxLength(DescriptionMaxLength)]
+        public string Description { get; set; }
 
         [MaxLength(UrlMaxLength)]
         public string ImageUrl { get; set; }
@@ -60,7 +64,14 @@
 
         public ICollection<Application> Applications { get; set; } = new List<Application>();
 
-        // TODO: Only former interns should be allowed to write reviews
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
+
+        public DateTime CreatedOn { get; init; } = DateTime.UtcNow;
+
+        public DateTime? ModifiedOn { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }
