@@ -1,12 +1,45 @@
-﻿@model IEnumerable<CandidateListingViewModel>
+﻿@model CandidateListingQueryModel
 
 @{
     ViewData["Title"] = "All Candidates";
 }
 
-<!--TODO: Add a GET form with query string data so that the All action's model can match the data. Adjust the asp-routes (like softuni search) - query string -->
+<form method="get">
+    <section class="p-5 d-flex bd-highlight justify-content-evenly align-items-center flex-wrap">
+        <article class="form-group">
+            <label asp-for="FullName"></label>
+            <input asp-for="FullName" class="form-control">
+        </article>
+        <article class="form-group">
+            <label asp-for="SpecializationId"></label>
+            <select asp-for="SpecializationId" class="form-control">
+                @foreach (var specialization in Model.Specializations)
+                {
+                    <option value="@specialization.Id">@specialization.Name</option>
+                }
+            </select>
+            <span asp-validation-for="SpecializationId" class="small text-danger"></span>
+        </article>
+        <article class="form-group">
+            <label asp-for="CountryId"></label>
+            <select asp-for="CountryId" class="form-control">
+                @foreach (var country in Model.Countries)
+                {
+                    <option value="@country.Id">@country.Name</option>
+                }
+            </select>
+            <span asp-validation-for="SpecializationId" class="small text-danger"></span>
+        </article>
+        <article class="form-check form-switch mt-4">
+            <input class="form-check-input" type="checkbox" asp-for="IsAvailable">
+            <label class="form-check-label" asp-for="IsAvailable">Is Available</label>
+        </article>
+        <input class="btn btn-primary mt-3" type="submit" value="Submit" />
+    </section>
+</form>
+
 <section class="row justify-content-center mt-3">
-    @foreach (var candidate in @Model)
+    @foreach (var candidate in @Model.Candidates)
     {
         <section class="card col-md-3 m-2 bg-light">
             <img src="@candidate.ImageUrl" class="card-img-center m-1 rounded" alt="Candidate Picture" />
