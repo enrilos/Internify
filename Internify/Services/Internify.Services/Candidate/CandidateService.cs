@@ -4,7 +4,6 @@
     using Data.Models;
     using Data.Models.Enums;
     using Models.ViewModels.Candidate;
-    using System.Text.RegularExpressions;
 
     public class CandidateService : ICandidateService
     {
@@ -83,7 +82,8 @@
             .FirstOrDefault();
 
         public IEnumerable<CandidateListingViewModel> All(
-            string fullName = null,
+            string firstName = null,
+            string lastName = null,
             string specializationId = null,
             string countryId = null,
             bool isAvailable = true,
@@ -98,10 +98,16 @@
             }
             // Otherwise, list all despite availability.
 
-            if (fullName != null)
+            if (firstName != null)
             {
                 candidatesQuery = candidatesQuery
-                    .Where(x => (x.FirstName + " " + x.LastName).Contains(Regex.Replace(fullName, @"\s+", " ")));
+                    .Where(x => x.FirstName.Contains(firstName.Trim()));
+            }
+
+            if (lastName != null)
+            {
+                candidatesQuery = candidatesQuery
+                    .Where(x => x.LastName.Contains(lastName.Trim()));
             }
 
             if (specializationId != null)

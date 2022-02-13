@@ -44,7 +44,8 @@
         {
             queryModel.Candidates = candidateService
                 .All(
-                queryModel.FullName,
+                queryModel.FirstName,
+                queryModel.LastName,
                 queryModel.SpecializationId,
                 queryModel.CountryId,
                 queryModel.IsAvailable);

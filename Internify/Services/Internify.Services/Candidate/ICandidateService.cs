@@ -25,7 +25,8 @@
         public CandidateDetailsViewModel Get(string id);
 
         public IEnumerable<CandidateListingViewModel> All(
-            string fullName = "",
+            string firstName = null,
+            string lastName = null,
             string specializationId = "",
             string countryId = "",
             bool isAvailable = true,
