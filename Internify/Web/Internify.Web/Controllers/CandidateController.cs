@@ -2,7 +2,6 @@
 {
     using Common;
     using Data;
-    using Data.Models;
     using Infrastructure.Extensions;
     using Internify.Models.InputModels.Candidate;
     using Internify.Models.ViewModels.Country;
@@ -41,15 +40,19 @@
             this.candidateService = candidateService;
         }
 
-        // Add filters (by country, specialization.., isAvailable) with query model class.
-        // Moreover, add firstName and lastName search with .Contains()
-        // https://stackoverflow.com/questions/32639759/search-bar-with-filter-bootstrap
         public IActionResult All([FromQuery] CandidateListingQueryModel queryModel)
         {
-            var candidates = candidateService
-                .All(queryModel.FullName, queryModel.IsAvailable, queryModel.SpecializationId, queryModel.CountryId);
+            queryModel.Candidates = candidateService
+                .All(
+                queryModel.FullName,
+                queryModel.IsAvailable,
+                queryModel.SpecializationId,
+                queryModel.CountryId);
 
-            return View(candidates);
+            queryModel.Specializations = AcquireCachedSpecializations();
+            queryModel.Countries = AcquireCachedCountries();
+
+            return View(queryModel);
         }
 
         [Authorize]
@@ -97,28 +100,18 @@
                 return View(candidate);
             }
 
-            var candidateData = new Candidate
-            {
-                FirstName = candidate.FirstName,
-                LastName = candidate.LastName,
-                Description = candidate.Description,
-                ImageUrl = candidate.ImageUrl,
-                WebsiteUrl = candidate.WebsiteUrl,
-                BirthDate = candidate.BirthDate,
-                Gender = candidate.Gender,
-                SpecializationId = candidate.SpecializationId,
-                CountryId = candidate.CountryId
-            };
-
-            candidateData.UserId = userId;
-
-            if (candidateData.ImageUrl == null)
-            {
-                candidateData.ImageUrl = Path.Combine(HttpContext.Request.Host.Value, "/images/avatar.png");
-            }
-
-            data.Candidates.Add(candidateData);
-            data.SaveChanges();
+            candidateService.Add(
+                userId,
+                candidate.FirstName,
+                candidate.LastName,
+                candidate.Description,
+                candidate.ImageUrl,
+                candidate.WebsiteUrl,
+                candidate.BirthDate,
+                candidate.Gender,
+                candidate.SpecializationId,
+                candidate.CountryId,
+                HttpContext.Request.Host.Value);
 
             TempData[GlobalMessageKey] = "Thank you for becoming a candidate!";
 
