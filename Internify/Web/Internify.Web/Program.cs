@@ -5,7 +5,7 @@ using Internify.Services.Company;
 using Internify.Services.Country;
 using Internify.Services.Specialization;
 using Internify.Services.University;
-using Internify.Web.Infrastructure;
+using Internify.Web.Common;
 using Internify.Web.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

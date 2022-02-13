@@ -1,7 +1,7 @@
 ﻿namespace Internify.Web.Controllers
 {
     using Infrastructure.Extensions;
-    using Infrastructure;
+    using Common;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Models;

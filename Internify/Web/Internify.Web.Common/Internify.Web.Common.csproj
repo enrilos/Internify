@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Services\Internify.Services\Internify.Services.csproj" />
+  </ItemGroup>
+
 </Project>

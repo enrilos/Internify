@@ -1,0 +1,8 @@
+﻿@model CandidateDetailsViewModel
+
+<p>@Model.FirstName @Model.LastName (@Model.BirthDate)</p>
+<p>@Model.Description</p>
+<p>@Model.Gender</p>
+<img src="@Model.ImageUrl" width="400" height="400" />
+<p>@(@Model.IsAvailable == true ? "✔️ Open for offers" : "❌ Currently not available")</p>
+<p>@(@Model.ModifiedOn == null ? $"Created on: {@Model.CreatedOn.ToString("d")}" : $"Modified on: {@Model.ModifiedOn?.ToString("d")}")</p>

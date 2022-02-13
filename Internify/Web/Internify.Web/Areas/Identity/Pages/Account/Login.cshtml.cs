@@ -1,7 +1,7 @@
 ﻿namespace Internify.Web.Areas.Identity.Pages.Account
 {
     using Data.Models;
-    using Infrastructure;
+    using Common;
     using Internify.Data;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;

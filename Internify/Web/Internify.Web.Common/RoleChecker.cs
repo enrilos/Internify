@@ -1,4 +1,4 @@
-﻿namespace Internify.Web.Infrastructure
+﻿namespace Internify.Web.Common
 {
     using Services.Candidate;
     using Services.Company;

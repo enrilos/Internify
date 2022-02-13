@@ -3,7 +3,7 @@
     using AutoMapper;
     using Data;
     using Data.Models;
-    using Infrastructure;
+    using Common;
     using Infrastructure.Extensions;
     using Internify.Models.InputModels.Candidate;
     using Internify.Models.ViewModels.Country;
@@ -45,6 +45,17 @@
             this.candidateService = candidateService;
         }
 
+        // Add filters (by country, specialization.., isAvailable) with query model class.
+        // Moreover, add firstName and lastName search with .Contains()
+        // https://stackoverflow.com/questions/32639759/search-bar-with-filter-bootstrap
+        public IActionResult All([FromQuery] CandidateListingQueryModel queryModel)
+        {
+            var candidates = candidateService
+                .All(queryModel.FullName, queryModel.IsAvailable, queryModel.SpecializationId, queryModel.CountryId);
+
+            return View(candidates);
+        }
+
         [Authorize]
         public IActionResult Become()
         {
@@ -74,12 +85,12 @@
 
             if (!specializationService.Exists(candidate.SpecializationId))
             {
-                ModelState.AddModelError(nameof(candidate.SpecializationId), "Invalid specizalition.");
+                ModelState.AddModelError(nameof(candidate.SpecializationId), "Invalid option.");
             }
 
             if (!countryService.Exists(candidate.CountryId))
             {
-                ModelState.AddModelError(nameof(candidate.CountryId), "Invalid country.");
+                ModelState.AddModelError(nameof(candidate.CountryId), "Invalid option.");
             }
 
             if (!ModelState.IsValid)
@@ -107,17 +118,19 @@
             return RedirectToAction(nameof(All));
         }
 
-        // Add filters (by country, specialization.., isAvailable) with query model class.
-        // Moreover, add firstName and lastName search with .Contains()
-        // https://stackoverflow.com/questions/32639759/search-bar-with-filter-bootstrap
-        public IActionResult All([FromQuery] CandidateListingQueryModel queryModel)
+        public IActionResult Details(string id)
         {
-            var candidates = candidateService
-                .All(queryModel.FullName, queryModel.IsAvailable, queryModel.SpecializationId, queryModel.CountryId);
+            var candidate = candidateService.Get(id);
 
-            return View(candidates);
+            if (candidate == null)
+            {
+                return NotFound();
+            }
+
+            return View(candidate);
         }
 
+        // Move those two cache methods where controllers can get it form one place.
         private IEnumerable<SpecializationListingViewModel> AcquireCachedSpecializations()
         {
             var specializations = cache.Get<IEnumerable<SpecializationListingViewModel>>(SpecializationsCacheKey);
@@ -125,7 +138,11 @@
             if (specializations == null)
             {
                 specializations = specializationService.All();
-                cache.Set(SpecializationsCacheKey, specializations);
+
+                var cacheOptions = new MemoryCacheEntryOptions()
+                     .SetPriority(CacheItemPriority.NeverRemove);
+
+                cache.Set(SpecializationsCacheKey, specializations, cacheOptions);
             }
 
             return specializations;
@@ -138,7 +155,11 @@
             if (countries == null)
             {
                 countries = countryService.All();
-                cache.Set(CountriesCacheKey, countries);
+
+                var cacheOptions = new MemoryCacheEntryOptions()
+                    .SetPriority(CacheItemPriority.NeverRemove);
+
+                cache.Set(CountriesCacheKey, countries, cacheOptions);
             }
 
             return countries;
