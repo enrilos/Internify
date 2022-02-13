@@ -26,9 +26,9 @@
 
         public IEnumerable<CandidateListingViewModel> All(
             string fullName = "",
-            bool isAvailable = true,
             string specializationId = "",
             string countryId = "",
+            bool isAvailable = true,
             int currentPage = 1,
             int candidatesPerPage = 2);
     }

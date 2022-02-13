@@ -45,9 +45,9 @@
             queryModel.Candidates = candidateService
                 .All(
                 queryModel.FullName,
-                queryModel.IsAvailable,
                 queryModel.SpecializationId,
-                queryModel.CountryId);
+                queryModel.CountryId,
+                queryModel.IsAvailable);
 
             queryModel.Specializations = AcquireCachedSpecializations();
             queryModel.Countries = AcquireCachedCountries();

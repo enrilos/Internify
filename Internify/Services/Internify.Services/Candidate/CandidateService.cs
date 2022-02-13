@@ -2,8 +2,9 @@
 {
     using Data;
     using Data.Models;
-    using Internify.Data.Models.Enums;
+    using Data.Models.Enums;
     using Models.ViewModels.Candidate;
+    using System.Text.RegularExpressions;
 
     public class CandidateService : ICandidateService
     {
@@ -82,34 +83,58 @@
             .FirstOrDefault();
 
         public IEnumerable<CandidateListingViewModel> All(
-            string fullName = "",
+            string fullName = null,
+            string specializationId = null,
+            string countryId = null,
             bool isAvailable = true,
-            string specializationId = "",
-            string countryId = "",
             int currentPage = 1,
             int candidatesPerPage = 2)
-                => data
-                .Candidates
-                //.Where(x =>
-                //    (x.FirstName + " " + x.LastName).Contains(fullName.Trim())
-                //    && x.IsAvailable == isAvailable
-                //    && x.SpecializationId == specializationId
-                //    && x.CountryId == countryId)
-                //.Skip((currentPage - 1) * candidatesPerPage)
-                //.Take(candidatesPerPage)
+        {
+            var candidatesQuery = data.Candidates.AsQueryable();
+
+            if (isAvailable)
+            {
+                candidatesQuery = candidatesQuery.Where(x => x.IsAvailable == isAvailable);
+            }
+            // Otherwise, list all despite availability.
+
+            if (fullName != null)
+            {
+                candidatesQuery = candidatesQuery
+                    .Where(x => (x.FirstName + " " + x.LastName).Contains(Regex.Replace(fullName, @"\s+", " ")));
+            }
+
+            if (specializationId != null)
+            {
+                candidatesQuery = candidatesQuery
+                    .Where(x => x.SpecializationId == specializationId);
+            }
+
+            if (countryId != null)
+            {
+                candidatesQuery = candidatesQuery
+                    .Where(x => x.CountryId == countryId);
+            }
+
+            var candidates = candidatesQuery
                 .OrderByDescending(x => x.CreatedOn)
-                .ThenBy(x => x.FirstName)
-                .ThenBy(x => x.LastName)
-                .Select(x => new CandidateListingViewModel
-                {
-                    Id = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    ImageUrl = x.ImageUrl,
-                    Age = (int)((DateTime.Now - x.BirthDate).TotalDays / 365.242199),
-                    Country = x.Country.Name,
-                    Specialization = x.Specialization.Name
-                })
-                .ToList();
+               .ThenBy(x => x.FirstName)
+               .ThenBy(x => x.LastName)
+               //.Skip((currentPage - 1) * candidatesPerPage)
+               //.Take(candidatesPerPage)
+               .Select(x => new CandidateListingViewModel
+               {
+                   Id = x.Id,
+                   FirstName = x.FirstName,
+                   LastName = x.LastName,
+                   ImageUrl = x.ImageUrl,
+                   Age = (int)((DateTime.Now - x.BirthDate).TotalDays / 365.242199),
+                   Country = x.Country.Name,
+                   Specialization = x.Specialization.Name
+               })
+               .ToList();
+
+            return candidates;
+        }
     }
 }
