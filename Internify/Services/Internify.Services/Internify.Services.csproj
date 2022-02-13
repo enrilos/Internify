@@ -10,8 +10,4 @@
     <ProjectReference Include="..\..\Models\Internify.Models.ViewModels\Internify.Models.ViewModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="11.0.1" />
-  </ItemGroup>
-
 </Project>

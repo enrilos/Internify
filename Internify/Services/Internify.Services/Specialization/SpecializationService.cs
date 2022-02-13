@@ -1,28 +1,26 @@
 ﻿namespace Internify.Services.Specialization
 {
-    using AutoMapper;
-    using AutoMapper.QueryableExtensions;
     using Data;
     using Models.ViewModels.Specialization;
 
     public class SpecializationService : ISpecializationService
     {
         private readonly InternifyDbContext data;
-        private readonly IConfigurationProvider mapper;
 
-        public SpecializationService(
-            InternifyDbContext data,
-            IMapper mapper)
+        public SpecializationService(InternifyDbContext data)
         {
             this.data = data;
-            this.mapper = mapper.ConfigurationProvider;
         }
 
         public IEnumerable<SpecializationListingViewModel> All()
             => data
             .Specializations
             .OrderBy(x => x.Name)
-            .ProjectTo<SpecializationListingViewModel>(mapper)
+            .Select(x => new SpecializationListingViewModel
+            {
+                Id = x.Id,
+                Name = x.Name
+            })
             .ToList();
 
         public bool Exists(string id)

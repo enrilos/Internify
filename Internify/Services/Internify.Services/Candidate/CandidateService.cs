@@ -1,21 +1,15 @@
 ﻿namespace Internify.Services.Candidate
 {
-    using AutoMapper;
-    using AutoMapper.QueryableExtensions;
     using Data;
     using Models.ViewModels.Candidate;
 
     public class CandidateService : ICandidateService
     {
         private readonly InternifyDbContext data;
-        private readonly IMapper mapper;
 
-        public CandidateService(
-            InternifyDbContext data,
-            IMapper mapper)
+        public CandidateService(InternifyDbContext data)
         {
             this.data = data;
-            this.mapper = mapper;
         }
 
         public bool IsCandidate(string userId)
@@ -31,10 +25,29 @@
 
         public CandidateDetailsViewModel Get(string id)
         {
-            var candidate = data.Candidates.Find(id);
-            var mappedCandidate = mapper.Map<CandidateDetailsViewModel>(candidate);
+            var candidate = data
+                .Candidates
+                .Where(x => x.Id == id)
+                .Select(x => new CandidateDetailsViewModel
+                {
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Description = x.Description,
+                    ImageUrl = x.ImageUrl,
+                    WebsiteUrl = x.WebsiteUrl,
+                    BirthDate = x.BirthDate.ToString("d"),
+                    Gender = x.Gender.ToString(),
+                    IsAvailable = x.IsAvailable,
+                    Specialization = x.Specialization.Name,
+                    University = x.University == null ? "" : x.University.Name,
+                    Country = x.Country.Name,
+                    Company = x.Company == null ? "" : x.Company.Name,
+                    CreatedOn = x.CreatedOn.ToString("d"),
+                    ModifiedOn = x.ModifiedOn == null ? null : ((DateTime)x.ModifiedOn).ToShortDateString()
+                })
+                .FirstOrDefault();
 
-            return mappedCandidate;
+            return candidate;
         }
 
         public IEnumerable<CandidateListingViewModel> All(
@@ -56,7 +69,16 @@
             .OrderByDescending(x => x.CreatedOn)
             .ThenBy(x => x.FirstName)
             .ThenBy(x => x.LastName)
-            .ProjectTo<CandidateListingViewModel>(mapper.ConfigurationProvider)
+            .Select(x => new CandidateListingViewModel
+            {
+                Id = x.Id,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                ImageUrl = x.ImageUrl,
+                Age = (int)((DateTime.Now - x.BirthDate).TotalDays / 365.242199),
+                Country = x.Country.Name,
+                Specialization = x.Specialization.Name
+            })
             .ToList();
     }
 }

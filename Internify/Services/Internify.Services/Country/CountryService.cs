@@ -1,28 +1,26 @@
 ﻿namespace Internify.Services.Country
 {
-    using AutoMapper;
-    using AutoMapper.QueryableExtensions;
-    using Internify.Data;
+    using Data;
     using Models.ViewModels.Country;
 
     public class CountryService : ICountryService
     {
         private readonly InternifyDbContext data;
-        private readonly IConfigurationProvider mapper;
 
-        public CountryService(
-            InternifyDbContext data,
-            IMapper mapper)
+        public CountryService(InternifyDbContext data)
         {
             this.data = data;
-            this.mapper = mapper.ConfigurationProvider;
         }
 
         public IEnumerable<CountryListingViewModel> All()
             => data
             .Countries
             .OrderBy(x => x.Name)
-            .ProjectTo<CountryListingViewModel>(mapper)
+            .Select(x => new CountryListingViewModel
+            {
+                Id = x.Id,
+                Name = x.Name
+            })
             .ToList();
 
         public bool Exists(string id)

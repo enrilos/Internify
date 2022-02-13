@@ -1,9 +1,8 @@
 ﻿namespace Internify.Web.Controllers
 {
-    using AutoMapper;
+    using Common;
     using Data;
     using Data.Models;
-    using Common;
     using Infrastructure.Extensions;
     using Internify.Models.InputModels.Candidate;
     using Internify.Models.ViewModels.Country;
@@ -22,7 +21,6 @@
         private readonly InternifyDbContext data;
         private readonly RoleChecker roleChecker;
         private readonly IMemoryCache cache;
-        private readonly IMapper mapper;
         private readonly ICountryService countryService;
         private readonly ISpecializationService specializationService;
         private readonly ICandidateService candidateService;
@@ -31,7 +29,6 @@
             InternifyDbContext data,
             RoleChecker roleChecker,
             IMemoryCache cache,
-            IMapper mapper,
             ICountryService countryService,
             ISpecializationService specializationService,
             ICandidateService candidateService)
@@ -39,7 +36,6 @@
             this.data = data;
             this.roleChecker = roleChecker;
             this.cache = cache;
-            this.mapper = mapper;
             this.countryService = countryService;
             this.specializationService = specializationService;
             this.candidateService = candidateService;
@@ -101,7 +97,18 @@
                 return View(candidate);
             }
 
-            var candidateData = mapper.Map<Candidate>(candidate);
+            var candidateData = new Candidate
+            {
+                FirstName = candidate.FirstName,
+                LastName = candidate.LastName,
+                Description = candidate.Description,
+                ImageUrl = candidate.ImageUrl,
+                WebsiteUrl = candidate.WebsiteUrl,
+                BirthDate = candidate.BirthDate,
+                Gender = candidate.Gender,
+                SpecializationId = candidate.SpecializationId,
+                CountryId = candidate.CountryId
+            };
 
             candidateData.UserId = userId;
 
@@ -130,8 +137,7 @@
             return View(candidate);
         }
 
-        // Move those two cache methods where controllers can get it form one place.
-        private IEnumerable<SpecializationListingViewModel> AcquireCachedSpecializations()
+        public IEnumerable<SpecializationListingViewModel> AcquireCachedSpecializations()
         {
             var specializations = cache.Get<IEnumerable<SpecializationListingViewModel>>(SpecializationsCacheKey);
 
@@ -148,7 +154,7 @@
             return specializations;
         }
 
-        private IEnumerable<CountryListingViewModel> AcquireCachedCountries()
+        public IEnumerable<CountryListingViewModel> AcquireCachedCountries()
         {
             var countries = cache.Get<IEnumerable<CountryListingViewModel>>(CountriesCacheKey);
 

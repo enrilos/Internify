@@ -1,8 +1,23 @@
 ﻿@model CandidateDetailsViewModel
 
-<p>@Model.FirstName @Model.LastName (@Model.BirthDate)</p>
-<p>@Model.Description</p>
-<p>@Model.Gender</p>
-<img src="@Model.ImageUrl" width="400" height="400" />
-<p>@(@Model.IsAvailable == true ? "✔️ Open for offers" : "❌ Currently not available")</p>
-<p>@(@Model.ModifiedOn == null ? $"Created on: {@Model.CreatedOn.ToString("d")}" : $"Modified on: {@Model.ModifiedOn?.ToString("d")}")</p>
+<section class="border border-dark rounded p-4">
+    <section class="container d-flex bd-highlight justify-content-evenly align-items-center flex-wrap">
+        <article>
+            <img src="@Model.ImageUrl" class="img-fluid rounded" />
+        </article>
+        <article class="p-3">
+            <p>Full Name: @Model.FirstName @Model.LastName</p>
+            <p>Born: @Model.BirthDate</p>
+            <p>Gender: @Model.Gender</p>
+            <p>Website: <a href="@(@Model.WebsiteUrl.Contains("http") ? @Model.WebsiteUrl : $"http://{@Model.WebsiteUrl}")">@Model.WebsiteUrl</a></p>
+            <p>Specialization: @Model.Specialization</p>
+            <p>Country: @Model.Country</p>
+            <p>@(@Model.IsAvailable == true ? "✔️ Open for offers" : "❌ Currently not available")</p>
+            <p>@(@Model.ModifiedOn == null ? $"Created on: {@Model.CreatedOn}" : $"Modified on: {@Model.ModifiedOn}")</p>
+        </article>
+    </section>
+    <article class="pt-3">
+        <p>Description:</p>
+        <p>@Model.Description</p>
+    </article>
+</section>

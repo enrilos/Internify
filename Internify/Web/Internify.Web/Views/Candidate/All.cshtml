@@ -9,7 +9,7 @@
     @foreach (var candidate in @Model)
     {
         <section class="card col-md-3 m-2 bg-light">
-            <img src="@candidate.ImageUrl" class="card-img-center m-1" alt="Candidate Picture" />
+            <img src="@candidate.ImageUrl" class="card-img-center m-1 rounded" alt="Candidate Picture" />
             <section class="card-body">
                 <h5 class="card-title">@candidate.FirstName @candidate.LastName (@candidate.Age)</h5>
                 <p class="card-text">@candidate.Specialization</p>

@@ -29,8 +29,8 @@
         // TODO: Show candidate's reviews.
         //public ICollection<Review> Reviews { get; set; } = new List<Review>();
 
-        public DateTime CreatedOn { get; init; }
+        public string CreatedOn { get; init; }
 
-        public DateTime? ModifiedOn { get; set; }
+        public string ModifiedOn { get; set; }
     }
 }
