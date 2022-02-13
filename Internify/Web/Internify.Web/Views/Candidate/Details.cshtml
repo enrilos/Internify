@@ -9,7 +9,10 @@
             <p>Full Name: @Model.FirstName @Model.LastName</p>
             <p>Born: @Model.BirthDate</p>
             <p>Gender: @Model.Gender</p>
-            <p>Website: <a href="@(@Model.WebsiteUrl.Contains("http") ? @Model.WebsiteUrl : $"http://{@Model.WebsiteUrl}")">@Model.WebsiteUrl</a></p>
+            @if (@Model.WebsiteUrl != null)
+            {
+                <p>Website: <a href="@(@Model.WebsiteUrl.Contains("http") ? @Model.WebsiteUrl : $"http://{@Model.WebsiteUrl}")">@Model.WebsiteUrl</a></p>
+            }
             <p>Specialization: @Model.Specialization</p>
             <p>Country: @Model.Country</p>
             <p>@(@Model.IsAvailable == true ? "✔️ Open for offers" : "❌ Currently not available")</p>
@@ -18,6 +21,6 @@
     </section>
     <article class="pt-3">
         <p>Description:</p>
-        <p>@Model.Description</p>
+        <p style="word-wrap: break-word;">@Model.Description</p>
     </article>
 </section>
