@@ -1,9 +1,15 @@
 ﻿@model CandidateDetailsViewModel
 
 <section class="border border-dark rounded p-4">
+    <a
+        class="btn btn-primary rounded my-1"
+        asp-area="Candidate"
+        asp-controller="Candidate"
+        asp-action="Edit"
+        asp-route-id="@Model.Id">Edit</a>
     <section class="container d-flex bd-highlight justify-content-evenly align-items-center flex-wrap">
         <article>
-            <img src="@Model.ImageUrl" class="img-fluid rounded" />
+            <img src="@Model.ImageUrl" class="img-fluid rounded p-1" />
         </article>
         <article class="p-3">
             <p>Full Name: @Model.FirstName @Model.LastName</p>

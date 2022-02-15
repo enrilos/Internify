@@ -8,7 +8,7 @@
     [Area(AdministratorRoleName)]
     [Authorize(Roles = AdministratorRoleName)]
     [Route($"{AdministratorRoleName}/[controller]/[action]/{{id?}}")]
-    public abstract class AdministratorController : Controller
+    public class AdministratorController : Controller
     {
     }
 }

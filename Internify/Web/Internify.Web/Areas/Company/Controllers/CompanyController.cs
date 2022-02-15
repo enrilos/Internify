@@ -8,7 +8,7 @@
     [Area(CompanyRoleName)]
     [Authorize(Roles = CompanyRoleName)]
     [Route($"{CompanyRoleName}/[controller]/[action]/{{id?}}")]
-    public abstract class CompanyController : Controller
+    public class CompanyController : Controller
     {
     }
 }
