@@ -88,8 +88,8 @@
             string specializationId,
             string countryId,
             bool isAvailable,
-            int currentPage = 1,
-            int candidatesPerPage = 2)
+            int currentPage,
+            int candidatesPerPage)
         {
             var candidatesQuery = data.Candidates.AsQueryable();
 
@@ -128,6 +128,11 @@
                 currentPage = 1;
             }
 
+            if (candidatesPerPage < 6)
+            {
+                candidatesPerPage = 6;
+            }
+
             var candidates = candidatesQuery
                 .OrderByDescending(x => x.CreatedOn)
                .ThenBy(x => x.FirstName)
@@ -155,6 +160,7 @@
                 IsAvailable = isAvailable,
                 Candidates = candidates,
                 CurrentPage = currentPage,
+                CandidatesPerPage = candidatesPerPage,
                 TotalCandidates = candidatesQuery.Count()
             };
         }

@@ -7,7 +7,6 @@
 
     using static Data.Common.DataConstants;
 
-    // TODO: Separate Error messages.
     public class BecomeCandidateFormModel
     {
         [Required]

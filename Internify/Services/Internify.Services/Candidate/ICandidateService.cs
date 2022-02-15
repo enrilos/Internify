@@ -31,7 +31,7 @@
             string specializationId,
             string countryId,
             bool isAvailable,
-            int currentPage = 1,
-            int candidatesPerPage = 2);
+            int currentPage,
+            int candidatesPerPage);
     }
 }

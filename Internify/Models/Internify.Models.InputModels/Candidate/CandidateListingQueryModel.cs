@@ -27,6 +27,9 @@
 
         public int CurrentPage { get; set; }
 
+        [Display(Name = "Per Page")]
+        public int CandidatesPerPage { get; set; }
+
         public IEnumerable<CandidateListingViewModel> Candidates { get; set; }
 
         public int TotalCandidates { get; set; }

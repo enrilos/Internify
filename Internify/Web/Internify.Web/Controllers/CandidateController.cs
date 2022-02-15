@@ -42,7 +42,7 @@
 
         public IActionResult All([FromQuery] CandidateListingQueryModel queryModel)
         {
-            queryModel = 
+            queryModel =
                 candidateService
                 .All(
                 queryModel.FirstName,
@@ -50,7 +50,8 @@
                 queryModel.SpecializationId,
                 queryModel.CountryId,
                 queryModel.IsAvailable,
-                queryModel.CurrentPage);
+                queryModel.CurrentPage,
+                queryModel.CandidatesPerPage);
 
             queryModel.Specializations = AcquireCachedSpecializations();
             queryModel.Countries = AcquireCachedCountries();
