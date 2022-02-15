@@ -55,8 +55,8 @@
     var maxPage = Math.Ceiling((double)Model.TotalCandidates / 2);
 }
 
-<div class="row mb-5">
-    <div class="col-md-6">
+<section class="row mb-5">
+    <section class="col-md-6">
         <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
            asp-controller="Candidate"
            asp-action="All"
@@ -66,13 +66,13 @@
            asp-route-specializationId="@Model.SpecializationId"
            asp-route-countryId="@Model.CountryId"
            asp-route-isAvailable="@Model.IsAvailable"><<</a>
-    </div>
+    </section>
 
     @{
         var shouldButtonBeDisabled = Model.CurrentPage == maxPage || !Model.Candidates.Any();
     }
 
-    <div class="col-md-6">
+    <section class="col-md-6">
         <a class="btn btn-primary float-sm-right @(shouldButtonBeDisabled ? "disabled" : string.Empty)" style="margin-top: 10px"
            asp-controller="Candidate"
            asp-action="All"
@@ -82,27 +82,7 @@
            asp-route-specializationId="@Model.SpecializationId"
            asp-route-countryId="@Model.CountryId"
            asp-route-isAvailable="@Model.IsAvailable">>></a>
-    </div>
-</div>
-
-<section class="row justify-content-center mt-3">
-    @if (@Model.Candidates.Any())
-    {
-        @foreach (var candidate in @Model.Candidates)
-        {
-            <section class="card col-md-3 m-2 bg-light">
-                <img src="@candidate.ImageUrl" class="card-img-center m-1 rounded" alt="Candidate Picture" />
-                <section class="card-body">
-                    <h5 class="card-title">@candidate.FirstName @candidate.LastName (@candidate.Age)</h5>
-                    <p class="card-text">@candidate.Specialization</p>
-                    <p class="card-text"><i class="fas fa-map-marker-alt"></i> @candidate.Country</p>
-                    <a asp-controller="Candidate" asp-action="Details" asp-route-id="@candidate.Id" class="btn btn-primary">Details</a>
-                </section>
-            </section>
-        }
-    }
-    else
-    {
-        <h1 class="text-center">No candidates found.</h1>
-    }
+    </section>
 </section>
+
+<partial name="_CandidatesPartial" model="@Model.Candidates" />
