@@ -21,10 +21,14 @@
         [Display(Name = "Country")]
         public string CountryId { get; set; }
 
-        public bool IsAvailable { get; set; }
-
         public IEnumerable<CountryListingViewModel> Countries { get; set; }
 
+        public bool IsAvailable { get; set; }
+
+        public int CurrentPage { get; set; }
+
         public IEnumerable<CandidateListingViewModel> Candidates { get; set; }
+
+        public int TotalCandidates { get; set; }
     }
 }

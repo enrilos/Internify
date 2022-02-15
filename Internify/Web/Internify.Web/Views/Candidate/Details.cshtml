@@ -19,8 +19,14 @@
             <p>@(@Model.ModifiedOn == null ? $"Created on: {@Model.CreatedOn}" : $"Modified on: {@Model.ModifiedOn}")</p>
         </article>
     </section>
-    <article class="pt-3">
-        <p>Description:</p>
-        <p style="word-wrap: break-word;">@Model.Description</p>
+    <article class="p-2 m-3 bg-light">
+        @if (@Model.Description == null)
+        {
+            <p class="text-center">Apparently, this user prefers to keep an air of mystery about them.</p>
+        }
+        else
+        {
+            <p class="text-center" style="word-wrap: break-word;">@Model.Description</p>
+        }
     </article>
 </section>

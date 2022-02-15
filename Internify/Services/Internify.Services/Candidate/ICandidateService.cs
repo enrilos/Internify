@@ -1,6 +1,7 @@
 ﻿namespace Internify.Services.Candidate
 {
     using Data.Models.Enums;
+    using Models.InputModels.Candidate;
     using Models.ViewModels.Candidate;
 
     public interface ICandidateService
@@ -24,12 +25,12 @@
 
         public CandidateDetailsViewModel Get(string id);
 
-        public IEnumerable<CandidateListingViewModel> All(
-            string firstName = null,
-            string lastName = null,
-            string specializationId = "",
-            string countryId = "",
-            bool isAvailable = true,
+        public CandidateListingQueryModel All(
+            string firstName,
+            string lastName,
+            string specializationId,
+            string countryId,
+            bool isAvailable,
             int currentPage = 1,
             int candidatesPerPage = 2);
     }

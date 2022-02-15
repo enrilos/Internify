@@ -40,9 +40,50 @@
             <input class="form-check-input" type="checkbox" asp-for="IsAvailable">
             <label class="form-check-label" asp-for="IsAvailable">Is Available</label>
         </article>
-        <input class="btn btn-primary mt-3" type="submit" value="Submit" />
+        <input class="btn btn-primary mt-3" type="submit" value="Search" />
     </section>
 </form>
+
+@{
+    var previousPage = Model.CurrentPage - 1;
+
+    if (previousPage < 1)
+    {
+        previousPage = 1;
+    }
+    // 2 is records per page.
+    var maxPage = Math.Ceiling((double)Model.TotalCandidates / 2);
+}
+
+<div class="row mb-5">
+    <div class="col-md-6">
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+           asp-controller="Candidate"
+           asp-action="All"
+           asp-route-currentPage="@previousPage"
+           asp-route-firstName="@Model.FirstName"
+           asp-route-lastName="@Model.LastName"
+           asp-route-specializationId="@Model.SpecializationId"
+           asp-route-countryId="@Model.CountryId"
+           asp-route-isAvailable="@Model.IsAvailable"><<</a>
+    </div>
+
+    @{
+        var shouldButtonBeDisabled = Model.CurrentPage == maxPage || !Model.Candidates.Any();
+    }
+
+    <div class="col-md-6">
+        <a class="btn btn-primary float-sm-right @(shouldButtonBeDisabled ? "disabled" : string.Empty)" style="margin-top: 10px"
+           asp-controller="Candidate"
+           asp-action="All"
+           asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-firstName="@Model.FirstName"
+           asp-route-lastName="@Model.LastName"
+           asp-route-specializationId="@Model.SpecializationId"
+           asp-route-countryId="@Model.CountryId"
+           asp-route-isAvailable="@Model.IsAvailable">>></a>
+    </div>
+</div>
 
 <section class="row justify-content-center mt-3">
     @if (@Model.Candidates.Any())
@@ -62,6 +103,6 @@
     }
     else
     {
-        <h1 class="text-center">No candidates found!</h1>
+        <h1 class="text-center">No candidates found.</h1>
     }
 </section>

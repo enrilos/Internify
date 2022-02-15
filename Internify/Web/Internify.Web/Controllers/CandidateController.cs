@@ -42,13 +42,15 @@
 
         public IActionResult All([FromQuery] CandidateListingQueryModel queryModel)
         {
-            queryModel.Candidates = candidateService
+            queryModel = 
+                candidateService
                 .All(
                 queryModel.FirstName,
                 queryModel.LastName,
                 queryModel.SpecializationId,
                 queryModel.CountryId,
-                queryModel.IsAvailable);
+                queryModel.IsAvailable,
+                queryModel.CurrentPage);
 
             queryModel.Specializations = AcquireCachedSpecializations();
             queryModel.Countries = AcquireCachedCountries();
@@ -64,10 +66,11 @@
                 return BadRequest();
             }
 
-            var candidateModel = new BecomeCandidateFormModel();
-
-            candidateModel.Specializations = AcquireCachedSpecializations();
-            candidateModel.Countries = AcquireCachedCountries();
+            var candidateModel = new BecomeCandidateFormModel
+            {
+                Specializations = AcquireCachedSpecializations(),
+                Countries = AcquireCachedCountries()
+            };
 
             return View(candidateModel);
         }

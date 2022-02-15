@@ -3,6 +3,7 @@
     using Data;
     using Data.Models;
     using Data.Models.Enums;
+    using Models.InputModels.Candidate;
     using Models.ViewModels.Candidate;
 
     public class CandidateService : ICandidateService
@@ -81,12 +82,12 @@
             })
             .FirstOrDefault();
 
-        public IEnumerable<CandidateListingViewModel> All(
-            string firstName = null,
-            string lastName = null,
-            string specializationId = null,
-            string countryId = null,
-            bool isAvailable = true,
+        public CandidateListingQueryModel All(
+            string firstName,
+            string lastName,
+            string specializationId,
+            string countryId,
+            bool isAvailable,
             int currentPage = 1,
             int candidatesPerPage = 2)
         {
@@ -122,12 +123,17 @@
                     .Where(x => x.CountryId == countryId);
             }
 
+            if (currentPage <= 0)
+            {
+                currentPage = 1;
+            }
+
             var candidates = candidatesQuery
                 .OrderByDescending(x => x.CreatedOn)
                .ThenBy(x => x.FirstName)
                .ThenBy(x => x.LastName)
-               //.Skip((currentPage - 1) * candidatesPerPage)
-               //.Take(candidatesPerPage)
+               .Skip((currentPage - 1) * candidatesPerPage)
+               .Take(candidatesPerPage)
                .Select(x => new CandidateListingViewModel
                {
                    Id = x.Id,
@@ -140,7 +146,17 @@
                })
                .ToList();
 
-            return candidates;
+            return new CandidateListingQueryModel
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                SpecializationId = specializationId,
+                CountryId = countryId,
+                IsAvailable = isAvailable,
+                Candidates = candidates,
+                CurrentPage = currentPage,
+                TotalCandidates = candidatesQuery.Count()
+            };
         }
     }
 }

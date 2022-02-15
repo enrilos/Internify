@@ -24,7 +24,7 @@
                 <article class="navbar-nav flex-grow-1 nav ml-auto justify-content-center align-items-center">
                     <a class="nav-item nav-link text-dark h5 mx-2 p-3 border border-dark rounded" asp-area="" asp-controller="Internship" asp-action="All">Internships</a>
                     <a class="nav-item nav-link text-dark h5 mx-2 p-3 border border-dark rounded" asp-area="" asp-controller="Company" asp-action="All">Companies</a>
-                    <a class="nav-item nav-link text-dark h5 mx-2 p-3 border border-dark rounded" asp-area="" asp-controller="Candidate" asp-action="All">Candidates</a>
+                    <a class="nav-item nav-link text-dark h5 mx-2 p-3 border border-dark rounded" asp-area="" asp-controller="Candidate" asp-action="All" asp-route-currentPage="1">Candidates</a>
                     <a class="nav-item nav-link text-dark h5 mx-2 p-3 border border-dark rounded" asp-area="" asp-controller="University" asp-action="All">Universities</a>
                     <a class="nav-item nav-link text-dark h5 mx-2 p-3 border border-dark rounded" asp-area="" asp-controller="Home" asp-action="About">About</a>
                 </article>
@@ -46,7 +46,7 @@
         </main>
     </div>
 
-    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/main.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

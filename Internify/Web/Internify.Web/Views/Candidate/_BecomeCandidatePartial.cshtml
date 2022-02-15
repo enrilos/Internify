@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-md-6 offset-md-3">
         <h2 class="heading-margin text-center">@ViewData["Title"]</h2>
-        
+
         <form method="post">
             <div class="form-group">
                 <label asp-for="FirstName"></label>
@@ -17,7 +17,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description"></label>
-                @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })  
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder="Not Required" })
                 <span asp-validation-for="Description" class="small text-danger"></span>
             </div>
             <div class="form-group">
@@ -45,6 +45,7 @@
 
                 <select asp-for="SpecializationId" class="form-control">
 
+                    <option value="" selected> -- select specialization -- </option>
                     @foreach (var specialization in Model.Specializations)
                     {
                         <option value="@specialization.Id">@specialization.Name</option>
@@ -60,6 +61,7 @@
 
                 <select asp-for="CountryId" class="form-control">
 
+                    <option value="" selected> -- select country -- </option>
                     @foreach (var country in Model.Countries)
                     {
                         <option value="@country.Id">@country.Name</option>

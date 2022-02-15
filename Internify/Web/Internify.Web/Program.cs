@@ -45,7 +45,8 @@ builder.Services
 // builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); -- worked for a while
 // Oddly enough, after a few days of working adequately, AutoMapper decided to simply start throwing exceptions for missing maps out of the blue
 // despite the fact that those exact mapping profiles are written and nothing has changed including dependencies.
-// Solution: No AutoMapper.
+// Solution: No AutoMapper :).
+// Consider using Mapster.
 
 builder.Services.AddMemoryCache();
 

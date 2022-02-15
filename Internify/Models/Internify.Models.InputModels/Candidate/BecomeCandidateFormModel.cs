@@ -39,13 +39,13 @@
         [EnumDataType(typeof(Gender), ErrorMessage = $"{nameof(Gender)} is invalid.")]
         public Gender Gender { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Invalid option.")]
         [Display(Name = "Specialization")]
         public string SpecializationId { get; set; }
 
         public IEnumerable<SpecializationListingViewModel> Specializations { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Invalid option.")]
         [Display(Name = "Country")]
         public string CountryId { get; set; }
 
