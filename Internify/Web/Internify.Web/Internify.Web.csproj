@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\Internify.Common\Internify.Common.csproj" />
     <ProjectReference Include="..\..\Data\Internify.Data\Internify.Data.csproj" />
     <ProjectReference Include="..\..\Models\Internify.Models.InputModels\Internify.Models.InputModels.csproj" />
     <ProjectReference Include="..\..\Services\Internify.Services\Internify.Services.csproj" />
@@ -34,11 +35,6 @@
   <ItemGroup>
     <Folder Include="Areas\Administrator\Data\" />
     <Folder Include="Areas\Administrator\Models\" />
-    <Folder Include="Areas\Candidate\Data\" />
-    <Folder Include="Areas\Company\Data\" />
-    <Folder Include="Areas\Company\Models\" />
-    <Folder Include="Areas\University\Data\" />
-    <Folder Include="Areas\University\Models\" />
   </ItemGroup>
 
 </Project>

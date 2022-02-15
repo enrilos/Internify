@@ -21,8 +21,8 @@
         }
 
         public bool IsUserInAnyRole(string userId)
-            => candidateService.IsCandidate(userId)
-            || companyService.IsCompany(userId)
-            || universityService.IsUniversity(userId);
+            => candidateService.IsCandidateByUserId(userId)
+            || companyService.IsCompanyByUserId(userId)
+            || universityService.IsUniversityByUserId(userId);
     }
 }

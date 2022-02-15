@@ -14,6 +14,7 @@
     using Services.Specialization;
 
     using static Common.WebConstants;
+    using static Internify.Common.AppConstants;
 
     public class CandidateController : Controller
     {
@@ -144,7 +145,46 @@
             return View(candidate);
         }
 
-        public IEnumerable<SpecializationListingViewModel> AcquireCachedSpecializations()
+        [Authorize]
+        public IActionResult Edit(string id)
+        {
+            if (!HasAccess(id))
+            {
+                return Unauthorized();
+            }
+
+            var candidate = candidateService.Get(id);
+
+            return View(candidate);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Edit(object candidate)
+        {
+            return null;
+        }
+
+        private bool HasAccess(string id)
+        {
+            var isCandidate = candidateService.IsCandidate(id);
+
+            if (!isCandidate)
+            {
+                return false;
+            }
+
+            var currentUserId = candidateService.GetIdByUserId(User?.Id());
+
+            if (currentUserId != id)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private IEnumerable<SpecializationListingViewModel> AcquireCachedSpecializations()
         {
             var specializations = cache.Get<IEnumerable<SpecializationListingViewModel>>(SpecializationsCacheKey);
 
@@ -161,7 +201,7 @@
             return specializations;
         }
 
-        public IEnumerable<CountryListingViewModel> AcquireCachedCountries()
+        private IEnumerable<CountryListingViewModel> AcquireCachedCountries()
         {
             var countries = cache.Get<IEnumerable<CountryListingViewModel>>(CountriesCacheKey);
 
