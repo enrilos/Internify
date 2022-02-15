@@ -25,6 +25,19 @@
             string countryId,
             string hostName);
 
+        public bool Edit(
+            string id,
+            string firstName,
+            string lastName,
+            string description,
+            string imageUrl,
+            string websiteUrl,
+            DateTime birthDate,
+            Gender gender,
+            bool isAvailable,
+            string specializationId,
+            string countryId);
+
         public CandidateDetailsViewModel GetDetailsModel(string id);
 
         public EditCandidateFormModel GetEditModel(string id);

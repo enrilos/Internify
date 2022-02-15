@@ -169,7 +169,53 @@
                 return Unauthorized();
             }
 
-            return null;
+            // TODO: abstract recurring code.
+            var candidateBirthDateBelowMax = candidate.BirthDate < MaxDateAllowed;
+            var candidateBirthDateOverMin = candidate.BirthDate > MinDateAllowed;
+
+            if (!candidateBirthDateBelowMax
+                || !candidateBirthDateOverMin)
+            {
+                ModelState.AddModelError(nameof(candidate.BirthDate), $"Birth Date should be between {MinDateAllowed.ToString("MM/dd/yyyy")} and {MaxDateAllowed.ToString("MM/dd/yyyy")}.");
+            }
+
+            if (!specializationService.Exists(candidate.SpecializationId))
+            {
+                ModelState.AddModelError(nameof(candidate.SpecializationId), "Invalid option.");
+            }
+
+            if (!countryService.Exists(candidate.CountryId))
+            {
+                ModelState.AddModelError(nameof(candidate.CountryId), "Invalid option.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                candidate.Specializations = AcquireCachedSpecializations();
+                candidate.Countries = AcquireCachedCountries();
+
+                return View(candidate);
+            }
+
+            var editResult = candidateService.Edit(
+                candidate.Id,
+                candidate.FirstName,
+                candidate.LastName,
+                candidate.Description,
+                candidate.ImageUrl,
+                candidate.WebsiteUrl,
+                candidate.BirthDate,
+                candidate.Gender,
+                candidate.IsAvailable,
+                candidate.SpecializationId,
+                candidate.CountryId);
+
+            if (!editResult)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction(nameof(All));
         }
 
         private bool IsTheSameCandidate(string id)

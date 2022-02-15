@@ -7,6 +7,7 @@
 
     using static Data.Common.DataConstants;
 
+    // TODO: Put displays/errors in constants.
     public class BecomeCandidateFormModel
     {
         [Required]

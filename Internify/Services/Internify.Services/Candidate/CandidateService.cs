@@ -80,6 +80,44 @@
             return null;
         }
 
+        public bool Edit(
+            string id,
+            string firstName,
+            string lastName,
+            string description,
+            string imageUrl,
+            string websiteUrl,
+            DateTime birthDate,
+            Gender gender,
+            bool isAvailable,
+            string specializationId,
+            string countryId)
+        {
+            var candidate = data.Candidates.Find(id);
+
+            if (candidate == null)
+            {
+                return false;
+            }
+
+            candidate.FirstName = firstName;
+            candidate.LastName = lastName;
+            candidate.Description = description;
+            candidate.ImageUrl = imageUrl;
+            candidate.WebsiteUrl = websiteUrl;
+            candidate.BirthDate = birthDate;
+            candidate.Gender = gender;
+            candidate.IsAvailable = isAvailable;
+            candidate.SpecializationId = specializationId;
+            candidate.CountryId = countryId;
+
+            candidate.ModifiedOn = DateTime.UtcNow;
+
+            data.SaveChanges();
+
+            return true;
+        }
+
         public CandidateDetailsViewModel GetDetailsModel(string id)
             => data
             .Candidates
