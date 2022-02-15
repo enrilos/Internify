@@ -14,7 +14,6 @@
     using Services.Specialization;
 
     using static Common.WebConstants;
-    using static Internify.Common.AppConstants;
 
     public class CandidateController : Controller
     {
@@ -135,7 +134,7 @@
 
         public IActionResult Details(string id)
         {
-            var candidate = candidateService.Get(id);
+            var candidate = candidateService.GetDetailsModel(id);
 
             if (candidate == null)
             {
@@ -148,24 +147,32 @@
         [Authorize]
         public IActionResult Edit(string id)
         {
-            if (!IsTheSameUser(id))
+            if (!IsTheSameCandidate(id))
             {
                 return Unauthorized();
             }
 
-            var candidate = candidateService.Get(id);
+            var candidate = candidateService.GetEditModel(id);
+
+            candidate.Specializations = AcquireCachedSpecializations();
+            candidate.Countries = AcquireCachedCountries();
 
             return View(candidate);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult Edit(object candidate)
+        public IActionResult Edit(EditCandidateFormModel candidate)
         {
+            if (!IsTheSameCandidate(candidate.Id))
+            {
+                return Unauthorized();
+            }
+
             return null;
         }
 
-        private bool IsTheSameUser(string id)
+        private bool IsTheSameCandidate(string id)
         {
             var currentUserId = candidateService.GetIdByUserId(User?.Id());
 

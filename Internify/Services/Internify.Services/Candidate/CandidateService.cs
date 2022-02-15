@@ -80,7 +80,7 @@
             return null;
         }
 
-        public CandidateDetailsViewModel Get(string id)
+        public CandidateDetailsViewModel GetDetailsModel(string id)
             => data
             .Candidates
             .Where(x => x.Id == id)
@@ -101,6 +101,26 @@
                 Company = x.Company == null ? "" : x.Company.Name,
                 CreatedOn = x.CreatedOn.ToString("d"),
                 ModifiedOn = x.ModifiedOn == null ? null : ((DateTime)x.ModifiedOn).ToShortDateString()
+            })
+            .FirstOrDefault();
+
+        public EditCandidateFormModel GetEditModel(string id)
+            => data
+            .Candidates
+            .Where(x => x.Id == id)
+            .Select(x => new EditCandidateFormModel
+            {
+                Id = id,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Description = x.Description,
+                ImageUrl = x.ImageUrl,
+                WebsiteUrl = x.WebsiteUrl,
+                BirthDate = x.BirthDate,
+                Gender = x.Gender,
+                IsAvailable = x.IsAvailable,
+                SpecializationId = x.SpecializationId,
+                CountryId = x.CountryId,
             })
             .FirstOrDefault();
 

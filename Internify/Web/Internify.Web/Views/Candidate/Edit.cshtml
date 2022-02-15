@@ -1,3 +1,85 @@
-﻿@model CandidateDetailsViewModel
+﻿@model EditCandidateFormModel
 
-<p>@Model.FirstName @Model.LastName is born on the @Model.BirthDate</p>
+<section class="row">
+    <section class="col-md-6 offset-md-3">
+        <h2 class="heading-margin text-center">@ViewData["Title"]</h2>
+
+        <form method="post">
+            <input asp-for="Id" type="hidden" />
+            <section class="form-group">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" class="form-control">
+                <span asp-validation-for="FirstName" class="small text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="form-control">
+                <span asp-validation-for="LastName" class="small text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Description"></label>
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder="Not Required" })
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" class="form-control" placeholder="Not Required">
+                <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="WebsiteUrl"></label>
+                <input asp-for="WebsiteUrl" class="form-control" placeholder="Not Required">
+                <span asp-validation-for="WebsiteUrl" class="small text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="BirthDate"></label>
+                <input asp-for="BirthDate" type="date" class="form-control">
+                <span asp-validation-for="BirthDate" class="small text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Gender"></label>
+                <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Internify.Data.Models.Enums.Gender>()" class="form-control"></select>
+                <span asp-validation-for="Gender" class="small text-danger"></span>
+            </section>
+            <section class="form-check form-switch my-2">
+                <label class="form-check-label" asp-for="IsAvailable">Is Available</label>
+                <input class="form-check-input" type="checkbox" asp-for="IsAvailable">
+            </section>
+            <section class="form-group">
+                <label asp-for="SpecializationId"></label>
+
+                <select asp-for="SpecializationId" class="form-control">
+
+                    <option value="" selected> -- select specialization -- </option>
+                    @foreach (var specialization in Model.Specializations)
+                    {
+                        <option value="@specialization.Id">@specialization.Name</option>
+                    }
+
+                </select>
+
+                <span asp-validation-for="SpecializationId" class="small text-danger"></span>
+
+            </section>
+            <section class="form-group">
+                <label asp-for="CountryId"></label>
+
+                <select asp-for="CountryId" class="form-control">
+
+                    <option value="" selected> -- select country -- </option>
+                    @foreach (var country in Model.Countries)
+                    {
+                        <option value="@country.Id">@country.Name</option>
+                    }
+
+                </select>
+
+                <span asp-validation-for="SpecializationId" class="small text-danger"></span>
+
+            </section>
+
+            <input class="btn btn-primary mt-3" type="submit" value="Submit" />
+        </form>
+
+    </section>
+</section>

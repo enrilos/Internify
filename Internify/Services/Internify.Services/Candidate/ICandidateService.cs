@@ -25,7 +25,9 @@
             string countryId,
             string hostName);
 
-        public CandidateDetailsViewModel Get(string id);
+        public CandidateDetailsViewModel GetDetailsModel(string id);
+
+        public EditCandidateFormModel GetEditModel(string id);
 
         public CandidateListingQueryModel All(
             string firstName,

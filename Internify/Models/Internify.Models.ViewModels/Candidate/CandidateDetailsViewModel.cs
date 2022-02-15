@@ -18,7 +18,7 @@
 
         public string Gender { get; set; }
 
-        public bool IsAvailable { get; set; } = true;
+        public bool IsAvailable { get; set; }
 
         public string Specialization { get; set; }
 
