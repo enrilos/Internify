@@ -3,16 +3,21 @@
     using Data;
     using Data.Models;
     using Data.Models.Enums;
+    using Microsoft.AspNetCore.Identity;
     using Models.InputModels.Candidate;
     using Models.ViewModels.Candidate;
 
     public class CandidateService : ICandidateService
     {
         private readonly InternifyDbContext data;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public CandidateService(InternifyDbContext data)
+        public CandidateService(
+            InternifyDbContext data,
+            UserManager<ApplicationUser> userManager)
         {
             this.data = data;
+            this.userManager = userManager;
         }
 
         public bool IsCandidate(string userId)
@@ -54,6 +59,15 @@
             };
 
             data.Candidates.Add(candidate);
+
+            Task.Run(async () =>
+            {
+                var user = await userManager.FindByIdAsync(userId);
+                await userManager.AddToRoleAsync(user, "Candidate");
+            })
+            .GetAwaiter()
+            .GetResult();
+
             data.SaveChanges();
 
             return null;
@@ -65,6 +79,7 @@
             .Where(x => x.Id == id)
             .Select(x => new CandidateDetailsViewModel
             {
+                Id = id,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 Description = x.Description,
