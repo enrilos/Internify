@@ -7,6 +7,8 @@
     using Models.InputModels.Candidate;
     using Models.ViewModels.Candidate;
 
+    using static Common.AppConstants;
+
     public class CandidateService : ICandidateService
     {
         private readonly InternifyDbContext data;
@@ -20,7 +22,12 @@
             this.userManager = userManager;
         }
 
-        public bool IsCandidate(string userId)
+        public bool IsCandidate(string id)
+            => data
+            .Candidates
+            .Any(x => x.Id == id);
+
+        public bool IsCandidateByUserId(string userId)
             => data
             .Candidates
             .Any(x => x.UserId == userId);
@@ -63,7 +70,7 @@
             Task.Run(async () =>
             {
                 var user = await userManager.FindByIdAsync(userId);
-                await userManager.AddToRoleAsync(user, "Candidate");
+                await userManager.AddToRoleAsync(user, CandidateRoleName);
             })
             .GetAwaiter()
             .GetResult();

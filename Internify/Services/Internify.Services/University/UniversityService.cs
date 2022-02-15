@@ -9,7 +9,7 @@
         public UniversityService(InternifyDbContext data)
             => this.data = data;
 
-        public bool IsUniversity(string userId)
+        public bool IsUniversityByUserId(string userId)
             => data
             .Universities
             .Any(x => x.UserId == userId);

@@ -6,7 +6,9 @@
 
     public interface ICandidateService
     {
-        public bool IsCandidate(string userId);
+        public bool IsCandidate(string id);
+
+        public bool IsCandidateByUserId(string userId);
 
         public string GetIdByUserId(string userId);
 

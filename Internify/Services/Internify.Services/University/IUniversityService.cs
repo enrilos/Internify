@@ -2,7 +2,7 @@
 {
     public interface IUniversityService
     {
-        public bool IsUniversity(string userId);
+        public bool IsUniversityByUserId(string userId);
 
         public string GetIdByUserId(string userId);
     }

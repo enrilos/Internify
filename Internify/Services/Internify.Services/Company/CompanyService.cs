@@ -9,7 +9,7 @@
         public CompanyService(InternifyDbContext data)
             => this.data = data;
 
-        public bool IsCompany(string userId)
+        public bool IsCompanyByUserId(string userId)
             => data
             .Companies
             .Any(x => x.UserId == userId);
