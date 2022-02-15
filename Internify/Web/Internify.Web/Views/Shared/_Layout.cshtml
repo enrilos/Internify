@@ -34,17 +34,17 @@
         </section>
     </nav>
 
-    <div class="container">
+    <section class="container">
         @if (TempData.ContainsKey(GlobalMessageKey))
         {
-            <div class="alert alert-success text-center" role="alert">
+            <section class="alert alert-success text-center" role="alert">
                 @TempData[GlobalMessageKey]
-            </div>
+            </section>
         }
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>
+    </section>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

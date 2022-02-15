@@ -86,6 +86,15 @@
                 return BadRequest();
             }
 
+            var candidateBirthDateBelowMax = candidate.BirthDate < MaxDateAllowed;
+            var candidateBirthDateOverMin = candidate.BirthDate > MinDateAllowed;
+
+            if (!candidateBirthDateBelowMax
+                || !candidateBirthDateOverMin)
+            {
+                ModelState.AddModelError(nameof(candidate.BirthDate), $"Birth Date should be between {MinDateAllowed.ToString("MM/dd/yyyy")} and {MaxDateAllowed.ToString("MM/dd/yyyy")}.");
+            }
+
             if (!specializationService.Exists(candidate.SpecializationId))
             {
                 ModelState.AddModelError(nameof(candidate.SpecializationId), "Invalid option.");

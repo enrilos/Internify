@@ -2,7 +2,6 @@
 {
     using Enums;
     using Common;
-    using Common.Attributes;
     using System.ComponentModel.DataAnnotations;
 
     using static Common.DataConstants;
@@ -32,7 +31,6 @@
         [MaxLength(UrlMaxLength)]
         public string WebsiteUrl { get; set; }
 
-        [BirthDate]
         public DateTime BirthDate { get; set; }
 
 
