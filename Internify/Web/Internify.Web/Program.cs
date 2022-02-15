@@ -61,7 +61,7 @@ builder.Services.AddTransient<RoleChecker>();
 
 var app = builder.Build();
 
-app.PrepareDatabase();
+//app.PrepareDatabase();
 
 if (app.Environment.IsDevelopment())
 {

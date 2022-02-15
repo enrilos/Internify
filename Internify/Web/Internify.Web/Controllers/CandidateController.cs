@@ -148,7 +148,7 @@
         [Authorize]
         public IActionResult Edit(string id)
         {
-            if (!HasAccess(id))
+            if (!IsTheSameUser(id))
             {
                 return Unauthorized();
             }
@@ -165,15 +165,8 @@
             return null;
         }
 
-        private bool HasAccess(string id)
+        private bool IsTheSameUser(string id)
         {
-            var isCandidate = candidateService.IsCandidate(id);
-
-            if (!isCandidate)
-            {
-                return false;
-            }
-
             var currentUserId = candidateService.GetIdByUserId(User?.Id());
 
             if (currentUserId != id)
