@@ -1,11 +1,17 @@
 ﻿@model CandidateDetailsViewModel
 
+@inject ICandidateService candidateService;
+
 <section class="border border-dark rounded p-4">
-    <a
-        class="btn btn-primary rounded my-1"
-        asp-controller="Candidate"
-        asp-action="Edit"
-        asp-route-id="@Model.Id">Edit</a>
+
+    @if (Model.Id == candidateService.GetIdByUserId(User?.Id()))
+    {
+        <a class="btn btn-primary rounded my-1"
+            asp-controller="Candidate"
+            asp-action="Edit"
+            asp-route-id="@Model.Id">Edit</a>
+    }
+
     <section class="container d-flex bd-highlight justify-content-evenly align-items-center flex-wrap">
         <article>
             <img src="@Model.ImageUrl" class="img-fluid rounded p-1" />

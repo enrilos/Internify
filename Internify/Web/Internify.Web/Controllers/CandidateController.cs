@@ -87,6 +87,8 @@
                 return BadRequest();
             }
 
+            // TODO: abstract recurring code.
+            // TODO: conditional rendering in details (Edit button only for owner)
             var candidateBirthDateBelowMax = candidate.BirthDate < MaxDateAllowed;
             var candidateBirthDateOverMin = candidate.BirthDate > MinDateAllowed;
 
@@ -170,6 +172,7 @@
             }
 
             // TODO: abstract recurring code.
+            // TODO: conditional rendering in details (Edit button only for owner)
             var candidateBirthDateBelowMax = candidate.BirthDate < MaxDateAllowed;
             var candidateBirthDateOverMin = candidate.BirthDate > MinDateAllowed;
 
@@ -219,16 +222,8 @@
         }
 
         private bool IsTheSameCandidate(string id)
-        {
-            var currentUserId = candidateService.GetIdByUserId(User?.Id());
-
-            if (currentUserId != id)
-            {
-                return false;
-            }
-
-            return true;
-        }
+            => candidateService
+            .GetIdByUserId(User?.Id()) == id;
 
         private IEnumerable<SpecializationListingViewModel> AcquireCachedSpecializations()
         {
