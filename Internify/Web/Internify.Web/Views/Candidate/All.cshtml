@@ -17,7 +17,7 @@
         <section class="form-group">
             <label asp-for="SpecializationId"></label>
             <select asp-for="SpecializationId" class="form-control">
-                <option value="" selected> -- select an option -- </option>
+                <option value="" selected> -- select specialization -- </option>
                 @foreach (var specialization in Model.Specializations)
                 {
                     <option value="@specialization.Id">@specialization.Name</option>
@@ -28,7 +28,7 @@
         <section class="form-group">
             <label asp-for="CountryId"></label>
             <select asp-for="CountryId" class="form-control">
-                <option value="" selected> -- select an option -- </option>
+                <option value="" selected> -- select country -- </option>
                 @foreach (var country in Model.Countries)
                 {
                     <option value="@country.Id">@country.Name</option>

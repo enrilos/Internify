@@ -25,9 +25,6 @@
 
             TempData[GlobalMessageKey] = "Successfully deleted candidate.";
 
-            // when using return View
-            // nameof(VIEWNAME) is required.
-            // Otherwise, an expection is thrown despite the fact that asp net MVC standards in this project are kept.
             return RedirectToAction("All", "Candidate");
         }
     }
