@@ -7,7 +7,7 @@
     using Models.InputModels.Candidate;
     using Models.ViewModels.Candidate;
 
-    using static Common.AppConstants;
+    using static Common.GlobalConstants;
 
     public class CandidateService : ICandidateService
     {
@@ -25,17 +25,17 @@
         public bool IsCandidate(string id)
             => data
             .Candidates
-            .Any(x => x.Id == id);
+            .Any(x => x.Id == id && !x.IsDeleted);
 
         public bool IsCandidateByUserId(string userId)
             => data
             .Candidates
-            .Any(x => x.UserId == userId);
+            .Any(x => x.UserId == userId && !x.IsDeleted);
 
         public string GetIdByUserId(string userId)
             => data
             .Candidates
-            .Where(x => x.UserId == userId)
+            .Where(x => x.UserId == userId && !x.IsDeleted)
             .FirstOrDefault()?.Id;
 
         public string Add(
@@ -118,6 +118,32 @@
             return true;
         }
 
+        public bool Delete(string id)
+        {
+            var candidate = data.Candidates.Find(id);
+
+            if (candidate == null)
+            {
+                return false;
+            }
+
+            candidate.IsDeleted = true;
+            candidate.DeletedOn = DateTime.UtcNow;
+
+            Task.Run(async () =>
+            {
+                var user = await userManager.FindByIdAsync(candidate.UserId);
+                user.IsDeleted = candidate.IsDeleted;
+                user.DeletedOn = candidate.DeletedOn;
+            })
+            .GetAwaiter()
+            .GetResult();
+
+            data.SaveChanges();
+
+            return true;
+        }
+
         public CandidateDetailsViewModel GetDetailsModel(string id)
             => data
             .Candidates
@@ -171,7 +197,7 @@
             int currentPage,
             int candidatesPerPage)
         {
-            var candidatesQuery = data.Candidates.AsQueryable();
+            var candidatesQuery = data.Candidates.Where(x => !x.IsDeleted).AsQueryable();
 
             if (isAvailable)
             {
@@ -214,7 +240,7 @@
             }
 
             var candidates = candidatesQuery
-                .OrderByDescending(x => x.CreatedOn)
+               .OrderByDescending(x => x.CreatedOn)
                .ThenBy(x => x.FirstName)
                .ThenBy(x => x.LastName)
                .Skip((currentPage - 1) * candidatesPerPage)

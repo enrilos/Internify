@@ -38,6 +38,8 @@
             string specializationId,
             string countryId);
 
+        public bool Delete(string id);
+
         public CandidateDetailsViewModel GetDetailsModel(string id);
 
         public EditCandidateFormModel GetEditModel(string id);

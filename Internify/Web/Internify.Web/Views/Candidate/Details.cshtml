@@ -2,14 +2,26 @@
 
 @inject ICandidateService candidateService;
 
+@{
+    ViewData["Title"] = "Details";
+}
+
 <section class="border border-dark rounded p-4">
 
     @if (Model.Id == candidateService.GetIdByUserId(User?.Id()))
     {
-        <a class="btn btn-primary rounded my-1"
+        <a class="btn btn-primary rounded m-1"
             asp-controller="Candidate"
             asp-action="Edit"
             asp-route-id="@Model.Id">Edit</a>
+    }
+    @if (User.IsAdmin())
+    {
+        <a class="btn btn-danger rounded m-1"
+            asp-area="Administrator"
+            asp-controller="Candidate"
+            asp-action="Delete"
+            asp-route-id="@Model.Id">Delete</a>
     }
 
     <section class="container d-flex bd-highlight justify-content-evenly align-items-center flex-wrap">

@@ -7,34 +7,33 @@
 
     using static Data.Common.DataConstants;
 
-    // TODO: Put displays/errors in constants.
     public class BecomeCandidateFormModel
     {
         [Required]
-        [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = $"{nameof(FirstName)} must be between 2 and 70 characters long.")]
+        [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required]
-        [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = $"{nameof(LastName)} must be between 2 and 70 characters long.")]
+        [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [MaxLength(DescriptionMaxLength, ErrorMessage = $"{nameof(Description)} must be less than 4000 characters long.")]
+        [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
-        [MaxLength(UrlMaxLength, ErrorMessage = $"{nameof(ImageUrl)} must be less than 500 characters long.")]
+        [MaxLength(UrlMaxLength)]
         [Display(Name = "Image URL")]
         public string ImageUrl { get; set; }
 
-        [MaxLength(UrlMaxLength, ErrorMessage = $"{nameof(WebsiteUrl)} must be less than 500 characters long.")]
+        [MaxLength(UrlMaxLength)]
         [Display(Name = "Website URL")]
         public string WebsiteUrl { get; set; }
 
         [Display(Name = "Birth Date")]
         public DateTime BirthDate { get; set; }
 
-        [EnumDataType(typeof(Gender), ErrorMessage = $"{nameof(Gender)} is invalid.")]
+        [EnumDataType(typeof(Gender))]
         public Gender Gender { get; set; }
 
         [Required(ErrorMessage = "Invalid option.")]

@@ -2,7 +2,7 @@
 {
     using System.Security.Claims;
 
-    using static Internify.Common.AppConstants;
+    using static Internify.Common.GlobalConstants;
 
     public static class ClaimsPrincipalExtensions
     {

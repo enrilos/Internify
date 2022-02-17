@@ -3,7 +3,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using static Internify.Common.AppConstants;
+    using static Internify.Common.GlobalConstants;
 
     [Area(AdministratorRoleName)]
     [Authorize(Roles = AdministratorRoleName)]

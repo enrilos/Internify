@@ -1,6 +1,6 @@
 ﻿namespace Internify.Common
 {
-    public class AppConstants
+    public class GlobalConstants
     {
         public const string AdministratorRoleName = "Administrator";
         public const string CandidateRoleName = "Candidate";
