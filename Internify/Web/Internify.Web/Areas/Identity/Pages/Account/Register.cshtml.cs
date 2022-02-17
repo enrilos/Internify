@@ -1,5 +1,6 @@
 ﻿namespace Internify.Web.Areas.Identity.Pages.Account
 {
+    using Internify.Data;
     using Internify.Data.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -12,13 +13,16 @@
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly InternifyDbContext data;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            InternifyDbContext data)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.data = data;
         }
 
         [BindProperty]
@@ -62,6 +66,17 @@
                     Email = Input.Email,
                     UserName = Input.Email
                 };
+
+                var foundUser = await userManager.FindByEmailAsync(Input.Email);
+                var hasBeenPreviouslyDeleted = foundUser?.IsDeleted == true;
+
+                if (hasBeenPreviouslyDeleted)
+                {
+                    var candidate = data.Candidates.FirstOrDefault(x => x.UserId == foundUser.Id);
+                    data.Candidates.Remove(candidate);
+
+                    await userManager.DeleteAsync(foundUser);
+                }
 
                 var result = await userManager.CreateAsync(user, Input.Password);
 

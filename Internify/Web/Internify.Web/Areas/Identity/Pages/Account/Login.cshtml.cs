@@ -70,8 +70,15 @@
 
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                var foundUser = await userManager.FindByEmailAsync(Input.Email);
+                var hasBeenPreviouslyDeleted = foundUser?.IsDeleted == true;
+
+                if (hasBeenPreviouslyDeleted)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return Page();
+                }
+
                 var result = await signInManager.PasswordSignInAsync(Input.Email, Input.Password, false, lockoutOnFailure: false);
                 
                 if (result.Succeeded)
