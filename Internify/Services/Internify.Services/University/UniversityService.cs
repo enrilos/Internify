@@ -81,7 +81,20 @@
                 WebsiteUrl = x.WebsiteUrl,
                 Description = x.Description,
                 Country = x.Country.Name,
+                //Alumni = x.Alumni -- TODO
             })
             .FirstOrDefault();
+
+        public IEnumerable<UniversityListingViewModel> All()
+            => data
+            .Universities
+            .Select(x => new UniversityListingViewModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+                ImageUrl = x.ImageUrl,
+                Country = x.Country.Name
+            })
+            .ToList();
     }
 }

@@ -19,5 +19,7 @@
             string countryId);
 
         public UniversityDetailsViewModel GetDetailsModel(string id);
+
+        public IEnumerable<UniversityListingViewModel> All();
     }
 }
