@@ -87,8 +87,6 @@
                 return BadRequest();
             }
 
-            // TODO: abstract recurring code.
-            // TODO: conditional rendering in details (Edit button only for owner)
             var candidateBirthDateBelowMax = candidate.BirthDate < MaxDateAllowed;
             var candidateBirthDateOverMin = candidate.BirthDate > MinDateAllowed;
 
@@ -116,7 +114,7 @@
                 return View(candidate);
             }
 
-            candidateService.Add(
+            var candidateId = candidateService.Add(
                 userId,
                 candidate.FirstName,
                 candidate.LastName,
@@ -131,7 +129,7 @@
 
             TempData[GlobalMessageKey] = "Thank you for becoming a candidate!";
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(Details), new { id = candidateId });
         }
 
         public IActionResult Details(string id)
@@ -171,8 +169,6 @@
                 return Unauthorized();
             }
 
-            // TODO: abstract recurring code.
-            // TODO: conditional rendering in details (Edit button only for owner)
             var candidateBirthDateBelowMax = candidate.BirthDate < MaxDateAllowed;
             var candidateBirthDateOverMin = candidate.BirthDate > MinDateAllowed;
 

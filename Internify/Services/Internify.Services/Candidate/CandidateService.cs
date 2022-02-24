@@ -77,7 +77,7 @@
 
             data.SaveChanges();
 
-            return null;
+            return candidate.Id;
         }
 
         public bool Edit(
