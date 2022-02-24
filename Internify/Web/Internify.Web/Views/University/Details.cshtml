@@ -1,0 +1,20 @@
+﻿@model UniversityDetailsViewModel
+
+<section class="container d-flex bd-highlight justify-content-evenly align-items-center flex-column">
+    <article class="m-4">
+        <h1>@Model.Name</h1>
+    </article>
+    <article>
+        <img src="@Model.ImageUrl" class="img-fluid rounded p-1" style="max-width: 700px; max-height: 700px;" />
+    </article>
+    <article class="p-3">
+        @if (@Model.WebsiteUrl != null)
+        {
+            <p>Website: <a href="@(@Model.WebsiteUrl.Contains("http") ? @Model.WebsiteUrl : $"http://{@Model.WebsiteUrl}")">@Model.WebsiteUrl</a></p>
+        }
+        <p>Country: @Model.Country</p>
+    </article>
+</section>
+<article class="p-2 m-3 bg-light">
+    <p class="text-center" style="word-wrap: break-word;">@Model.Description</p>
+</article>
