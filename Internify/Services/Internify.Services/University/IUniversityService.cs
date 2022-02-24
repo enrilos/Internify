@@ -1,5 +1,7 @@
 ﻿namespace Internify.Services.University
 {
+    using Models.ViewModels.University;
+
     public interface IUniversityService
     {
         public bool IsUniversity(string id);
@@ -15,5 +17,7 @@
             string websiteUrl,
             string description,
             string countryId);
+
+        public UniversityDetailsViewModel GetDetailsModel(string id);
     }
 }

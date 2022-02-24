@@ -3,6 +3,7 @@
     using Data;
     using Data.Models;
     using Microsoft.AspNetCore.Identity;
+    using Models.ViewModels.University;
 
     using static Common.GlobalConstants;
 
@@ -67,5 +68,20 @@
 
             return university.Id;
         }
+
+        public UniversityDetailsViewModel GetDetailsModel(string id)
+            => data
+            .Universities
+            .Where(x => x.Id == id)
+            .Select(x => new UniversityDetailsViewModel
+            {
+                Id = id,
+                Name = x.Name,
+                ImageUrl = x.ImageUrl,
+                WebsiteUrl = x.WebsiteUrl,
+                Description = x.Description,
+                Country = x.Country.Name,
+            })
+            .FirstOrDefault();
     }
 }
