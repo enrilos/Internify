@@ -31,7 +31,12 @@
             this.roleChecker = roleChecker;
         }
 
-        // TODO: Implement all listing (with btn details on each record)
+        public IActionResult All()
+        {
+            var universities = universityService.All();
+
+            return View(universities);
+        }
 
         [Authorize]
         public IActionResult Register()
