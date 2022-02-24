@@ -1,1 +1,11 @@
-﻿This is university register area.
+﻿@model RegisterUniversityFormModel
+
+@{
+    ViewData["Title"] = "Register your University";
+}
+
+<partial name="_RegisterUniversityPartial" model="@Model" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
