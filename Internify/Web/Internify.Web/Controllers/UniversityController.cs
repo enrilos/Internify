@@ -31,6 +31,8 @@
             this.roleChecker = roleChecker;
         }
 
+        // TODO: Implement all listing (with btn details on each record)
+
         [Authorize]
         public IActionResult Register()
         {
@@ -83,18 +85,17 @@
             return RedirectToAction(nameof(Details), new { id = universityId });
         }
 
+        // TODO: Implement Edit btn for owner and Delete btn for admin inside Details view.
         public IActionResult Details(string id)
         {
-            // TODO: Implement details view model.
-            //var university = universityService.GetDetailsModel(id);
+            var university = universityService.GetDetailsModel(id);
 
-            //if (university == null)
-            //{
-            //    return NotFound();
-            //}
+            if (university == null)
+            {
+                return NotFound();
+            }
 
-            //return View(university);
-            return null;
+            return View(university);
         }
 
         private IEnumerable<CountryListingViewModel> AcquireCachedCountries()
