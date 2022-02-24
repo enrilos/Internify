@@ -15,7 +15,6 @@
         [MaxLength(TitleMaxLength)]
         public string Title { get; set; }
 
-        // The default should be company image url
         [MaxLength(UrlMaxLength)]
         public string ImageUrl { get; set; }
 

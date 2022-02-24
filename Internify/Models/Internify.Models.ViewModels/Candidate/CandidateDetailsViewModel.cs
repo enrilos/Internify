@@ -8,17 +8,17 @@
 
         public string LastName { get; set; }
 
-        public string Description { get; set; }
-
         public string ImageUrl { get; set; }
 
         public string WebsiteUrl { get; set; }
+
+        public string Description { get; set; }
 
         public string BirthDate { get; set; }
 
         public string Gender { get; set; }
 
-        public bool IsAvailable { get; set; }
+        public string IsAvailableMessage { get; set; }
 
         public string Specialization { get; set; }
 

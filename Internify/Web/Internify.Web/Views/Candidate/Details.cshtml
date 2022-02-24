@@ -61,7 +61,7 @@
             }
             <p>Specialization: @Model.Specialization</p>
             <p>Country: @Model.Country</p>
-            <p>@(@Model.IsAvailable == true ? "✔️ Open for offers" : "❌ Currently not available")</p>
+            <p>@Model.IsAvailableMessage</p>
             <p>@(@Model.ModifiedOn == null ? $"Created on: {@Model.CreatedOn}" : $"Modified on: {@Model.ModifiedOn}")</p>
         </article>
     </section>

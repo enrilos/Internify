@@ -19,9 +19,6 @@
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [MaxLength(DescriptionMaxLength)]
-        public string Description { get; set; }
-
         [MaxLength(UrlMaxLength)]
         [Display(Name = "Image URL")]
         public string ImageUrl { get; set; }
@@ -29,6 +26,9 @@
         [MaxLength(UrlMaxLength)]
         [Display(Name = "Website URL")]
         public string WebsiteUrl { get; set; }
+
+        [MaxLength(DescriptionMaxLength)]
+        public string Description { get; set; }
 
         [Display(Name = "Birth Date")]
         public DateTime BirthDate { get; set; }

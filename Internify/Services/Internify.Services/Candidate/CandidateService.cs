@@ -42,9 +42,9 @@
             string userId,
             string firstName,
             string lastName,
-            string description,
             string imageUrl,
             string websiteUrl,
+            string description,
             DateTime birthDate,
             Gender gender,
             string specializationId,
@@ -56,9 +56,9 @@
                 FirstName = firstName.Trim(),
                 LastName = lastName.Trim(),
                 UserId = userId,
-                Description = description?.Trim(),
                 ImageUrl = imageUrl == null ? Path.Combine(hostName, "/images/avatar.png") : imageUrl?.Trim(),
                 WebsiteUrl = websiteUrl?.Trim(),
+                Description = description?.Trim(),
                 BirthDate = birthDate,
                 Gender = gender,
                 SpecializationId = specializationId,
@@ -84,9 +84,9 @@
             string id,
             string firstName,
             string lastName,
-            string description,
             string imageUrl,
             string websiteUrl,
+            string description,
             DateTime birthDate,
             Gender gender,
             bool isAvailable,
@@ -102,9 +102,9 @@
 
             candidate.FirstName = firstName;
             candidate.LastName = lastName;
-            candidate.Description = description;
             candidate.ImageUrl = imageUrl;
             candidate.WebsiteUrl = websiteUrl;
+            candidate.Description = description;
             candidate.BirthDate = birthDate;
             candidate.Gender = gender;
             candidate.IsAvailable = isAvailable;
@@ -153,12 +153,12 @@
                 Id = id,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
-                Description = x.Description,
                 ImageUrl = x.ImageUrl,
                 WebsiteUrl = x.WebsiteUrl,
+                Description = x.Description,
                 BirthDate = x.BirthDate.ToString("d"),
                 Gender = x.Gender.ToString(),
-                IsAvailable = x.IsAvailable,
+                IsAvailableMessage = x.IsAvailable == true ? "✔️ Open for offers" : "❌ Currently not available",
                 Specialization = x.Specialization.Name,
                 University = x.University == null ? "" : x.University.Name,
                 Country = x.Country.Name,
@@ -177,9 +177,9 @@
                 Id = id,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
-                Description = x.Description,
                 ImageUrl = x.ImageUrl,
                 WebsiteUrl = x.WebsiteUrl,
+                Description = x.Description,
                 BirthDate = x.BirthDate,
                 Gender = x.Gender,
                 IsAvailable = x.IsAvailable,
