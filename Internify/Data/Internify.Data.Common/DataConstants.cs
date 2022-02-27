@@ -33,5 +33,10 @@
             public const int TitleMaxLength = 50;
             public const int ContentMaxLength = 2000;
         }
+
+        public class Comment
+        {
+            public const int ContentMaxLength = 600;
+        }
     }
 }
