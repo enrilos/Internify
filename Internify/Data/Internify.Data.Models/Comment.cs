@@ -1,10 +1,11 @@
 ﻿namespace Internify.Data.Models
 {
+    using Common;
     using System.ComponentModel.DataAnnotations;
 
     using static Common.DataConstants.Comment;
 
-    public class Comment
+    public class Comment : IAuditInfo, IDeletableEntity
     {
         [Key]
         public string Id { get; init; } = Guid.NewGuid().ToString();
@@ -22,5 +23,13 @@
         public string ArticleId { get; set; }
 
         public Article Article { get; set; }
+
+        public DateTime CreatedOn { get; init; } = DateTime.UtcNow;
+
+        public DateTime? ModifiedOn { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }
