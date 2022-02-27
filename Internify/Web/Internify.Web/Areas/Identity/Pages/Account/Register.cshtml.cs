@@ -72,8 +72,35 @@
 
                 if (hasBeenPreviouslyDeleted)
                 {
-                    var candidate = data.Candidates.FirstOrDefault(x => x.UserId == foundUser.Id);
-                    data.Candidates.Remove(candidate);
+                    object record = null;
+
+                    // Check candidates
+                    record = data.Candidates.FirstOrDefault(x => x.UserId == foundUser.Id);
+
+                    if (record != null)
+                    {
+                        data.Candidates.Remove((Candidate)record);
+                    }
+                    else
+                    {
+                        // Check universities
+                        record = data.Universities.FirstOrDefault(x => x.UserId == foundUser.Id);
+
+                        if (record != null)
+                        {
+                            data.Universities.Remove((University)record);
+                        }
+                        else
+                        {
+                            // Check companies
+                            record = data.Companies.FirstOrDefault(x => x.UserId == foundUser.Id);
+
+                            if (record != null)
+                            {
+                                data.Companies.Remove((Company)record);
+                            }
+                        }
+                    }
 
                     await userManager.DeleteAsync(foundUser);
                 }
@@ -98,6 +125,6 @@
 
             // If we got this far, something failed, redisplay form
             return Page();
+        }
     }
-}
 }
