@@ -1,7 +1,7 @@
 ﻿@model EditCandidateFormModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Candidate";
 }
 
 <section class="row">
@@ -21,11 +21,6 @@
                 <span asp-validation-for="LastName" class="small text-danger"></span>
             </section>
             <section class="form-group">
-                <label asp-for="Description"></label>
-                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder="Not Required" })
-                <span asp-validation-for="Description" class="small text-danger"></span>
-            </section>
-            <section class="form-group">
                 <label asp-for="ImageUrl"></label>
                 <input asp-for="ImageUrl" class="form-control" placeholder="Not Required">
                 <span asp-validation-for="ImageUrl" class="small text-danger"></span>
@@ -34,6 +29,11 @@
                 <label asp-for="WebsiteUrl"></label>
                 <input asp-for="WebsiteUrl" class="form-control" placeholder="Not Required">
                 <span asp-validation-for="WebsiteUrl" class="small text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Description"></label>
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder="Not Required" })
+                <span asp-validation-for="Description" class="small text-danger"></span>
             </section>
             <section class="form-group">
                 <label asp-for="BirthDate"></label>
@@ -78,7 +78,7 @@
 
                 </select>
 
-                <span asp-validation-for="SpecializationId" class="small text-danger"></span>
+                <span asp-validation-for="CountryId" class="small text-danger"></span>
 
             </section>
 
@@ -108,3 +108,7 @@
         </form>
     </section>
 </section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
