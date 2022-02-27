@@ -1,5 +1,6 @@
 ﻿namespace Internify.Services.University
 {
+    using Models.InputModels.University;
     using Models.ViewModels.University;
 
     public interface IUniversityService
@@ -18,7 +19,17 @@
             string description,
             string countryId);
 
+        public bool Edit(
+            string id,
+            string name,
+            string imageUrl,
+            string websiteUrl,
+            string description,
+            string countryId);
+
         public UniversityDetailsViewModel GetDetailsModel(string id);
+
+        public EditUniversityFormModel GetEditModel(string id);
 
         public IEnumerable<UniversityListingViewModel> All();
     }

@@ -3,6 +3,7 @@
     using Data;
     using Data.Models;
     using Microsoft.AspNetCore.Identity;
+    using Models.InputModels.University;
     using Models.ViewModels.University;
 
     using static Common.GlobalConstants;
@@ -69,6 +70,34 @@
             return university.Id;
         }
 
+        public bool Edit(
+            string id,
+            string name,
+            string imageUrl,
+            string websiteUrl,
+            string description,
+            string countryId)
+        {
+            var university = data.Universities.Find(id);
+
+            if (university == null)
+            {
+                return false;
+            }
+
+            university.Name = name;
+            university.ImageUrl = imageUrl;
+            university.WebsiteUrl = websiteUrl;
+            university.Description = description;
+            university.CountryId = countryId;
+
+            university.ModifiedOn = DateTime.UtcNow;
+
+            data.SaveChanges();
+
+            return true;
+        }
+
         public UniversityDetailsViewModel GetDetailsModel(string id)
             => data
             .Universities
@@ -82,6 +111,21 @@
                 Description = x.Description,
                 Country = x.Country.Name,
                 //Alumni = x.Alumni -- TODO
+            })
+            .FirstOrDefault();
+
+        public EditUniversityFormModel GetEditModel(string id)
+            => data
+            .Universities
+            .Where(x => x.Id == id)
+            .Select(x => new EditUniversityFormModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+                ImageUrl = x.ImageUrl,
+                WebsiteUrl = x.WebsiteUrl,
+                Description = x.Description,
+                CountryId = x.CountryId
             })
             .FirstOrDefault();
 
