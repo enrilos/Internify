@@ -103,6 +103,62 @@
             return View(university);
         }
 
+        [Authorize]
+        public IActionResult Edit(string id)
+        {
+            if (!IsTheSameUniversity(id))
+            {
+                return Unauthorized();
+            }
+
+            var candidate = universityService.GetEditModel(id);
+
+            candidate.Countries = AcquireCachedCountries();
+
+            return View(candidate);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Edit(EditUniversityFormModel university)
+        {
+            if (!IsTheSameUniversity(university.Id))
+            {
+                return Unauthorized();
+            }
+
+            if (!countryService.Exists(university.CountryId))
+            {
+                ModelState.AddModelError(nameof(university.CountryId), "Invalid option.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                university.Countries = AcquireCachedCountries();
+
+                return View(university);
+            }
+
+            var editResult = universityService.Edit(
+                university.Id,
+                university.Name,
+                university.ImageUrl,
+                university.WebsiteUrl,
+                university.Description,
+                university.CountryId);
+
+            if (!editResult)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction(nameof(All));
+        }
+
+        private bool IsTheSameUniversity(string id)
+            => universityService
+            .GetIdByUserId(User?.Id()) == id;
+
         private IEnumerable<CountryListingViewModel> AcquireCachedCountries()
         {
             var countries = cache.Get<IEnumerable<CountryListingViewModel>>(CountriesCacheKey);
