@@ -1,11 +1,55 @@
 ﻿@model UniversityDetailsViewModel
 
+@inject IUniversityService universityService;
+
+@{
+    ViewData["Title"] = "University Details";
+}
+
 <section class="container d-flex bd-highlight justify-content-evenly align-items-center flex-column">
+     @if (Model.Id == universityService.GetIdByUserId(User?.Id()))
+    {
+        <a class="btn btn-primary rounded m-1"
+       asp-controller="University"
+       asp-action="Edit"
+       asp-route-id="@Model.Id">Edit</a>
+    }
+    @if (User.IsAdmin())
+    {
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Delete
+        </button>
+
+        <!-- Modal -->
+        <section class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <section class="modal-dialog">
+                <section class="modal-content">
+                    <section class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete university</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </section>
+                    <section class="modal-body">
+                        <p>Delete this university?</p>
+                    </section>
+                    <section class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                        <a class="btn btn-danger rounded m-1"
+                       asp-area="Administrator"
+                       asp-controller="University"
+                       asp-action="Delete"
+                       asp-route-id="@Model.Id">Delete</a>
+                    </section>
+                </section>
+            </section>
+        </section>
+    }
     <article class="m-4">
         <h1>@Model.Name</h1>
     </article>
-    <article>
-        <img src="@Model.ImageUrl" class="img-fluid rounded p-1" style="max-width: 700px; max-height: 700px;" />
+    <article style="max-width: 420px;">
+        <img src="@Model.ImageUrl" class="img-fluid rounded p-1" />
     </article>
     <article class="p-3">
         @if (@Model.WebsiteUrl != null)
