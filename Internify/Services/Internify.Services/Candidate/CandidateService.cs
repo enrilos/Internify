@@ -93,7 +93,7 @@
             string specializationId,
             string countryId)
         {
-            var candidate = data.Candidates.Find(id);
+            var candidate = data.Candidates.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
 
             if (candidate == null)
             {
@@ -120,7 +120,7 @@
 
         public bool Delete(string id)
         {
-            var candidate = data.Candidates.Find(id);
+            var candidate = data.Candidates.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
 
             if (candidate == null)
             {
@@ -147,7 +147,7 @@
         public CandidateDetailsViewModel GetDetailsModel(string id)
             => data
             .Candidates
-            .Where(x => x.Id == id)
+            .Where(x => x.Id == id && !x.IsDeleted)
             .Select(x => new CandidateDetailsViewModel
             {
                 Id = id,
@@ -171,7 +171,7 @@
         public EditCandidateFormModel GetEditModel(string id)
             => data
             .Candidates
-            .Where(x => x.Id == id)
+            .Where(x => x.Id == id && !x.IsDeleted)
             .Select(x => new EditCandidateFormModel
             {
                 Id = id,

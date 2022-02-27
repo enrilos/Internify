@@ -27,6 +27,8 @@
             string description,
             string countryId);
 
+        public bool Delete(string id);
+
         public UniversityDetailsViewModel GetDetailsModel(string id);
 
         public EditUniversityFormModel GetEditModel(string id);

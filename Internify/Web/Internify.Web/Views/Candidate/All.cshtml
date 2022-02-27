@@ -66,8 +66,8 @@
 
 <partial name="_CandidatesPartial" model="@Model.Candidates" />
 
-<section class="row my-5 text-center">
-    <section class="col-md-6">
+<section class="d-flex flex-row justify-content-around text-center">
+    <section>
         <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
            asp-controller="Candidate"
            asp-action="All"
@@ -83,8 +83,8 @@
         var shouldButtonBeDisabled = Model.CurrentPage == maxPage || !Model.Candidates.Any();
     }
 
-    <section class="col-md-6">
-        <a class="btn btn-primary float-sm-right @(shouldButtonBeDisabled ? "disabled" : string.Empty)" style="margin-top: 10px"
+    <section>
+        <a class="btn btn-primary float-sm-right @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
            asp-controller="Candidate"
            asp-action="All"
            asp-route-currentPage="@(Model.CurrentPage + 1)"

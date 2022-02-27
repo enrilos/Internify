@@ -78,7 +78,7 @@
             string description,
             string countryId)
         {
-            var university = data.Universities.Find(id);
+            var university = data.Universities.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
 
             if (university == null)
             {
@@ -98,10 +98,36 @@
             return true;
         }
 
+        public bool Delete(string id)
+        {
+            var university = data.Universities.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
+
+            if (university == null)
+            {
+                return false;
+            }
+
+            university.IsDeleted = true;
+            university.DeletedOn = DateTime.UtcNow;
+
+            Task.Run(async () =>
+            {
+                var user = await userManager.FindByIdAsync(university.UserId);
+                user.IsDeleted = university.IsDeleted;
+                user.DeletedOn = university.DeletedOn;
+            })
+            .GetAwaiter()
+            .GetResult();
+
+            data.SaveChanges();
+
+            return true;
+        }
+
         public UniversityDetailsViewModel GetDetailsModel(string id)
             => data
             .Universities
-            .Where(x => x.Id == id)
+            .Where(x => x.Id == id && !x.IsDeleted)
             .Select(x => new UniversityDetailsViewModel
             {
                 Id = id,
@@ -117,7 +143,7 @@
         public EditUniversityFormModel GetEditModel(string id)
             => data
             .Universities
-            .Where(x => x.Id == id)
+            .Where(x => x.Id == id && !x.IsDeleted)
             .Select(x => new EditUniversityFormModel
             {
                 Id = x.Id,
@@ -132,6 +158,7 @@
         public IEnumerable<UniversityListingViewModel> All()
             => data
             .Universities
+            .Where(x => !x.IsDeleted)
             .Select(x => new UniversityListingViewModel
             {
                 Id = x.Id,

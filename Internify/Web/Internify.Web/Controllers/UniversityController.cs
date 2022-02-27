@@ -90,7 +90,6 @@
             return RedirectToAction(nameof(Details), new { id = universityId });
         }
 
-        // TODO: Implement Edit btn for owner and Delete btn for admin inside Details view.
         public IActionResult Details(string id)
         {
             var university = universityService.GetDetailsModel(id);
@@ -111,11 +110,16 @@
                 return Unauthorized();
             }
 
-            var candidate = universityService.GetEditModel(id);
+            var university = universityService.GetEditModel(id);
 
-            candidate.Countries = AcquireCachedCountries();
+            if (university == null)
+            {
+                return NotFound();
+            }
 
-            return View(candidate);
+            university.Countries = AcquireCachedCountries();
+
+            return View(university);
         }
 
         [Authorize]

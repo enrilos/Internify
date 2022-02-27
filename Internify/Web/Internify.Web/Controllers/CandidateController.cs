@@ -154,6 +154,11 @@
 
             var candidate = candidateService.GetEditModel(id);
 
+            if (candidate == null)
+            {
+                return NotFound();
+            }
+
             candidate.Specializations = AcquireCachedSpecializations();
             candidate.Countries = AcquireCachedCountries();
 
