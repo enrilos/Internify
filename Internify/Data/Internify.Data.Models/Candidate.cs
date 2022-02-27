@@ -64,6 +64,8 @@
 
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
 
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
         public DateTime CreatedOn { get; init; } = DateTime.UtcNow;
 
         public DateTime? ModifiedOn { get; set; }

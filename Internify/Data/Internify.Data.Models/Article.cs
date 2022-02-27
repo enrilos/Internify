@@ -27,6 +27,8 @@
 
         public Company Company { get; set; }
 
+        public ICollection<Comment> Comments { get; set; }
+
         public DateTime CreatedOn { get; init; } = DateTime.UtcNow;
 
         public DateTime? ModifiedOn { get; set; }
