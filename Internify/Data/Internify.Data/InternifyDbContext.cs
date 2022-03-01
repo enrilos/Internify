@@ -22,6 +22,8 @@
 
         public DbSet<Application> Applications { get; set; }
 
+        public DbSet<CandidateUniversity> CandidateUniversities { get; set; }
+
         public DbSet<Article> Articles { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
