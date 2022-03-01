@@ -160,7 +160,7 @@
                 return BadRequest();
             }
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(Details), new { id = university.Id });
         }
 
         [Authorize]

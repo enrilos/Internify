@@ -7,6 +7,7 @@
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Candidate;
     using Models.ViewModels.Candidate;
+    using Models.ViewModels.University;
 
     using static Common.GlobalConstants;
 
@@ -169,7 +170,15 @@
                 Gender = x.Gender.ToString(),
                 IsAvailableMessage = x.IsAvailable == true ? "✔️ Open for offers" : "❌ Currently not available",
                 Specialization = x.Specialization.Name,
-                //University = x.University == null ? "" : x.University.Name,
+                Universities = x.Universities
+                    .Select(x => new UniversityListingViewModel
+                    {
+                        Id = x.University.Id,
+                        Name = x.University.Name,
+                        ImageUrl = x.University.ImageUrl,
+                        Country = x.University.Country.Name
+                    })
+                    .ToList(),
                 Country = x.Country.Name,
                 Company = x.Company == null ? "" : x.Company.Name,
                 CreatedOn = x.CreatedOn.ToString("d"),

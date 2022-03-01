@@ -1,5 +1,7 @@
 ﻿namespace Internify.Models.ViewModels.Candidate
 {
+    using University;
+
     public class CandidateDetailsViewModel
     {
         public string Id { get; set; }
@@ -22,8 +24,7 @@
 
         public string Specialization { get; set; }
 
-        // TODO: Candidate's universities listing model
-        //public IEnumerable<CandidateUniversityListingViewModel> Universities { get; set; }
+        public IEnumerable<UniversityListingViewModel> Universities { get; set; }
 
         public string Country { get; set; }
 

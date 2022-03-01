@@ -74,10 +74,10 @@
                         <section class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <a class="btn btn-primary rounded m-1"
-                            asp-controller="University"
-                            asp-action="AddToAlumni"
-                            asp-route-universityId="@universityId"
-                            asp-route-candidateId="@Model.Id">Add To Alumni</a>
+                       asp-controller="University"
+                       asp-action="AddToAlumni"
+                       asp-route-universityId="@universityId"
+                       asp-route-candidateId="@Model.Id">Add To Alumni</a>
                         </section>
                     </section>
                 </section>
@@ -104,10 +104,10 @@
                         <section class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <a class="btn btn-danger rounded m-1"
-                            asp-controller="University"
-                            asp-action="RemoveFromAlumni"
-                            asp-route-universityId="@universityId"
-                            asp-route-candidateId="@Model.Id">Remove from Alumni</a>
+                       asp-controller="University"
+                       asp-action="RemoveFromAlumni"
+                       asp-route-universityId="@universityId"
+                       asp-route-candidateId="@Model.Id">Remove from Alumni</a>
                         </section>
                     </section>
                 </section>
@@ -143,4 +143,11 @@
             <p class="text-center" style="word-wrap: break-word;">@Model.Description</p>
         }
     </article>
+    <section>
+        @if (Model.Universities.Any())
+        {
+            <p class="h3 my-4 text-center">This candidate has graduated from</p>
+            <partial name="../University/All" model="@Model.Universities" />
+        }
+    </section>
 </section>
