@@ -50,7 +50,22 @@
 
         public bool RemoveCandidateFromAlumni(string universityId, string candidateId)
         {
-            throw new NotImplementedException();
+            var candidateUniversity = data
+                .CandidateUniversities
+                .FirstOrDefault(x =>
+                x.UniversityId == universityId
+                && x.CandidateId == candidateId);
+
+            if (candidateUniversity == null)
+            {
+                return false;
+            }
+
+            data.CandidateUniversities.Remove(candidateUniversity);
+
+            data.SaveChanges();
+
+            return true;
         }
     }
 }
