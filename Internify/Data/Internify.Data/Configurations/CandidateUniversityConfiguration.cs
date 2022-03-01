@@ -14,14 +14,12 @@
             builder
                 .HasOne(x => x.Candidate)
                 .WithMany(x => x.Universities)
-                .HasForeignKey(x => x.CandidateId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(x => x.CandidateId);
 
             builder
                 .HasOne(x => x.University)
                 .WithMany(x => x.Alumni)
-                .HasForeignKey(x => x.UniversityId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(x => x.UniversityId);
         }
     }
 }
