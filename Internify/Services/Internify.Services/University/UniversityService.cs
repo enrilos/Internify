@@ -2,7 +2,9 @@
 {
     using Data;
     using Data.Models;
+    using Internify.Models.ViewModels.Candidate;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
     using Models.InputModels.University;
     using Models.ViewModels.University;
 
@@ -100,7 +102,10 @@
 
         public bool Delete(string id)
         {
-            var university = data.Universities.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
+            var university = data
+                .Universities
+                .Include(x => x.Alumni)
+                .FirstOrDefault(x => x.Id == id && !x.IsDeleted);
 
             if (university == null)
             {
@@ -109,6 +114,11 @@
 
             university.IsDeleted = true;
             university.DeletedOn = DateTime.UtcNow;
+
+            foreach (var candidateUniversity in university.Alumni)
+            {
+                data.CandidateUniversities.Remove(candidateUniversity);
+            }
 
             Task.Run(async () =>
             {
@@ -136,7 +146,18 @@
                 WebsiteUrl = x.WebsiteUrl,
                 Description = x.Description,
                 Country = x.Country.Name,
-                //Alumni = x.Alumni -- TODO
+                Alumni = x.Alumni
+                .Select(c => new CandidateListingViewModel
+                {
+                    Id = c.Candidate.Id,
+                    FirstName = c.Candidate.LastName,
+                    LastName = c.Candidate.LastName,
+                    Age = (int)((DateTime.Now - c.Candidate.BirthDate).TotalDays / 365.242199),
+                    ImageUrl = c.Candidate.ImageUrl,
+                    Country = c.Candidate.Country.Name,
+                    Specialization = c.Candidate.Specialization.Name
+                })
+                .ToList()
             })
             .FirstOrDefault();
 

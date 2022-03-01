@@ -164,14 +164,6 @@
         }
 
         [Authorize]
-        public IActionResult Alumni(string universityId)
-        {
-            // TODO.. List current university's alumni.
-
-            return null;
-        }
-
-        [Authorize]
         public IActionResult AddToAlumni(string universityId, string candidateId)
         {
             if (candidateUniversityService.IsCandidateInUniversityAlumni(universityId, candidateId))
@@ -186,7 +178,11 @@
                 return BadRequest();
             }
 
-            return RedirectToAction(nameof(Alumni), new { universityId });
+            TempData[GlobalMessageKey] = "Candidate was successfully added to your alumni!";
+
+            // RedirectToAction(nameof(Details), new { universityId }) converts the parameters to a query string
+            // Consequently, the Details method does not recognize the query string.
+            return Redirect($"/University/Details/{universityId}");
         }
 
         [Authorize]

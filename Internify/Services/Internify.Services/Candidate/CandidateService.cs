@@ -4,6 +4,7 @@
     using Data.Models;
     using Data.Models.Enums;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Candidate;
     using Models.ViewModels.Candidate;
 
@@ -120,7 +121,10 @@
 
         public bool Delete(string id)
         {
-            var candidate = data.Candidates.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
+            var candidate = data
+                .Candidates
+                .Include(x => x.Universities)
+                .FirstOrDefault(x => x.Id == id && !x.IsDeleted);
 
             if (candidate == null)
             {
@@ -129,6 +133,11 @@
 
             candidate.IsDeleted = true;
             candidate.DeletedOn = DateTime.UtcNow;
+
+            foreach (var candidateUniversity in candidate.Universities)
+            {
+                data.CandidateUniversities.Remove(candidateUniversity);
+            }
 
             Task.Run(async () =>
             {

@@ -1,6 +1,7 @@
 ﻿namespace Internify.Services.University
 {
     using Models.InputModels.University;
+    using Models.ViewModels.Candidate;
     using Models.ViewModels.University;
 
     public interface IUniversityService

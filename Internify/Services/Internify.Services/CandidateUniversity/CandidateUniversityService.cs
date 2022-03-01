@@ -17,8 +17,7 @@
             .CandidateUniversities
             .Any(x =>
             x.UniversityId == universityId
-            && x.CandidateId == candidateId
-            && !x.IsDeleted);
+            && x.CandidateId == candidateId);
 
         public bool AddCandidateToAlumni(string universityId, string candidateId)
         {
