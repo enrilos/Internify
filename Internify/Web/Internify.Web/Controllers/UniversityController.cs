@@ -166,6 +166,11 @@
         [Authorize]
         public IActionResult AddToAlumni(string universityId, string candidateId)
         {
+            if (!IsTheSameUniversity(universityId))
+            {
+                return Unauthorized();
+            }
+
             if (candidateUniversityService.IsCandidateInUniversityAlumni(universityId, candidateId))
             {
                 return BadRequest();
@@ -180,22 +185,32 @@
 
             TempData[GlobalMessageKey] = "Candidate was successfully added to your alumni!";
 
-            // RedirectToAction(nameof(Details), new { universityId }) converts the parameters to a query string
-            // Consequently, the Details method does not recognize the query string.
-            return Redirect($"/University/Details/{universityId}");
+            return RedirectToAction(nameof(Details), new { id = universityId });
         }
 
         [Authorize]
         public IActionResult RemoveFromAlumni(string universityId, string candidateId)
         {
+            if (!IsTheSameUniversity(universityId))
+            {
+                return Unauthorized();
+            }
+
             if (!candidateUniversityService.IsCandidateInUniversityAlumni(universityId, candidateId))
+            {
+                return NotFound();
+            }
+
+            var result = candidateUniversityService.RemoveCandidateFromAlumni(universityId, candidateId);
+
+            if (!result)
             {
                 return BadRequest();
             }
 
-            // TODO
+            TempData[GlobalMessageKey] = "Candidate was successfully removed from your alumni!";
 
-            return null;
+            return RedirectToAction(nameof(Details), new { id = universityId });
         }
 
         private bool IsTheSameUniversity(string id)
