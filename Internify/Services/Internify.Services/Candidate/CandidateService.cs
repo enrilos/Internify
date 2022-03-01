@@ -160,7 +160,7 @@
                 Gender = x.Gender.ToString(),
                 IsAvailableMessage = x.IsAvailable == true ? "✔️ Open for offers" : "❌ Currently not available",
                 Specialization = x.Specialization.Name,
-                University = x.University == null ? "" : x.University.Name,
+                //University = x.University == null ? "" : x.University.Name,
                 Country = x.Country.Name,
                 Company = x.Company == null ? "" : x.Company.Name,
                 CreatedOn = x.CreatedOn.ToString("d"),

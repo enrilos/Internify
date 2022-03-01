@@ -4,11 +4,12 @@
     using Infrastructure.Extensions;
     using Internify.Models.InputModels.University;
     using Internify.Models.ViewModels.Country;
-    using Services.University;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
+    using Services.CandidateUniversity;
     using Services.Country;
+    using Services.University;
 
     using static Common.WebConstants;
 
@@ -16,17 +17,20 @@
     {
         private readonly IUniversityService universityService;
         private readonly ICountryService countryService;
+        private readonly ICandidateUniversityService candidateUniversityService;
         private readonly IMemoryCache cache;
         private readonly RoleChecker roleChecker;
 
         public UniversityController(
             IUniversityService universityService,
             ICountryService countryService,
+            ICandidateUniversityService candidateUniversityService,
             IMemoryCache cache,
             RoleChecker roleChecker)
         {
             this.universityService = universityService;
             this.countryService = countryService;
+            this.candidateUniversityService = candidateUniversityService;
             this.cache = cache;
             this.roleChecker = roleChecker;
         }
@@ -157,6 +161,45 @@
             }
 
             return RedirectToAction(nameof(All));
+        }
+
+        [Authorize]
+        public IActionResult Alumni(string universityId)
+        {
+            // TODO.. List current university's alumni.
+
+            return null;
+        }
+
+        [Authorize]
+        public IActionResult AddToAlumni(string universityId, string candidateId)
+        {
+            if (candidateUniversityService.IsCandidateInUniversityAlumni(universityId, candidateId))
+            {
+                return BadRequest();
+            }
+
+            var result = candidateUniversityService.AddCandidateToAlumni(universityId, candidateId);
+
+            if (!result)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction(nameof(Alumni), new { universityId });
+        }
+
+        [Authorize]
+        public IActionResult RemoveFromAlumni(string universityId, string candidateId)
+        {
+            if (!candidateUniversityService.IsCandidateInUniversityAlumni(universityId, candidateId))
+            {
+                return BadRequest();
+            }
+
+            // TODO
+
+            return null;
         }
 
         private bool IsTheSameUniversity(string id)

@@ -22,14 +22,15 @@
 
         public string Specialization { get; set; }
 
-        public string University { get; set; }
+        // TODO: Candidate's universities listing model
+        //public IEnumerable<CandidateUniversityListingViewModel> Universities { get; set; }
 
         public string Country { get; set; }
 
         public string Company { get; set; }
 
         // TODO: Show candidate's reviews.
-        //public ICollection<Review> Reviews { get; set; } = new List<Review>();
+        //public ICollection<Review> Reviews { get; set; }
 
         public string CreatedOn { get; init; }
 

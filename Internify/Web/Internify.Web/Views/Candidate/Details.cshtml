@@ -1,6 +1,8 @@
 ﻿@model CandidateDetailsViewModel
 
 @inject ICandidateService candidateService;
+@inject IUniversityService universityService;
+@inject ICandidateUniversityService candidateUniversityService;
 
 @{
     ViewData["Title"] = "Candidate Details";
@@ -11,9 +13,9 @@
     @if (Model.Id == candidateService.GetIdByUserId(User?.Id()))
     {
         <a class="btn btn-primary rounded m-1"
-       asp-controller="Candidate"
-       asp-action="Edit"
-       asp-route-id="@Model.Id">Edit</a>
+        asp-controller="Candidate"
+        asp-action="Edit"
+        asp-route-id="@Model.Id">Edit</a>
     }
     @if (User.IsAdmin())
     {
@@ -37,14 +39,28 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
                         <a class="btn btn-danger rounded m-1"
-                       asp-area="Administrator"
-                       asp-controller="Candidate"
-                       asp-action="Delete"
-                       asp-route-id="@Model.Id">Delete</a>
+                        asp-area="Administrator"
+                        asp-controller="Candidate"
+                        asp-action="Delete"
+                        asp-route-id="@Model.Id">Delete</a>
                     </section>
                 </section>
             </section>
         </section>
+    }
+
+    @if (universityService.IsUniversityByUserId(User?.Id()))
+    {
+        var universityId = universityService.GetIdByUserId(User?.Id());
+
+        @if (!candidateUniversityService.IsCandidateInUniversityAlumni(universityId, Model.Id))
+        {
+            <a class="btn btn-primary rounded m-1"
+            asp-controller="University"
+            asp-action="AddToAlumni"
+            asp-route-universityId="@universityId"
+            asp-route-candidateId="@Model.Id">Add To Alumni</a>
+        }
     }
 
     <section class="container d-flex bd-highlight justify-content-evenly align-items-center flex-wrap">
@@ -65,6 +81,9 @@
             <p>@(@Model.ModifiedOn == null ? $"Created on: {@Model.CreatedOn}" : $"Modified on: {@Model.ModifiedOn}")</p>
         </article>
     </section>
+    @{
+        // foreach universities here...
+    }
     <article class="p-2 m-3 bg-light">
         @if (@Model.Description == null)
         {
