@@ -13,9 +13,9 @@
     @if (Model.Id == candidateService.GetIdByUserId(User?.Id()))
     {
         <a class="btn btn-primary rounded m-1"
-        asp-controller="Candidate"
-        asp-action="Edit"
-        asp-route-id="@Model.Id">Edit</a>
+       asp-controller="Candidate"
+       asp-action="Edit"
+       asp-route-id="@Model.Id">Edit</a>
     }
     @if (User.IsAdmin())
     {
@@ -39,10 +39,10 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
                         <a class="btn btn-danger rounded m-1"
-                        asp-area="Administrator"
-                        asp-controller="Candidate"
-                        asp-action="Delete"
-                        asp-route-id="@Model.Id">Delete</a>
+                       asp-area="Administrator"
+                       asp-controller="Candidate"
+                       asp-action="Delete"
+                       asp-route-id="@Model.Id">Delete</a>
                     </section>
                 </section>
             </section>
@@ -55,11 +55,33 @@
 
         @if (!candidateUniversityService.IsCandidateInUniversityAlumni(universityId, Model.Id))
         {
-            <a class="btn btn-primary rounded m-1"
-            asp-controller="University"
-            asp-action="AddToAlumni"
-            asp-route-universityId="@universityId"
-            asp-route-candidateId="@Model.Id">Add To Alumni</a>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Add to Alumni
+            </button>
+
+            <!-- Modal -->
+            <section class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <section class="modal-dialog">
+                    <section class="modal-content">
+                        <section class="modal-header">
+                            <p class="modal-title h5" id="exampleModalLabel">Add Alumni</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </section>
+                        <section class="modal-body">
+                            <p>Add to Alumni?</p>
+                        </section>
+                        <section class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <a class="btn btn-primary rounded m-1"
+                            asp-controller="University"
+                            asp-action="AddToAlumni"
+                            asp-route-universityId="@universityId"
+                            asp-route-candidateId="@Model.Id">Add To Alumni</a>
+                        </section>
+                    </section>
+                </section>
+            </section>
         }
     }
 
