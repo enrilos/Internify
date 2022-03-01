@@ -27,12 +27,6 @@
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .HasOne(x => x.University)
-                .WithMany(x => x.Alumni)
-                .HasForeignKey(x => x.UniversityId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder
                 .HasOne(x => x.Company)
                 .WithMany(x => x.Interns)
                 .HasForeignKey(x => x.CompanyId)
