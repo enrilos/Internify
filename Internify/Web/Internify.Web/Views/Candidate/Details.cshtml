@@ -65,11 +65,11 @@
                 <section class="modal-dialog">
                     <section class="modal-content">
                         <section class="modal-header">
-                            <p class="modal-title h5" id="exampleModalLabel">Add Alumni</p>
+                            <p class="modal-title h5" id="exampleModalLabel">Confirmation</p>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </section>
                         <section class="modal-body">
-                            <p>Add to Alumni?</p>
+                            <p class="h5">Add this candidate to university's alumni?</p>
                         </section>
                         <section class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -78,6 +78,36 @@
                             asp-action="AddToAlumni"
                             asp-route-universityId="@universityId"
                             asp-route-candidateId="@Model.Id">Add To Alumni</a>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        }
+        else
+        {
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Remove from Alumni
+            </button>
+
+            <!-- Modal -->
+            <section class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <section class="modal-dialog">
+                    <section class="modal-content">
+                        <section class="modal-header">
+                            <p class="modal-title h5" id="exampleModalLabel">Confirmation</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </section>
+                        <section class="modal-body">
+                            <p class="h5">Remove this candidate from university's alumni?</p>
+                        </section>
+                        <section class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <a class="btn btn-danger rounded m-1"
+                            asp-controller="University"
+                            asp-action="RemoveFromAlumni"
+                            asp-route-universityId="@universityId"
+                            asp-route-candidateId="@Model.Id">Remove from Alumni</a>
                         </section>
                     </section>
                 </section>
