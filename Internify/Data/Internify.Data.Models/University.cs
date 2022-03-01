@@ -34,7 +34,7 @@
 
         public Country Country { get; set; }
 
-        public ICollection<Candidate> Alumni { get; set; } = new List<Candidate>();
+        public ICollection<CandidateUniversity> Alumni { get; set; } = new List<CandidateUniversity>();
 
         public DateTime CreatedOn { get; init; } = DateTime.UtcNow;
 

@@ -44,13 +44,6 @@
 
         public Specialization Specialization { get; set; }
 
-        // Not Required owing to the fact that there could be candidates who have chosen private education (better) over public/government-backed.
-        // Candidate will have to apply to the univesities alumni which is decided by each university.
-        // After each university realizes that a/the candidate is one of their graduate, they will accept the individual in their alumni list.
-        public string UniversityId { get; set; }
-
-        public University University { get; set; }
-
         [Required]
         public string CountryId { get; set; }
 
@@ -59,6 +52,8 @@
         public string CompanyId { get; set; }
 
         public Company Company { get; set; }
+
+        public ICollection<CandidateUniversity> Universities { get; set; } = new List<CandidateUniversity>();
 
         public ICollection<Application> Applications { get; set; } = new List<Application>();
 
