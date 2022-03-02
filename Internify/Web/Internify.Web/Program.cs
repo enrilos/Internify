@@ -61,6 +61,12 @@ builder.Services.AddTransient<ISpecializationService, SpecializationService>();
 // Singleton?
 builder.Services.AddTransient<RoleChecker>();
 
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.Strict;
+});
+
 var app = builder.Build();
 
 //app.PrepareDatabase();
@@ -76,6 +82,8 @@ else
 }
 
 //app.UseWebSockets();
+
+app.UseCookiePolicy();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
