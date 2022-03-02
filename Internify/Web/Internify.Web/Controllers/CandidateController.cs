@@ -42,9 +42,7 @@
 
         public IActionResult All([FromQuery] CandidateListingQueryModel queryModel)
         {
-            queryModel =
-                candidateService
-                .All(
+            queryModel = candidateService.All(
                 queryModel.FirstName,
                 queryModel.LastName,
                 queryModel.SpecializationId,

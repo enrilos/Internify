@@ -8,9 +8,7 @@
         private readonly InternifyDbContext data;
 
         public CandidateUniversityService(InternifyDbContext data)
-        {
-            this.data = data;
-        }
+            => this.data = data;
 
         public bool IsCandidateInUniversityAlumni(string universityId, string candidateId)
             => data

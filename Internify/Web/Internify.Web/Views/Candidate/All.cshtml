@@ -34,7 +34,7 @@
                     <option value="@country.Id">@country.Name</option>
                 }
             </select>
-            <span asp-validation-for="SpecializationId" class="small text-danger"></span>
+            <span asp-validation-for="CountryId" class="small text-danger"></span>
         </section>
         <section class="form-check form-switch mt-4 mx-2">
             <input class="form-check-input" type="checkbox" asp-for="IsAvailable">
@@ -64,7 +64,14 @@
     var maxPage = Math.Ceiling((double)Model.TotalCandidates / Model.CandidatesPerPage);
 }
 
-<partial name="_CandidatesPartial" model="@Model.Candidates" />
+@if (Model.Candidates.Any())
+{
+    <partial name="_CandidatesPartial" model="@Model.Candidates" />
+}
+else
+{
+    <p class="h2 text-center">Uh oh! No candidates were found.</p>
+}
 
 <section class="d-flex flex-row justify-content-around text-center my-5">
     <section>
