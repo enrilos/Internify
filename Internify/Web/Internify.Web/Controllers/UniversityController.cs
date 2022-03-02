@@ -35,11 +35,17 @@
             this.roleChecker = roleChecker;
         }
 
-        public IActionResult All()
+        public IActionResult All([FromQuery] UniversityListingQueryModel queryModel)
         {
-            var universities = universityService.All();
+            queryModel = universityService.All(
+                queryModel.Name,
+                queryModel.CountryId,
+                queryModel.CurrentPage,
+                queryModel.UniversitiesPerPage);
 
-            return View(universities);
+            queryModel.Countries = AcquireCachedCountries();
+
+            return View(queryModel);
         }
 
         [Authorize]

@@ -34,6 +34,10 @@
 
         public EditUniversityFormModel GetEditModel(string id);
 
-        public IEnumerable<UniversityListingViewModel> All();
+        public UniversityListingQueryModel All(
+            string name,
+            string countryId,
+            int currentPage,
+            int universitiesPerPage);
     }
 }

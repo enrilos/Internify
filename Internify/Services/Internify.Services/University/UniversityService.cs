@@ -176,17 +176,59 @@
             })
             .FirstOrDefault();
 
-        public IEnumerable<UniversityListingViewModel> All()
-            => data
-            .Universities
-            .Where(x => !x.IsDeleted)
-            .Select(x => new UniversityListingViewModel
+        public UniversityListingQueryModel All(
+            string name,
+            string countryId,
+            int currentPage,
+            int universitiesPerPage)
+        {
+            var universitiesQuery = data.Universities.Where(x => !x.IsDeleted).AsQueryable();
+
+            if (name != null)
             {
-                Id = x.Id,
-                Name = x.Name,
-                ImageUrl = x.ImageUrl,
-                Country = x.Country.Name
-            })
-            .ToList();
+                universitiesQuery = universitiesQuery
+                    .Where(x => x.Name.Contains(name.Trim()));
+            }
+
+            if (countryId != null)
+            {
+                universitiesQuery = universitiesQuery
+                    .Where(x => x.CountryId == countryId);
+            }
+
+            if (currentPage <= 0)
+            {
+                currentPage = 1;
+            }
+
+            if (universitiesPerPage < 6)
+            {
+                universitiesPerPage = 6;
+            }
+
+            var universities = universitiesQuery
+                .OrderByDescending(x => x.CreatedOn)
+                .ThenBy(x => x.Name)
+                .Skip((currentPage - 1) * universitiesPerPage)
+                .Take(universitiesPerPage)
+                .Select(x => new UniversityListingViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    ImageUrl = x.ImageUrl,
+                    Country = x.Country.Name
+                })
+                .ToList();
+
+            return new UniversityListingQueryModel
+            {
+                Name = name,
+                CountryId = countryId,
+                Universities = universities,
+                CurrentPage = currentPage,
+                UniversitiesPerPage = universitiesPerPage,
+                TotalUniversities = universitiesQuery.Count()
+            };
+        }
     }
 }

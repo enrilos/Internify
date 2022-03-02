@@ -64,7 +64,11 @@
 </article>
 @if (Model.Alumni.Any())
 {
-    <p class="h1 text-center my-5">Prominent Alumni</p>
+    {
+        // TODO..
+        // Implement filtering/pagination for university alumni
+    }
+    <p class="h1 text-center my-5">Alumni</p>
     <section>
         <partial name="../Candidate/_CandidatesPartial" model="@Model.Alumni" />
     </section>
