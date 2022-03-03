@@ -30,9 +30,6 @@
 
         public string Company { get; set; }
 
-        // TODO: Show candidate's reviews.
-        //public ICollection<Review> Reviews { get; set; }
-
         public string CreatedOn { get; init; }
 
         public string ModifiedOn { get; set; }

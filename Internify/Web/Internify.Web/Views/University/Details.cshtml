@@ -64,10 +64,9 @@
 </article>
 @if (Model.Alumni.Any())
 {
-    {
-        // TODO..
-        // Implement filtering/pagination for university alumni
-    }
+    // Add btn that navigates University/Alumni/universityId
+    // where all the univesity's alumni are displayed along with filtering and pagination.
+    // use the same _CandidatesPartial
     <p class="h1 text-center my-5">Alumni</p>
     <section>
         <partial name="../Candidate/_CandidatesPartial" model="@Model.Alumni" />

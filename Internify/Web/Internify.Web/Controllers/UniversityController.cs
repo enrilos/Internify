@@ -170,6 +170,18 @@
         }
 
         [Authorize]
+        public IActionResult Alumni([FromQuery] UniversityAlumniListingQueryModel queryModel)
+        {
+            // TODO..
+            //queryModel = universityService.Alumni();
+
+            //queryModel.Countries = AcquireCachedCountries();
+
+            //return View(queryModel);
+            return null;
+        }
+
+        [Authorize]
         public IActionResult AddToAlumni(string universityId, string candidateId)
         {
             if (!IsTheSameUniversity(universityId))

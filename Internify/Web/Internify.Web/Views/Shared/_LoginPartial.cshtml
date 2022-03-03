@@ -40,10 +40,10 @@
                     // validate in controller
                     // for instance other candidate should be be able to access candidaate A or candidate B, but only their own
 
-                    // My Applications...
-                    // My Company (if the candidate currently is an intern)
-                    // My Reviews... (reviews can be edited/deleted by owner)
-                    // My Comments... (comments can be edited/deleted by owner)
+                    // My Applications... (applications cam be submitted to an internship by a candidate)
+                    // My Company (if the candidate currently is an intern of a company)
+                    // My Reviews... (reviews can be edited/deleted by candidate owner)
+                    // My Comments... (comments can be edited/deleted by candidate owner)
                 }
             }
             else if (universityService.IsUniversityByUserId(User?.Id()))
@@ -68,6 +68,7 @@
                     // My (Open) Internships...
                     // My Interns...
                     // My Articles...
+                    // My Reviews... (written by interns - candidates)
                 }
             }
             else if (isAdmin)
