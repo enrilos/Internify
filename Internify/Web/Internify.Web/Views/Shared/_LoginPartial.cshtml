@@ -4,6 +4,9 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject ICandidateService candidateService
+@inject IUniversityService universityService
+@inject ICompanyService companyService
 @inject RoleChecker roleChecker
 @inject InternifyDbContext data
 
@@ -23,6 +26,58 @@
             <a class="nav-item nav-link text-dark h5 mx-3" asp-area="" asp-controller="Home" asp-action="SelectRole">
                 <i class="far fa-user fa-2x"></i>
             </a>
+        }
+        else
+        {
+            if (candidateService.IsCandidateByUserId(User?.Id()))
+            {
+                <a
+                class="nav-item nav-link text-dark h5 mx-2 p-3 border border-dark rounded"
+                asp-controller="Candidate"
+                asp-action="MyCandidate"
+                asp-route-id="@candidateService.GetIdByUserId(User?.Id())">My Candidate</a>
+                {
+                    // validate in controller
+                    // for instance other candidate should be be able to access candidaate A or candidate B, but only their own
+
+                    // My Applications...
+                    // My Company (if the candidate currently is an intern)
+                    // My Reviews... (reviews can be edited/deleted by owner)
+                    // My Comments... (comments can be edited/deleted by owner)
+                }
+            }
+            else if (universityService.IsUniversityByUserId(User?.Id()))
+            {
+                <a
+                class="nav-item nav-link text-dark h5 mx-2 p-3 border border-dark rounded"
+                asp-controller="University"
+                asp-action="Details"
+                asp-route-id="@universityService.GetIdByUserId(User?.Id())">My University</a>
+            }
+            else if (companyService.IsCompanyByUserId(User?.Id()))
+            {
+                <a
+                class="nav-item nav-link text-dark h5 mx-2 p-3 border border-dark rounded"
+                asp-controller="Company"
+                asp-action="MyCompany"
+                asp-route-id="@companyService.GetIdByUserId(User?.Id())">My Company</a>
+                {
+                    // validate in controller
+                    // for instance other companies should be be able to access company A or company B, but only their own
+
+                    // My (Open) Internships...
+                    // My Interns...
+                    // My Articles...
+                }
+            }
+            else if (isAdmin)
+            {
+                <a
+                class="nav-item nav-link text-dark h5 mx-2 p-3 border border-dark rounded"
+                asp-area="Administrator"
+                asp-controller="Home"
+                asp-action="Index">Admin</a>
+            }
         }
 
         <li class="nav-item">

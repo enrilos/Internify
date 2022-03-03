@@ -256,6 +256,10 @@
             {
                 candidatesPerPage = 6;
             }
+            else if (candidatesPerPage > 96)
+            {
+                candidatesPerPage = 96;
+            }
 
             var candidates = candidatesQuery
                .OrderByDescending(x => x.CreatedOn)

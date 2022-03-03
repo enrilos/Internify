@@ -205,6 +205,10 @@
             {
                 universitiesPerPage = 6;
             }
+            else if (universitiesPerPage > 96)
+            {
+                universitiesPerPage = 96;
+            }
 
             var universities = universitiesQuery
                 .OrderByDescending(x => x.CreatedOn)

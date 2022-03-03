@@ -10,7 +10,7 @@
 @if (showBanner)
 {
     <section id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
-        @CookiesConsent <a asp-controller="Home" asp-action="Privacy">Learn More</a>
+        <p>@CookiesConsent <a asp-controller="Home" asp-action="Privacy">Learn More</a></p>
         <button type="button" class="btn btn-primary rounded" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
             <span aria-hidden="true">Accept</span>
         </button>
