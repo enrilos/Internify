@@ -18,6 +18,9 @@
         [MaxLength(ContentMaxLength)]
         public string Content { get; set; }
 
+        [Range(minimum: 1, maximum: 5)]
+        public int Rating { get; set; }
+
         [Required]
         public string CandidateId { get; set; }
 

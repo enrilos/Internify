@@ -19,6 +19,10 @@
                 .WithMany(x => x.Reviews)
                 .HasForeignKey(x => x.CompanyId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Property(x => x.Rating)
+                .HasDefaultValue(1);
         }
     }
 }
