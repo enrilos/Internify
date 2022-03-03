@@ -1,7 +1,6 @@
 ﻿namespace Internify.Services.University
 {
     using Models.InputModels.University;
-    using Models.ViewModels.Candidate;
     using Models.ViewModels.University;
 
     public interface IUniversityService
@@ -39,5 +38,10 @@
             string countryId,
             int currentPage,
             int universitiesPerPage);
+
+        public UniversityAlumniListingQueryModel Alumni(
+            string id,
+            int currentPage,
+            int alumniPerPage);
     }
 }

@@ -2,10 +2,10 @@
 {
     using Data;
     using Data.Models;
-    using Internify.Models.ViewModels.Candidate;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.University;
+    using Models.ViewModels.Candidate;
     using Models.ViewModels.University;
 
     using static Common.GlobalConstants;
@@ -232,6 +232,27 @@
                 CurrentPage = currentPage,
                 UniversitiesPerPage = universitiesPerPage,
                 TotalUniversities = universitiesQuery.Count()
+            };
+        }
+
+        public UniversityAlumniListingQueryModel Alumni(
+            string id,
+            int currentPage,
+            int alumniPerPage)
+        {
+            var alumniQuery = data
+                .Universities
+                .Where(x => x.Id == id && !x.IsDeleted)
+                .Include(x => x.Alumni)
+                .AsQueryable();
+
+            // Filter, validate...
+
+            return new UniversityAlumniListingQueryModel
+            {
+                CurrentPage = currentPage,
+                AlumniPerPage = alumniPerPage,
+                TotalAlumni = alumniQuery.Count()
             };
         }
     }
