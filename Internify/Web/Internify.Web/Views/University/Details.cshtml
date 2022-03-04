@@ -65,6 +65,7 @@
         {
             <p>Website: <a href="@(@Model.WebsiteUrl.Contains("http") ? @Model.WebsiteUrl : $"http://{@Model.WebsiteUrl}")">@Model.WebsiteUrl</a></p>
         }
+        <p>Founded: @Model.Founded</p>
         <p>Country: @Model.Country</p>
     </article>
 </section>

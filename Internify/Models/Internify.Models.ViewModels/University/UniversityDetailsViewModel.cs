@@ -10,6 +10,8 @@
 
         public string WebsiteUrl { get; init; }
 
+        public int Founded { get; init; }
+
         public string Description { get; init; }
 
         public string Country { get; init; }

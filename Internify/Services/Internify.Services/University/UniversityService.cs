@@ -45,15 +45,17 @@
             string name,
             string imageUrl,
             string websiteUrl,
+            int founded,
             string description,
             string countryId)
         {
             var university = new University
             {
                 UserId = userId,
-                Name = name,
+                Name = name.Trim(),
                 ImageUrl = imageUrl.Trim(),
                 WebsiteUrl = websiteUrl.Trim(),
+                Founded = founded,
                 Description = description.Trim(),
                 CountryId = countryId
             };
@@ -78,6 +80,7 @@
             string name,
             string imageUrl,
             string websiteUrl,
+            int founded,
             string description,
             string countryId)
         {
@@ -91,6 +94,7 @@
             university.Name = name;
             university.ImageUrl = imageUrl;
             university.WebsiteUrl = websiteUrl;
+            university.Founded = founded;
             university.Description = description;
             university.CountryId = countryId;
 
@@ -151,6 +155,7 @@
                 Name = x.Name,
                 ImageUrl = x.ImageUrl,
                 WebsiteUrl = x.WebsiteUrl,
+                Founded = x.Founded,
                 Description = x.Description,
                 Country = x.Country.Name,
                 HasAlumni = x.Alumni.Any()
@@ -167,6 +172,7 @@
                 Name = x.Name,
                 ImageUrl = x.ImageUrl,
                 WebsiteUrl = x.WebsiteUrl,
+                Founded = x.Founded,
                 Description = x.Description,
                 CountryId = x.CountryId
             })

@@ -4,6 +4,7 @@
     using ViewModels.Country;
 
     using static Data.Common.DataConstants;
+    using static Data.Common.DataConstants.University;
 
     public class EditUniversityFormModel
     {
@@ -20,6 +21,9 @@
         [Required]
         [MaxLength(UrlMaxLength)]
         public string WebsiteUrl { get; set; }
+
+        [Range(minimum: FoundedMinYear, maximum: FoundedMaxYear)]
+        public int Founded { get; set; }
 
         [Required]
         [MaxLength(DescriptionMaxLength)]

@@ -98,6 +98,7 @@
                 university.Name,
                 university.ImageUrl,
                 university.WebsiteUrl,
+                university.Founded,
                 university.Description,
                 university.CountryId);
 
@@ -164,6 +165,7 @@
                 university.Name,
                 university.ImageUrl,
                 university.WebsiteUrl,
+                university.Founded,
                 university.Description,
                 university.CountryId);
 

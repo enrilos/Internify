@@ -17,6 +17,7 @@
             string name,
             string imageUrl,
             string websiteUrl,
+            int founded,
             string description,
             string countryId);
 
@@ -25,6 +26,7 @@
             string name,
             string imageUrl,
             string websiteUrl,
+            int founded,
             string description,
             string countryId);
 

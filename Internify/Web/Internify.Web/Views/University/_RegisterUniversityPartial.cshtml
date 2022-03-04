@@ -21,6 +21,11 @@
                 <span asp-validation-for="WebsiteUrl" class="small text-danger"></span>
             </section>
             <section class="form-group">
+                <label asp-for="Founded"></label>
+                <input asp-for="Founded" class="form-control">
+                <span asp-validation-for="Founded" class="small text-danger"></span>
+            </section>
+            <section class="form-group">
                 <label asp-for="Description"></label>
                 @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
                 <span asp-validation-for="Description" class="small text-danger"></span>

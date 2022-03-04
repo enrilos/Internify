@@ -4,6 +4,7 @@
     using ViewModels.Country;
 
     using static Data.Common.DataConstants;
+    using static Data.Common.DataConstants.University;
 
     public class RegisterUniversityFormModel
     {
@@ -24,6 +25,9 @@
         [Required]
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
+
+        [Range(minimum: FoundedMinYear, maximum: FoundedMaxYear)]
+        public int Founded { get; set; }
 
         [Required(ErrorMessage = "Invalid option.")]
         [Display(Name = "Country")]
