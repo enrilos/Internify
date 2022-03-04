@@ -7,44 +7,53 @@
 }
 
 <section class="container d-flex bd-highlight justify-content-evenly align-items-center flex-column">
-    @if (Model.Id == universityService.GetIdByUserId(User?.Id()))
-    {
-        <a class="btn btn-primary rounded m-1"
-       asp-controller="University"
-       asp-action="Edit"
-       asp-route-id="@Model.Id">Edit</a>
-    }
-    @if (User.IsAdmin())
-    {
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Delete
-        </button>
+    <article>
+        @if (Model.Id == universityService.GetIdByUserId(User?.Id()))
+        {
+            <a class="btn btn-primary rounded m-1"
+           asp-controller="University"
+           asp-action="Edit"
+           asp-route-id="@Model.Id">Edit</a>
+        }
+        @if (Model.HasAlumni)
+        {
+            <a class="btn btn-primary rounded m-1"
+           asp-controller="University"
+           asp-action="Alumni"
+           asp-route-universityId="@Model.Id">Alumni</a>
+        }
+        @if (User.IsAdmin())
+        {
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Delete
+            </button>
 
-        <!-- Modal -->
-        <section class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <section class="modal-dialog">
-                <section class="modal-content">
-                    <section class="modal-header">
-                        <p class="modal-title h5" id="exampleModalLabel">Delete university</p>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </section>
-                    <section class="modal-body">
-                        <p class="h5">Delete this university?</p>
-                    </section>
-                    <section class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!-- Modal -->
+            <section class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <section class="modal-dialog">
+                    <section class="modal-content">
+                        <section class="modal-header">
+                            <p class="modal-title h5" id="exampleModalLabel">Delete university</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </section>
+                        <section class="modal-body">
+                            <p class="h5">Delete this university?</p>
+                        </section>
+                        <section class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
-                        <a class="btn btn-danger rounded m-1"
-                       asp-area="Administrator"
-                       asp-controller="University"
-                       asp-action="Delete"
-                       asp-route-id="@Model.Id">Delete</a>
+                            <a class="btn btn-danger rounded m-1"
+                           asp-area="Administrator"
+                           asp-controller="University"
+                           asp-action="Delete"
+                           asp-route-id="@Model.Id">Delete</a>
+                        </section>
                     </section>
                 </section>
             </section>
-        </section>
-    }
+        }
+    </article>
     <article class="m-4">
         <p class="h1">@Model.Name</p>
     </article>
@@ -62,13 +71,3 @@
 <article class="p-2 m-3 bg-light">
     <p class="text-center" style="word-wrap: break-word;">@Model.Description</p>
 </article>
-@if (Model.Alumni.Any())
-{
-    // Add btn that navigates University/Alumni/universityId
-    // where all the univesity's alumni are displayed along with filtering and pagination.
-    // use the same _CandidatesPartial
-    <p class="h1 text-center my-5">Alumni</p>
-    <section>
-        <partial name="../Candidate/_CandidatesPartial" model="@Model.Alumni" />
-    </section>
-}

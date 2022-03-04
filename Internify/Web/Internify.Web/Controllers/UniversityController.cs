@@ -2,13 +2,16 @@
 {
     using Common;
     using Infrastructure.Extensions;
+    using Internify.Models.InputModels.Candidate;
     using Internify.Models.InputModels.University;
     using Internify.Models.ViewModels.Country;
+    using Internify.Models.ViewModels.Specialization;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
     using Services.CandidateUniversity;
     using Services.Country;
+    using Services.Specialization;
     using Services.University;
 
     using static Common.WebConstants;
@@ -17,6 +20,7 @@
     {
         private readonly IUniversityService universityService;
         private readonly ICountryService countryService;
+        private readonly ISpecializationService specializationService;
         private readonly ICandidateUniversityService candidateUniversityService;
         private readonly IMemoryCache cache;
         private readonly RoleChecker roleChecker;
@@ -24,12 +28,14 @@
         public UniversityController(
             IUniversityService universityService,
             ICountryService countryService,
+            ISpecializationService specializationService,
             ICandidateUniversityService candidateUniversityService,
             IMemoryCache cache,
             RoleChecker roleChecker)
         {
             this.universityService = universityService;
             this.countryService = countryService;
+            this.specializationService = specializationService;
             this.candidateUniversityService = candidateUniversityService;
             this.cache = cache;
             this.roleChecker = roleChecker;
@@ -169,16 +175,22 @@
             return RedirectToAction(nameof(Details), new { id = university.Id });
         }
 
-        [Authorize]
-        public IActionResult Alumni([FromQuery] UniversityAlumniListingQueryModel queryModel)
+        public IActionResult Alumni([FromQuery] CandidateListingQueryModel queryModel)
         {
-            // TODO..
-            //queryModel = universityService.Alumni();
+            queryModel = universityService.Alumni(
+                queryModel.UniversityId,
+                queryModel.FirstName,
+                queryModel.LastName,
+                queryModel.SpecializationId,
+                queryModel.CountryId,
+                queryModel.IsAvailable,
+                queryModel.CurrentPage,
+                queryModel.CandidatesPerPage);
 
-            //queryModel.Countries = AcquireCachedCountries();
+            queryModel.Countries = AcquireCachedCountries();
+            queryModel.Specializations = AcquireCachedSpecializations();
 
-            //return View(queryModel);
-            return null;
+            return View(queryModel);
         }
 
         [Authorize]
@@ -234,6 +246,23 @@
         private bool IsTheSameUniversity(string id)
             => universityService
             .GetIdByUserId(User?.Id()) == id;
+
+        private IEnumerable<SpecializationListingViewModel> AcquireCachedSpecializations()
+        {
+            var specializations = cache.Get<IEnumerable<SpecializationListingViewModel>>(SpecializationsCacheKey);
+
+            if (specializations == null)
+            {
+                specializations = specializationService.All();
+
+                var cacheOptions = new MemoryCacheEntryOptions()
+                     .SetPriority(CacheItemPriority.NeverRemove);
+
+                cache.Set(SpecializationsCacheKey, specializations, cacheOptions);
+            }
+
+            return specializations;
+        }
 
         private IEnumerable<CountryListingViewModel> AcquireCachedCountries()
         {

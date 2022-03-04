@@ -227,7 +227,7 @@
         }
 
         public CandidateListingQueryModel Alumni(
-            string id,
+            string universityId,
             string firstName,
             string lastName,
             string specializationId,
@@ -238,7 +238,7 @@
         {
             var alumniQuery = data
                 .Candidates
-                .Where(x => x.Universities.Any(u => u.UniversityId == id && !u.University.IsDeleted))
+                .Where(x => x.Universities.Any(u => u.UniversityId == universityId && !u.University.IsDeleted))
                 .AsQueryable();
 
             if (isAvailable)
@@ -285,7 +285,6 @@
                 alumniPerPage = 96;
             }
 
-
             var candidates = alumniQuery
                .OrderByDescending(x => x.CreatedOn)
                .ThenBy(x => x.FirstName)
@@ -306,7 +305,7 @@
 
             return new CandidateListingQueryModel
             {
-                Id = id,
+                UniversityId = universityId,
                 FirstName = firstName,
                 LastName = lastName,
                 SpecializationId = specializationId,
