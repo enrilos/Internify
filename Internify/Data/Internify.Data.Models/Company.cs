@@ -25,6 +25,9 @@
         [MaxLength(UrlMaxLength)]
         public string WebsiteUrl { get; set; }
 
+        [Range(minimum: FoundedMinYear, maximum: FoundedMaxYear)]
+        public int Founded { get; set; }
+
         [Required]
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }

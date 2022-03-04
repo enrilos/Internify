@@ -9,6 +9,8 @@
 
         public class Company
         {
+            public const int FoundedMinYear = 1645;
+            public const int FoundedMaxYear = 2050;
             public const int CEOMaxLength = 50;
         }
 
