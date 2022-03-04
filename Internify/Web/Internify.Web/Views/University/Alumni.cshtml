@@ -1,0 +1,111 @@
+﻿@model CandidateListingQueryModel
+
+@{
+    ViewData["Title"] = "University Alumni";
+}
+
+<p class="h1 text-center my-3" style="word-break: break-all;">Alumni</p>
+
+<form method="get">
+    <input asp-for="UniversityId" type="hidden" />
+    <section class="py-4 px-2 d-flex bd-highlight justify-content-evenly align-items-center flex-wrap">
+        <section class="form-group">
+            <label asp-for="FirstName"></label>
+            <input asp-for="FirstName" class="form-control">
+        </section>
+        <section class="form-group">
+            <label asp-for="LastName"></label>
+            <input asp-for="LastName" class="form-control">
+        </section>
+        <section class="form-group">
+            <label asp-for="SpecializationId"></label>
+            <select asp-for="SpecializationId" class="form-control">
+                <option value="" selected> -- select specialization -- </option>
+                @foreach (var specialization in Model.Specializations)
+                {
+                    <option value="@specialization.Id">@specialization.Name</option>
+                }
+            </select>
+            <span asp-validation-for="SpecializationId" class="small text-danger"></span>
+        </section>
+        <section class="form-group">
+            <label asp-for="CountryId"></label>
+            <select asp-for="CountryId" class="form-control">
+                <option value="" selected> -- select country -- </option>
+                @foreach (var country in Model.Countries)
+                {
+                    <option value="@country.Id">@country.Name</option>
+                }
+            </select>
+            <span asp-validation-for="CountryId" class="small text-danger"></span>
+        </section>
+        <section class="form-check form-switch mt-4 mx-2">
+            <input class="form-check-input" type="checkbox" asp-for="IsAvailable">
+            <label class="form-check-label" asp-for="IsAvailable">Is Available</label>
+        </section>
+        <section class="form-group">
+            <label asp-for="CandidatesPerPage"></label>
+            <select asp-for="CandidatesPerPage" class="form-control">
+                <option value="6" selected>6</option>
+                <option value="12">12</option>
+                <option value="24">24</option>
+                <option value="48">48</option>
+                <option value="96">96</option>
+            </select>
+        </section>
+        <input class="btn btn-primary mt-3" type="submit" value="Search" />
+    </section>
+</form>
+
+@{
+    var previousPage = Model.CurrentPage - 1;
+
+    if (previousPage < 1)
+    {
+        previousPage = 1;
+    }
+    var maxPage = Math.Ceiling((double)Model.TotalCandidates / Model.CandidatesPerPage);
+}
+
+@if (Model.Candidates.Any())
+{
+    <section>
+        <partial name="../Candidate/_CandidatesPartial" model="@Model.Candidates" />
+    </section>
+}
+else
+{
+    <p class="h2 text-center">Uh oh! No alumni were found.</p>
+}
+
+<section class="d-flex flex-row justify-content-around text-center my-5">
+    <section>
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+           asp-controller="University"
+           asp-action="Alumni"
+           asp-route-currentPage="@previousPage"
+           asp-route-universityId="@Model.UniversityId"
+           asp-route-firstName="@Model.FirstName"
+           asp-route-lastName="@Model.LastName"
+           asp-route-specializationId="@Model.SpecializationId"
+           asp-route-countryId="@Model.CountryId"
+           asp-route-isAvailable="@Model.IsAvailable">Previous</a>
+    </section>
+
+    @{
+        var shouldButtonBeDisabled = Model.CurrentPage == maxPage || !Model.Candidates.Any();
+    }
+
+    <section>
+        <a class="btn btn-primary float-sm-right @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
+           asp-controller="University"
+           asp-action="Alumni"
+           asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-universityId="@Model.UniversityId"
+           asp-route-firstName="@Model.FirstName"
+           asp-route-lastName="@Model.LastName"
+           asp-route-specializationId="@Model.SpecializationId"
+           asp-route-countryId="@Model.CountryId"
+           asp-route-isAvailable="@Model.IsAvailable">Next</a>
+    </section>
+</section>
