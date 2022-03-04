@@ -41,7 +41,7 @@
             int universitiesPerPage);
 
         public CandidateListingQueryModel Alumni(
-            string id,
+            string universityId,
             string firstName,
             string lastName,
             string specializationId,

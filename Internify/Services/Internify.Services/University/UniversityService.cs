@@ -303,9 +303,12 @@
                })
                .ToList();
 
+            var universityName = data.Universities.Find(universityId)?.Name;
+
             return new CandidateListingQueryModel
             {
                 UniversityId = universityId,
+                UniversityName = universityName,
                 FirstName = firstName,
                 LastName = lastName,
                 SpecializationId = specializationId,

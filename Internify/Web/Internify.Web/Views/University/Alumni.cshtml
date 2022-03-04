@@ -4,7 +4,13 @@
     ViewData["Title"] = "University Alumni";
 }
 
-<p class="h1 text-center my-3" style="word-break: break-all;">Alumni</p>
+<p class="h1 text-center my-3" style="word-break: break-all;">Alumni of 
+    <a
+    class="container-nav-title-content"
+    asp-controller="University"
+    asp-action="Details"
+    asp-route-id="@Model.UniversityId">@Model.UniversityName</a>
+</p>
 
 <form method="get">
     <input asp-for="UniversityId" type="hidden" />
