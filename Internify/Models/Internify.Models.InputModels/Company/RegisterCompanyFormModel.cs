@@ -13,7 +13,6 @@
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         public string Name { get; set; }
 
-        [Required]
         [MaxLength(UrlMaxLength)]
         [Display(Name = "Image URL")]
         public string ImageUrl { get; set; }
@@ -37,6 +36,7 @@
         public string CEO { get; set; }
 
         [Range(minimum: 0, maximum: 999999999)]
+        [Display(Name = "Employees Count")]
         public int EmployeesCount { get; set; }
 
         public bool IsPublic { get; set; }
