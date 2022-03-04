@@ -135,6 +135,11 @@
             return true;
         }
 
+        public bool Exists(string id)
+            => data
+            .Universities
+            .Any(x => x.Id == id && !x.IsDeleted);
+
         public UniversityDetailsViewModel GetDetailsModel(string id)
             => data
             .Universities

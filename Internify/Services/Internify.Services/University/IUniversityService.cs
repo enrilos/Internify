@@ -30,6 +30,8 @@
 
         public bool Delete(string id);
 
+        public bool Exists(string id);
+
         public UniversityDetailsViewModel GetDetailsModel(string id);
 
         public EditUniversityFormModel GetEditModel(string id);
