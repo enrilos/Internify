@@ -32,7 +32,7 @@
         public string Description { get; set; }
 
         [Range(typeof(decimal), "0", "999999999999999")]
-        public decimal Revenue { get; set; }
+        public long? RevenueUSD { get; set; }
 
         [Required]
         [MaxLength(NameMaxLength)]

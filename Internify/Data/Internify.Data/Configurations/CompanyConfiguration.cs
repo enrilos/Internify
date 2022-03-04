@@ -25,11 +25,6 @@
                 .WithMany(x => x.Companies)
                 .HasForeignKey(x => x.CountryId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-
-            builder
-                .Property(x => x.Revenue)
-                .HasColumnType("decimal(18, 2)");
         }
     }
 }
