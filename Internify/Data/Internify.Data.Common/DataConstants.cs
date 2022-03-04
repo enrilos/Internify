@@ -14,6 +14,12 @@
             public const int CEOMaxLength = 50;
         }
 
+        public class University
+        {
+            public const int FoundedMinYear = 1088;
+            public const int FoundedMaxYear = 2050;
+        }
+
         public class Internship
         {
             public const int RoleMaxLength = 50;

@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using static Common.DataConstants;
+    using static Common.DataConstants.University;
 
     public class University : IAuditInfo, IDeletableEntity
     {
@@ -24,6 +25,9 @@
         [Required]
         [MaxLength(UrlMaxLength)]
         public string WebsiteUrl { get; set; }
+
+        [Range(minimum: FoundedMinYear, maximum: FoundedMaxYear)]
+        public int Founded { get; set; }
 
         [Required]
         [MaxLength(DescriptionMaxLength)]
