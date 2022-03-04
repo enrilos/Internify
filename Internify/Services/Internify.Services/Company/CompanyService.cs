@@ -1,13 +1,23 @@
 ﻿namespace Internify.Services.Company
 {
     using Data;
+    using Data.Models;
+    using Microsoft.AspNetCore.Identity;
+
+    using static Common.GlobalConstants;
 
     public class CompanyService : ICompanyService
     {
         private readonly InternifyDbContext data;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public CompanyService(InternifyDbContext data)
-            => this.data = data;
+        public CompanyService(
+            InternifyDbContext data,
+            UserManager<ApplicationUser> userManager)
+        {
+            this.data = data;
+            this.userManager = userManager;
+        }
 
         public bool IsCompany(string id)
             => data
@@ -24,5 +34,53 @@
             .Companies
             .Where(x => x.UserId == userId && !x.IsDeleted)
             .FirstOrDefault()?.Id;
+
+        public string Add(
+            string userId,
+            string name,
+            string imageUrl,
+            string websiteUrl,
+            int founded,
+            string description,
+            decimal revenue,
+            string ceo,
+            int employeesCount,
+            bool isPublic,
+            bool isGovernmentOwned,
+            string specializationId,
+            string countryId,
+            string hostName)
+        {
+            var company = new Company
+            {
+                Name = name,
+                UserId = userId,
+                ImageUrl = imageUrl == null ? Path.Combine(hostName, "/images/company.jpg") : imageUrl?.Trim(),
+                WebsiteUrl = websiteUrl?.Trim(),
+                Founded = founded,
+                Description = description.Trim(),
+                Revenue = revenue,
+                CEO = ceo.Trim(),
+                EmployeesCount = employeesCount,
+                IsPublic = isPublic,
+                IsGovernmentOwned = isGovernmentOwned,
+                SpecializationId = specializationId,
+                CountryId = countryId
+            };
+
+            data.Companies.Add(company);
+
+            Task.Run(async () =>
+            {
+                var user = await userManager.FindByIdAsync(userId);
+                await userManager.AddToRoleAsync(user, CompanyRoleName);
+            })
+            .GetAwaiter()
+            .GetResult();
+
+            data.SaveChanges();
+
+            return company.Id;
+        }
     }
 }
