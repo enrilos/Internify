@@ -28,8 +28,9 @@
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
-        [Range(typeof(decimal), "0", "999999999999999")]
-        public decimal Revenue { get; set; }
+        [Range(typeof(long), "1", "999999999999999")]
+        [Display(Name = "Revenue in USD")]
+        public long? RevenueUSD { get; set; }
 
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]

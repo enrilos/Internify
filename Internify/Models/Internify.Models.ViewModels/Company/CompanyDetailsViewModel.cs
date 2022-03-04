@@ -14,7 +14,7 @@
 
         public string Description { get; init; }
 
-        public decimal Revenue { get; init; }
+        public long? RevenueUSD { get; init; }
 
         public string CEO { get; init; }
 

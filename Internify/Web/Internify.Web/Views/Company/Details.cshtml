@@ -59,7 +59,10 @@
             <p>Website: <a href="@(@Model.WebsiteUrl.Contains("http") ? @Model.WebsiteUrl : $"http://{@Model.WebsiteUrl}")">@Model.WebsiteUrl</a></p>
         }
         <p>Founded: @Model.Founded</p>
-        <p>Revenue: @Model.Revenue</p>
+        @if (@Model.RevenueUSD != null)
+        {
+            <p>Revenue in USD: @Model.RevenueUSD</p>
+        }
         <p>CEO: @Model.CEO</p>
         <p>Employees Count: @Model.EmployeesCount</p>
         <p>Is Public: @Model.IsPublicMessage</p>

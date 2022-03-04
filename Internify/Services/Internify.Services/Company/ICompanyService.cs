@@ -17,7 +17,7 @@
             string websiteUrl,
             int founded,
             string description,
-            decimal revenue,
+            long? revenueUSD,
             string ceo,
             int employeesCount,
             bool isPublic,

@@ -89,7 +89,7 @@
                 company.WebsiteUrl,
                 company.Founded,
                 company.Description,
-                company.Revenue,
+                company.RevenueUSD,
                 company.CEO,
                 company.EmployeesCount,
                 company.IsPublic,
