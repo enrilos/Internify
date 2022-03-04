@@ -36,7 +36,7 @@
         public decimal Revenue { get; set; }
 
         [Required]
-        [MaxLength(CEOMaxLength)]
+        [MaxLength(NameMaxLength)]
         public string CEO { get; set; }
 
         [Range(minimum: 0, maximum: 999999999)]
