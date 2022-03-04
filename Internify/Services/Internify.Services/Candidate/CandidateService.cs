@@ -215,11 +215,15 @@
             int currentPage,
             int candidatesPerPage)
         {
-            var candidatesQuery = data.Candidates.Where(x => !x.IsDeleted).AsQueryable();
+            var candidatesQuery = data
+                .Candidates
+                .Where(x => !x.IsDeleted)
+                .AsQueryable();
 
             if (isAvailable)
             {
-                candidatesQuery = candidatesQuery.Where(x => x.IsAvailable == isAvailable);
+                candidatesQuery = candidatesQuery
+                    .Where(x => x.IsAvailable);
             }
             // Otherwise, list all despite availability.
 
@@ -273,7 +277,7 @@
                    FirstName = x.FirstName,
                    LastName = x.LastName,
                    ImageUrl = x.ImageUrl,
-                   Age = (int)((DateTime.Now - x.BirthDate).TotalDays / 365.242199),
+                   Age = (int)((DateTime.Now - x.BirthDate).TotalDays / DaysInAYear),
                    Country = x.Country.Name,
                    Specialization = x.Specialization.Name
                })

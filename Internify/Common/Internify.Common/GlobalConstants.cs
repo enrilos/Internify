@@ -8,5 +8,7 @@
         public const string UniversityRoleName = "University";
 
         public const string CookiesConsent = "We use cookies to ameliorate your experience.";
+
+        public const double DaysInAYear = 365.242199;
     }
 }
