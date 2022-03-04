@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Internify.Data.Migrations
 {
     [DbContext(typeof(InternifyDbContext))]
-    [Migration("20220304193617_ConvertedCompanyRevenueToANullableLong")]
-    partial class ConvertedCompanyRevenueToANullableLong
+    [Migration("20220304194315_ConvertedCompanyRevenueToRevenueUSDANullableLong")]
+    partial class ConvertedCompanyRevenueToRevenueUSDANullableLong
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

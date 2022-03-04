@@ -31,7 +31,7 @@
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
-        [Range(typeof(decimal), "0", "999999999999999")]
+        [Range(typeof(long), "1", "999999999999999")]
         public long? RevenueUSD { get; set; }
 
         [Required]

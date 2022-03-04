@@ -4,7 +4,7 @@
 
 namespace Internify.Data.Migrations
 {
-    public partial class ConvertedCompanyRevenueToANullableLong : Migration
+    public partial class ConvertedCompanyRevenueToRevenueUSDANullableLong : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
