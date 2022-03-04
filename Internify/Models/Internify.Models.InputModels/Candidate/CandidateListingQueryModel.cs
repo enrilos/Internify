@@ -7,8 +7,11 @@
 
     public class CandidateListingQueryModel
     {
-        // Used for university id so that their alumni could be listed. Everything else is identical.
+        // User for university id (alumni).
         public string UniversityId { get; set; }
+
+        // Used for university name (alumni). Everything else is identical
+        public string UniversityName { get; set; }
 
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
