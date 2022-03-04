@@ -177,6 +177,11 @@
 
         public IActionResult Alumni([FromQuery] CandidateListingQueryModel queryModel)
         {
+            if (!universityService.Exists(queryModel.UniversityId))
+            {
+                return NotFound();
+            }
+
             queryModel = universityService.Alumni(
                 queryModel.UniversityId,
                 queryModel.FirstName,
