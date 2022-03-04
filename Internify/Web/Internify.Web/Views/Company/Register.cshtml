@@ -1,1 +1,11 @@
-﻿This is company register area.
+﻿@model RegisterCompanyFormModel
+
+@{
+    ViewData["Title"] = "Register your Company";
+}
+
+<partial name="_RegisterCompanyPartial" model="@Model" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

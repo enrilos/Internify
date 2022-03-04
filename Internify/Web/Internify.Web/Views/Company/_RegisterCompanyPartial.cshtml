@@ -1,0 +1,93 @@
+﻿@model RegisterCompanyFormModel
+
+<section class="row">
+    <section class="col-md-6 offset-md-3">
+        <h2 class="heading-margin text-center">@ViewData["Title"]</h2>
+
+        <form method="post">
+            <section class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control">
+                <span asp-validation-for="Name" class="small text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" class="form-control" placeholder="Not Required">
+                <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="WebsiteUrl"></label>
+                <input asp-for="WebsiteUrl" class="form-control" placeholder="Not Required">
+                <span asp-validation-for="WebsiteUrl" class="small text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Founded"></label>
+                <input asp-for="Founded" class="form-control">
+                <span asp-validation-for="Founded" class="small text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Description"></label>
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Revenue"></label>
+                <input asp-for="Revenue" class="form-control">
+                <span asp-validation-for="Revenue" class="small text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="CEO"></label>
+                <input asp-for="CEO" class="form-control">
+                <span asp-validation-for="CEO" class="small text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="EmployeesCount"></label>
+                <input asp-for="EmployeesCount" class="form-control">
+                <span asp-validation-for="EmployeesCount" class="small text-danger"></span>
+            </section>
+            <section class="form-check form-switch my-2">
+                <label class="form-check-label" asp-for="IsPublic">Is Public</label>
+                <input class="form-check-input" type="checkbox" asp-for="IsPublic">
+            </section>
+            <section class="form-check form-switch my-2">
+                <label class="form-check-label" asp-for="IsGovernmentOwned">Is Government-owned</label>
+                <input class="form-check-input" type="checkbox" asp-for="IsGovernmentOwned">
+            </section>
+            <section class="form-group">
+                <label asp-for="SpecializationId"></label>
+
+                <select asp-for="SpecializationId" class="form-control">
+
+                    <option value="" selected> -- select specialization -- </option>
+                    @foreach (var specialization in Model.Specializations)
+                    {
+                        <option value="@specialization.Id">@specialization.Name</option>
+                    }
+
+                </select>
+
+                <span asp-validation-for="SpecializationId" class="small text-danger"></span>
+
+            </section>
+            <section class="form-group">
+                <label asp-for="CountryId"></label>
+
+                <select asp-for="CountryId" class="form-control">
+
+                    <option value="" selected> -- select country -- </option>
+                    @foreach (var country in Model.Countries)
+                    {
+                        <option value="@country.Id">@country.Name</option>
+                    }
+
+                </select>
+
+                <span asp-validation-for="CountryId" class="small text-danger"></span>
+
+            </section>
+
+            <input class="btn btn-primary mt-3" type="submit" value="Submit" />
+        </form>
+
+    </section>
+</section>
