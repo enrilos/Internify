@@ -3,6 +3,7 @@
     using Data;
     using Data.Models;
     using Microsoft.AspNetCore.Identity;
+    using Models.ViewModels.Company;
 
     using static Common.GlobalConstants;
 
@@ -82,5 +83,27 @@
 
             return company.Id;
         }
+
+        public CompanyDetailsViewModel GetDetailsModel(string id)
+            => data
+            .Companies
+            .Where(x => x.Id == id && !x.IsDeleted)
+            .Select(x => new CompanyDetailsViewModel
+            {
+                Id = id,
+                Name = x.Name,
+                ImageUrl = x.ImageUrl,
+                WebsiteUrl = x.WebsiteUrl,
+                Founded = x.Founded,
+                Description = x.Description,
+                Revenue = x.Revenue,
+                CEO = x.CEO,
+                EmployeesCount = x.EmployeesCount,
+                IsPublicMessage = x.IsPublic == true ? "✔️ Yes" : "❌ No",
+                IsGovernmentOwnedMessage = x.IsGovernmentOwned == true ? "✔️ Yes" : "❌ No",
+                Specialization = x.Specialization.Name,
+                Country = x.Country.Name,
+            })
+            .FirstOrDefault();
     }
 }

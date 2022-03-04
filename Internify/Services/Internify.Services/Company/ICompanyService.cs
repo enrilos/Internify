@@ -1,5 +1,7 @@
 ﻿namespace Internify.Services.Company
 {
+    using Models.ViewModels.Company;
+
     public interface ICompanyService
     {
         public bool IsCompany(string id);
@@ -23,5 +25,7 @@
             string specializationId,
             string countryId,
             string hostName);
+
+        public CompanyDetailsViewModel GetDetailsModel(string id);
     }
 }
