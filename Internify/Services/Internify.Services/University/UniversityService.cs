@@ -4,6 +4,7 @@
     using Data.Models;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+    using Models.InputModels.Candidate;
     using Models.InputModels.University;
     using Models.ViewModels.Candidate;
     using Models.ViewModels.University;
@@ -138,6 +139,7 @@
             => data
             .Universities
             .Where(x => x.Id == id && !x.IsDeleted)
+            .Include(x => x.Alumni)
             .Select(x => new UniversityDetailsViewModel
             {
                 Id = id,
@@ -146,18 +148,7 @@
                 WebsiteUrl = x.WebsiteUrl,
                 Description = x.Description,
                 Country = x.Country.Name,
-                Alumni = x.Alumni
-                .Select(c => new CandidateListingViewModel
-                {
-                    Id = c.Candidate.Id,
-                    FirstName = c.Candidate.LastName,
-                    LastName = c.Candidate.LastName,
-                    Age = (int)((DateTime.Now - c.Candidate.BirthDate).TotalDays / 365.242199),
-                    ImageUrl = c.Candidate.ImageUrl,
-                    Country = c.Candidate.Country.Name,
-                    Specialization = c.Candidate.Specialization.Name
-                })
-                .ToList()
+                HasAlumni = x.Alumni.Any()
             })
             .FirstOrDefault();
 
@@ -235,24 +226,96 @@
             };
         }
 
-        public UniversityAlumniListingQueryModel Alumni(
+        public CandidateListingQueryModel Alumni(
             string id,
+            string firstName,
+            string lastName,
+            string specializationId,
+            string countryId,
+            bool isAvailable,
             int currentPage,
             int alumniPerPage)
         {
             var alumniQuery = data
-                .Universities
-                .Where(x => x.Id == id && !x.IsDeleted)
-                .Include(x => x.Alumni)
+                .Candidates
+                .Where(x => x.Universities.Any(u => u.UniversityId == id && !u.University.IsDeleted))
                 .AsQueryable();
 
-            // Filter, validate...
-
-            return new UniversityAlumniListingQueryModel
+            if (isAvailable)
             {
+                alumniQuery = alumniQuery
+                    .Where(x => x.IsAvailable);
+            }
+
+            if (firstName != null)
+            {
+                alumniQuery = alumniQuery
+                    .Where(x => x.FirstName.Contains(firstName.Trim()));
+            }
+
+            if (lastName != null)
+            {
+                alumniQuery = alumniQuery
+                    .Where(x => x.LastName.Contains(lastName.Trim()));
+            }
+
+            if (specializationId != null)
+            {
+                alumniQuery = alumniQuery
+                    .Where(x => x.SpecializationId == specializationId);
+            }
+
+            if (countryId != null)
+            {
+                alumniQuery = alumniQuery
+                    .Where(x => x.CountryId == countryId);
+            }
+
+            if (currentPage <= 0)
+            {
+                currentPage = 1;
+            }
+
+            if (alumniPerPage < 6)
+            {
+                alumniPerPage = 6;
+            }
+            else if (alumniPerPage > 96)
+            {
+                alumniPerPage = 96;
+            }
+
+
+            var candidates = alumniQuery
+               .OrderByDescending(x => x.CreatedOn)
+               .ThenBy(x => x.FirstName)
+               .ThenBy(x => x.LastName)
+               .Skip((currentPage - 1) * alumniPerPage)
+               .Take(alumniPerPage)
+               .Select(x => new CandidateListingViewModel
+               {
+                   Id = x.Id,
+                   FirstName = x.FirstName,
+                   LastName = x.LastName,
+                   ImageUrl = x.ImageUrl,
+                   Age = (int)((DateTime.Now - x.BirthDate).TotalDays / DaysInAYear),
+                   Country = x.Country.Name,
+                   Specialization = x.Specialization.Name
+               })
+               .ToList();
+
+            return new CandidateListingQueryModel
+            {
+                Id = id,
+                FirstName = firstName,
+                LastName = lastName,
+                SpecializationId = specializationId,
+                CountryId = countryId,
+                IsAvailable = isAvailable,
+                Candidates = candidates,
                 CurrentPage = currentPage,
-                AlumniPerPage = alumniPerPage,
-                TotalAlumni = alumniQuery.Count()
+                CandidatesPerPage = alumniPerPage,
+                TotalCandidates = alumniQuery.Count()
             };
         }
     }
