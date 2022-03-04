@@ -100,16 +100,19 @@
 
             TempData[GlobalMessageKey] = "Thank you for registering your company!";
 
-            return RedirectToAction("All", "Candidate");
-            // TODO..
-            //return RedirectToAction(nameof(Details), new { id = companyId });
+            return RedirectToAction(nameof(Details), new { id = companyId });
         }
 
         public IActionResult Details(string id)
         {
-            // TODO..
+            var company = companyService.GetDetailsModel(id);
 
-            return null;
+            if (company == null)
+            {
+                return NotFound();
+            }
+
+            return View(company);
         }
 
         private IEnumerable<SpecializationListingViewModel> AcquireCachedSpecializations()
