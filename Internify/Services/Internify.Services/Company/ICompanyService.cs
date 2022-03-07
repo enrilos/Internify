@@ -1,5 +1,6 @@
 ﻿namespace Internify.Services.Company
 {
+    using Models.InputModels.Company;
     using Models.ViewModels.Company;
 
     public interface ICompanyService
@@ -43,5 +44,7 @@
             string hostName);
 
         public CompanyDetailsViewModel GetDetailsModel(string id);
+
+        public EditCompanyFormModel GetEditModel(string id);
     }
 }

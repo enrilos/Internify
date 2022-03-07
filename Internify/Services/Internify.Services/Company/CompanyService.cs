@@ -3,6 +3,7 @@
     using Data;
     using Data.Models;
     using Microsoft.AspNetCore.Identity;
+    using Models.InputModels.Company;
     using Models.ViewModels.Company;
 
     using static Common.GlobalConstants;
@@ -146,6 +147,28 @@
                 IsGovernmentOwnedMessage = x.IsGovernmentOwned == true ? "✔️ Yes" : "❌ No",
                 Specialization = x.Specialization.Name,
                 Country = x.Country.Name,
+            })
+            .FirstOrDefault();
+
+        public EditCompanyFormModel GetEditModel(string id)
+            => data
+            .Companies
+            .Where(x => x.Id == id && !x.IsDeleted)
+            .Select(x => new EditCompanyFormModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+                ImageUrl = x.ImageUrl,
+                WebsiteUrl = x.WebsiteUrl,
+                Founded = x.Founded,
+                Description = x.Description,
+                RevenueUSD = x.RevenueUSD,
+                CEO = x.CEO,
+                EmployeesCount = x.EmployeesCount,
+                IsPublic = x.IsPublic,
+                IsGovernmentOwned = x.IsGovernmentOwned,
+                SpecializationId = x.SpecializationId,
+                CountryId = x.CountryId
             })
             .FirstOrDefault();
     }
