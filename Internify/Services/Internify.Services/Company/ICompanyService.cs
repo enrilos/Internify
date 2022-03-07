@@ -26,6 +26,22 @@
             string countryId,
             string hostName);
 
+        public bool Edit(
+            string id,
+            string name,
+            string imageUrl,
+            string websiteUrl,
+            int founded,
+            string description,
+            long? revenueUSD,
+            string ceo,
+            int employeesCount,
+            bool isPublic,
+            bool isGovernmentOwned,
+            string specializationId,
+            string countryId,
+            string hostName);
+
         public CompanyDetailsViewModel GetDetailsModel(string id);
     }
 }

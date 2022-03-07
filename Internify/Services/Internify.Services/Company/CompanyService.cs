@@ -56,7 +56,7 @@
             {
                 Name = name,
                 UserId = userId,
-                ImageUrl = imageUrl == null ? Path.Combine(hostName, "/images/company.jpg") : imageUrl?.Trim(),
+                ImageUrl = imageUrl == null ? Path.Combine(hostName, "/images/company.jpg") : imageUrl.Trim(),
                 WebsiteUrl = websiteUrl?.Trim(),
                 Founded = founded,
                 Description = description.Trim(),
@@ -82,6 +82,49 @@
             data.SaveChanges();
 
             return company.Id;
+        }
+
+        public bool Edit(
+            string id,
+            string name,
+            string imageUrl,
+            string websiteUrl,
+            int founded,
+            string description,
+            long? revenueUSD,
+            string ceo,
+            int employeesCount,
+            bool isPublic,
+            bool isGovernmentOwned,
+            string specializationId,
+            string countryId,
+            string hostName)
+        {
+            var company = data.Companies.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
+
+            if (company == null)
+            {
+                return false;
+            }
+
+            company.Name = name.Trim();
+            company.ImageUrl = imageUrl == null ? Path.Combine(hostName, "/images/company.jpg") : imageUrl.Trim();
+            company.WebsiteUrl = websiteUrl?.Trim();
+            company.Founded = founded;
+            company.Description = description.Trim();
+            company.RevenueUSD = revenueUSD;
+            company.CEO = ceo.Trim();
+            company.EmployeesCount = employeesCount;
+            company.IsPublic = isPublic;
+            company.IsGovernmentOwned = isGovernmentOwned;
+            company.SpecializationId = specializationId;
+            company.CountryId = countryId;
+
+            company.ModifiedOn = DateTime.UtcNow;
+
+            data.SaveChanges();
+
+            return true;
         }
 
         public CompanyDetailsViewModel GetDetailsModel(string id)
