@@ -217,7 +217,9 @@
                 return BadRequest();
             }
 
-            return RedirectToAction(nameof(All));
+            TempData[GlobalMessageKey] = "Successfully edited candidate.";
+
+            return RedirectToAction(nameof(Details), new { id = candidate.Id });
         }
 
         private bool IsTheSameCandidate(string id)

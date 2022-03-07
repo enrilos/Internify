@@ -174,6 +174,8 @@
                 return BadRequest();
             }
 
+            TempData[GlobalMessageKey] = "Successfully edited university.";
+
             return RedirectToAction(nameof(Details), new { id = university.Id });
         }
 
