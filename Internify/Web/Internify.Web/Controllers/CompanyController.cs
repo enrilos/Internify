@@ -36,6 +36,24 @@
             this.roleChecker = roleChecker;
         }
 
+        public IActionResult All([FromQuery] CompanyListingQueryModel queryModel)
+        {
+            queryModel = companyService.All(
+                queryModel.Name,
+                queryModel.SpecializationId,
+                queryModel.CountryId,
+                queryModel.EmployeesCount,
+                queryModel.IsPublic,
+                queryModel.IsGovernmentOwned,
+                queryModel.CurrentPage,
+                queryModel.CompaniesPerPage);
+
+            queryModel.Specializations = AcquireCachedSpecializations();
+            queryModel.Countries = AcquireCachedCountries();
+
+            return View(queryModel);
+        }
+
         [Authorize]
         public IActionResult Register()
         {
