@@ -171,5 +171,109 @@
                 CountryId = x.CountryId
             })
             .FirstOrDefault();
+
+        public CompanyListingQueryModel All(
+           string name,
+           string specializationId,
+           string countryId,
+           int? employeesCount,
+           bool isPublic,
+           bool isGovernmentOwned,
+           int currentPage,
+           int companiesPerPage)
+        {
+            var companiesQuery = data
+                .Companies
+                .Where(x => !x.IsDeleted)
+                .AsQueryable();
+
+            if (name != null)
+            {
+                companiesQuery = companiesQuery
+                    .Where(x => x.Name.ToLower().Contains(name.ToLower().Trim()));
+            }
+
+            if (specializationId != null)
+            {
+                companiesQuery = companiesQuery
+                    .Where(x => x.SpecializationId == specializationId);
+            }
+
+            if (countryId != null)
+            {
+                companiesQuery = companiesQuery
+                    .Where(x => x.CountryId == countryId);
+            }
+
+            if (employeesCount != null)
+            {
+                if (employeesCount <= 50)
+                {
+                    companiesQuery = companiesQuery
+                        .Where(x => x.EmployeesCount <= 50);
+                }
+                else if (employeesCount > 50)
+                {
+                    companiesQuery = companiesQuery
+                        .Where(x => x.EmployeesCount > 50);
+                }
+            }
+
+            if (isPublic)
+            {
+                companiesQuery = companiesQuery
+                    .Where(x => x.IsPublic);
+            }
+            // Otherwise, list all.
+
+            if (isGovernmentOwned)
+            {
+                companiesQuery = companiesQuery
+                    .Where(x => x.IsGovernmentOwned);
+            }
+
+            if (currentPage <= 0)
+            {
+                currentPage = 1;
+            }
+
+            if (companiesPerPage < 6)
+            {
+                companiesPerPage = 6;
+            }
+            else if (companiesPerPage > 96)
+            {
+                companiesPerPage = 96;
+            }
+
+            var companies = companiesQuery
+               .OrderByDescending(x => x.CreatedOn)
+               .ThenBy(x => x.Name)
+               .Skip((currentPage - 1) * companiesPerPage)
+               .Take(companiesPerPage)
+               .Select(x => new CompanyListingViewModel
+               {
+                   Id = x.Id,
+                   Name = x.Name,
+                   ImageUrl = x.ImageUrl,
+                   Specialization = x.Specialization.Name,
+                   Country = x.Country.Name
+               })
+               .ToList();
+
+            return new CompanyListingQueryModel
+            {
+                Name = name,
+                SpecializationId = specializationId,
+                CountryId = countryId,
+                EmployeesCount = employeesCount,
+                IsPublic = isPublic,
+                IsGovernmentOwned = isGovernmentOwned,
+                Companies = companies,
+                CurrentPage = currentPage,
+                CompaniesPerPage = companiesPerPage,
+                TotalCompanies = companiesQuery.Count()
+            };
+        }
     }
 }

@@ -46,5 +46,15 @@
         public CompanyDetailsViewModel GetDetailsModel(string id);
 
         public EditCompanyFormModel GetEditModel(string id);
+
+        public CompanyListingQueryModel All(
+            string name,
+            string specializationId,
+            string countryId,
+            int? employeesCount,
+            bool isPublic,
+            bool isGovernmentOwned,
+            int currentPage,
+            int companiesPerPage);
     }
 }
