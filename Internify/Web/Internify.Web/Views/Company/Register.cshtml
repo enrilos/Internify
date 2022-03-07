@@ -1,11 +1,20 @@
 ﻿@model RegisterCompanyFormModel
 
 @{
-    ViewData["Title"] = "Register your Company";
+    ViewData["Title"] = "Register your company";
 }
 
-<partial name="_RegisterCompanyPartial" model="@Model" />
+<section class="row">
+    <section class="col-md-6 offset-md-3">
+        <h2 class="heading-margin text-center">@ViewData["Title"]</h2>
+
+        <form method="post">
+            <partial name="_CompanyFormFieldsPartial" model="@Model" />
+            <input class="btn btn-primary mt-3" type="submit" value="Submit" />
+        </form>
+    </section>
+</section>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+<partial name="_ValidationScriptsPartial" />
 }
