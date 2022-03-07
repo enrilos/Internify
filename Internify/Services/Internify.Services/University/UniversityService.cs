@@ -189,7 +189,7 @@
             if (name != null)
             {
                 universitiesQuery = universitiesQuery
-                    .Where(x => x.Name.Contains(name.Trim()));
+                    .Where(x => x.Name.ToLower().Contains(name.ToLower().Trim()));
             }
 
             if (countryId != null)
@@ -261,13 +261,13 @@
             if (firstName != null)
             {
                 alumniQuery = alumniQuery
-                    .Where(x => x.FirstName.Contains(firstName.Trim()));
+                    .Where(x => x.FirstName.ToLower().Contains(firstName.ToLower().Trim()));
             }
 
             if (lastName != null)
             {
                 alumniQuery = alumniQuery
-                    .Where(x => x.LastName.Contains(lastName.Trim()));
+                    .Where(x => x.LastName.ToLower().Contains(lastName.ToLower().Trim()));
             }
 
             if (specializationId != null)

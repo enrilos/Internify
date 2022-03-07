@@ -230,13 +230,13 @@
             if (firstName != null)
             {
                 candidatesQuery = candidatesQuery
-                    .Where(x => x.FirstName.Contains(firstName.Trim()));
+                    .Where(x => x.FirstName.ToLower().Contains(firstName.ToLower().Trim()));
             }
 
             if (lastName != null)
             {
                 candidatesQuery = candidatesQuery
-                    .Where(x => x.LastName.Contains(lastName.Trim()));
+                    .Where(x => x.LastName.ToLower().Contains(lastName.ToLower().Trim()));
             }
 
             if (specializationId != null)
