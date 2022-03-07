@@ -102,11 +102,11 @@
                 return false;
             }
 
-            candidate.FirstName = firstName;
-            candidate.LastName = lastName;
-            candidate.ImageUrl = imageUrl;
-            candidate.WebsiteUrl = websiteUrl;
-            candidate.Description = description;
+            candidate.FirstName = firstName.Trim();
+            candidate.LastName = lastName.Trim();
+            candidate.ImageUrl = imageUrl.Trim();
+            candidate.WebsiteUrl = websiteUrl.Trim();
+            candidate.Description = description.Trim();
             candidate.BirthDate = birthDate;
             candidate.Gender = gender;
             candidate.IsAvailable = isAvailable;

@@ -91,11 +91,11 @@
                 return false;
             }
 
-            university.Name = name;
-            university.ImageUrl = imageUrl;
-            university.WebsiteUrl = websiteUrl;
+            university.Name = name.Trim();
+            university.ImageUrl = imageUrl.Trim();
+            university.WebsiteUrl = websiteUrl.Trim();
             university.Founded = founded;
-            university.Description = description;
+            university.Description = description.Trim();
             university.CountryId = countryId;
 
             university.ModifiedOn = DateTime.UtcNow;
