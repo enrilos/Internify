@@ -3,6 +3,7 @@
     using Data;
     using Data.Models;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Company;
     using Models.ViewModels.Company;
 
@@ -122,6 +123,66 @@
             company.CountryId = countryId;
 
             company.ModifiedOn = DateTime.UtcNow;
+
+            data.SaveChanges();
+
+            return true;
+        }
+
+        public bool Delete(string id)
+        {
+            var company = data
+                   .Companies
+                   .Include(x => x.OpenInternships)
+                   .Include(x => x.Interns)
+                   .Include(x => x.Articles)
+                   .Include(x => x.Reviews)
+                   .FirstOrDefault(x => x.Id == id && !x.IsDeleted);
+
+            if (company == null)
+            {
+                return false;
+            }
+
+            company.IsDeleted = true;
+            company.DeletedOn = DateTime.UtcNow;
+
+            foreach (var internship in company.OpenInternships)
+            {
+                internship.CompanyId = null;
+                internship.IsDeleted = true;
+                internship.DeletedOn = company.DeletedOn;
+            }
+
+            foreach (var intern in company.Interns)
+            {
+                intern.CompanyId = null;
+            }
+
+            foreach (var article in company.Articles)
+            {
+                article.CompanyId = null;
+                article.IsDeleted = true;
+                article.DeletedOn = company.DeletedOn;
+            }
+
+            foreach (var review in company.Reviews)
+            {
+                review.CompanyId = null;
+                review.IsDeleted = true;
+                review.DeletedOn = company.DeletedOn;
+            }
+
+            data.SaveChanges();
+
+            Task.Run(async () =>
+            {
+                var user = await userManager.FindByIdAsync(company.UserId);
+                user.IsDeleted = company.IsDeleted;
+                user.DeletedOn = company.DeletedOn;
+            })
+            .GetAwaiter()
+            .GetResult();
 
             data.SaveChanges();
 

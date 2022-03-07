@@ -43,6 +43,8 @@
             string countryId,
             string hostName);
 
+        public bool Delete(string id);
+
         public CompanyDetailsViewModel GetDetailsModel(string id);
 
         public EditCompanyFormModel GetEditModel(string id);
