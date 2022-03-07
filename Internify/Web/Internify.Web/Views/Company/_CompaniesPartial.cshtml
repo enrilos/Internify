@@ -1,0 +1,16 @@
+﻿@model IEnumerable<CompanyListingViewModel>
+
+<section class="row justify-content-center mt-3">
+    @foreach (var company in @Model)
+    {
+        <section class="card col-md-3 m-2 bg-light">
+            <img src="@company.ImageUrl" class="card-img-center m-1 rounded" alt="Company Logo" style="min-height: 300px; max-height: 300px; object-fit: contain;" />
+            <section class="card-body">
+                <h5 class="card-title">@company.Name</h5>
+                <p class="card-text">@company.Specialization</p>
+                <p class="card-text"><i class="fas fa-map-marker-alt"></i> @company.Country</p>
+                <a asp-controller="Company" asp-action="Details" asp-route-id="@company.Id" class="btn btn-primary">Details</a>
+            </section>
+        </section>
+    }
+</section>

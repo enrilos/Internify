@@ -1,0 +1,122 @@
+﻿@model CompanyListingQueryModel
+
+@{
+    ViewData["Title"] = "All Companies";
+}
+
+<p class="h2 heading-margin text-center">@ViewData["Title"]</p>
+
+<form method="get">
+    <section class="py-5 px-2 d-flex bd-highlight justify-content-evenly align-items-center flex-wrap">
+        <section class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control">
+        </section>
+
+        <section class="form-group">
+            <label asp-for="SpecializationId"></label>
+            <select asp-for="SpecializationId" class="form-control">
+                <option value="" selected> -- select specialization -- </option>
+                @foreach (var specialization in Model.Specializations)
+                {
+                    <option value="@specialization.Id">@specialization.Name</option>
+                }
+            </select>
+            <span asp-validation-for="SpecializationId" class="small text-danger"></span>
+        </section>
+
+        <section class="form-group">
+            <label asp-for="CountryId"></label>
+            <select asp-for="CountryId" class="form-control">
+                <option value="" selected> -- select country -- </option>
+                @foreach (var country in Model.Countries)
+                {
+                    <option value="@country.Id">@country.Name</option>
+                }
+            </select>
+            <span asp-validation-for="CountryId" class="small text-danger"></span>
+        </section>
+
+        <section class="form-group">
+            <label asp-for="EmployeesCount"></label>
+            <select asp-for="EmployeesCount" class="form-control">
+                <option value="" selected></option>
+                <option value="50">50 employees</option>
+                <option value="51">50+ employees</option>
+            </select>
+        </section>
+
+        <section class="form-check form-switch mt-4 mx-2">
+            <input class="form-check-input" type="checkbox" asp-for="IsPublic">
+            <label class="form-check-label" asp-for="IsPublic">Is Public</label>
+        </section>
+
+        <section class="form-check form-switch mt-4 mx-2">
+            <input class="form-check-input" type="checkbox" asp-for="IsGovernmentOwned">
+            <label class="form-check-label" asp-for="IsGovernmentOwned">Is Government-owned</label>
+        </section>
+
+        <section class="form-group">
+            <label asp-for="CompaniesPerPage"></label>
+            <select asp-for="CompaniesPerPage" class="form-control">
+                <option value="6" selected>6</option>
+                <option value="12">12</option>
+                <option value="24">24</option>
+                <option value="48">48</option>
+                <option value="96">96</option>
+            </select>
+        </section>
+        <input class="btn btn-primary mt-3" type="submit" value="Search" />
+    </section>
+</form>
+
+@{
+    var previousPage = Model.CurrentPage - 1;
+
+    if (previousPage < 1)
+    {
+        previousPage = 1;
+    }
+    var maxPage = Math.Ceiling((double)Model.TotalCompanies / Model.CompaniesPerPage);
+}
+
+@if (Model.Companies.Any())
+{
+    <partial name="_CompaniesPartial" model="@Model.Companies" />
+}
+else
+{
+    <p class="h2 text-center">Uh oh! No companies were found.</p>
+}
+
+<section class="d-flex flex-row justify-content-around text-center my-5">
+    <section>
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+           asp-controller="Company"
+           asp-action="All"
+           asp-route-currentPage="@previousPage"
+           asp-route-name="@Model.Name"
+           asp-route-employeesCount="@Model.EmployeesCount"
+           asp-route-isPublic="@Model.IsPublic"
+           asp-route-isGovernmentOwned="@Model.IsGovernmentOwned"
+           asp-route-specializationId="@Model.SpecializationId"
+           asp-route-countryId="@Model.CountryId">Previous</a>
+    </section>
+
+    @{
+        var shouldButtonBeDisabled = Model.CurrentPage == maxPage || !Model.Companies.Any();
+    }
+
+    <section>
+        <a class="btn btn-primary float-sm-right @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
+           asp-controller="Company"
+           asp-action="All"
+           asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-name="@Model.Name"
+           asp-route-employeesCount="@Model.EmployeesCount"
+           asp-route-isPublic="@Model.IsPublic"
+           asp-route-isGovernmentOwned="@Model.IsGovernmentOwned"
+           asp-route-specializationId="@Model.SpecializationId"
+           asp-route-countryId="@Model.CountryId">Next</a>
+    </section>
+</section>
