@@ -1,6 +1,5 @@
-﻿namespace Internify.Models.InputModels.Company
+﻿namespace Internify.Models.InputModels.Company.Contracts
 {
-    using Contracts;
     using System.ComponentModel.DataAnnotations;
     using ViewModels.Country;
     using ViewModels.Specialization;
@@ -8,10 +7,8 @@
     using static Data.Common.DataConstants;
     using static Data.Common.DataConstants.Company;
 
-    public class EditCompanyFormModel : ICompanyFormModel
+    public interface ICompanyFormModel
     {
-        public string Id { get; set; }
-
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         public string Name { get; set; }

@@ -1,5 +1,6 @@
 ﻿namespace Internify.Models.InputModels.Company
 {
+    using Contracts;
     using System.ComponentModel.DataAnnotations;
     using ViewModels.Country;
     using ViewModels.Specialization;
@@ -7,7 +8,7 @@
     using static Data.Common.DataConstants;
     using static Data.Common.DataConstants.Company;
 
-    public class RegisterCompanyFormModel
+    public class RegisterCompanyFormModel : ICompanyFormModel
     {
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
