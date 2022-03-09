@@ -27,7 +27,7 @@
             SeedAdministrator(services);
             SeedUsers(services);
             SeedCandidates(services);
-            //SeedUniversities(services);
+            SeedUniversities(services);
             //SeedCompanies(services);
 
             return app;
@@ -389,38 +389,46 @@
                     Email = "lock@gmail.com",
                     UserName = "lock@gmail.com"
                 },
-                //new ApplicationUser
-                //{
-                //    // university
-                //},
-                //new ApplicationUser
-                //{
-                //    // university
-                //},
-                //new ApplicationUser
-                //{
-                //    // university
-                //},
-                //new ApplicationUser
-                //{
-                //    // university
-                //},
-                //new ApplicationUser
-                //{
-                //    // university
-                //},
-                //new ApplicationUser
-                //{
-                //    // university
-                //},
-                //new ApplicationUser
-                //{
-                //    // university
-                //},
-                //new ApplicationUser
-                //{
-                //    // university
-                //},
+                new ApplicationUser
+                {
+                    Email = "nbu@gmail.com",
+                    UserName = "nbu@gmail.com"
+                },
+                new ApplicationUser
+                {
+                    Email = "mit@gmail.com",
+                    UserName = "mit@gmail.com"
+                },
+                new ApplicationUser
+                {
+                    Email = "babson@gmail.com",
+                    UserName = "babson@gmail.com"
+                },
+                new ApplicationUser
+                {
+                    Email = "telaviv@gmail.com",
+                    UserName = "telaviv@gmail.com"
+                },
+                new ApplicationUser
+                {
+                    Email = "stanford@gmail.com",
+                    UserName = "stanford@gmail.com"
+                },
+                new ApplicationUser
+                {
+                    Email = "yale@gmail.com",
+                    UserName = "yale@gmail.com"
+                },
+                new ApplicationUser
+                {
+                    Email = "softuni@gmail.com",
+                    UserName = "softuni@gmail.com"
+                },
+                new ApplicationUser
+                {
+                    Email = "paris@gmail.com",
+                    UserName = "paris@gmail.com"
+                },
                 //new ApplicationUser
                 //{
                 //    // company
@@ -615,7 +623,7 @@ Ivaylo Kenov was born on April 9, 1989.",
                     LastName = "Markish",
                     ImageUrl = "https://im.indiatimes.in/content/2021/Nov/software-engineer_619f38104827c.jpg",
                     WebsiteUrl = null,
-                    Description = "I believe in code and the fact that everything has it logical explanation.",
+                    Description = "I believe in code and the fact that everything has its logical explanation.",
                     BirthDate = DateTime.Parse("10/22/1997 12:00:00 AM"),
                     Gender = Gender.Male,
                     SpecializationId = GetSpecializationIdByName(data, "IT, Engineering, Technology"),
@@ -628,7 +636,7 @@ Ivaylo Kenov was born on April 9, 1989.",
                     LastName = "Vasilev",
                     ImageUrl = "https://avatars.githubusercontent.com/u/38570429?v=4",
                     WebsiteUrl = "https://naskovasilev.github.io/CV/",
-                    Description = @"My name is Atanas Vasilev and I am born in 24/11/2001. Currently I am student in the Faculty of Mathematics and Informatics in Sofia.
+                    Description = @"My name is Atanas Vasilev and I am born in 24/11/2001. Currently, I am student in the Faculty of Mathematics and Informatics in Sofia.
 
 My favourite programming language is C#, but I also like programming in JavaScript.
 
@@ -675,44 +683,109 @@ I am sociable and reliable person. I like learning new things every day. I like 
         private static void SeedUniversities(IServiceProvider services)
         {
             var data = services.GetService<InternifyDbContext>();
-            var users = data.Users
-                .Skip(UsersCreatedByRole)
-                .Take(UsersCreatedByRole)
-                .ToList();
+            var users = data.Users.ToList();
 
             var universities = new List<University>()
             {
                 new University
                 {
-                    UserId = users[0].Id
+                    Name = "New Bulgarian University",
+                    ImageUrl = "https://www.world-education.eu/uploads/58c29b8823c3425541214124c02e90e175a2f9e1.png",
+                    WebsiteUrl = "nbu.bg",
+                    Founded = 1991,
+                    Type = Type.Private,
+                    Description = @"New Bulgarian University is a private university based in Sofia, the capital of Bulgaria. Its campus is in the western district of the city, known for its proximity to the Vitosha nature park. The university also owns multiple other buildings across the country, as well as its own publishing house and a library.",
+                    CountryId = GetCountryIdByName(data, "Bulgaria"),
+                    UserId = users.FirstOrDefault(x => x.Email.Contains("nbu")).Id
                 },
                 new University
                 {
-                    UserId = users[1].Id
+                    Name = "Massachusetts Institute of Technology",
+                    ImageUrl = "https://www.newtondesk.com/wp-content/uploads/2018/05/MIT-Massachusetts-Institute-of-Technology.jpg",
+                    WebsiteUrl = "https://www.mit.edu/",
+                    Founded = 1861,
+                    Type = Type.Private,
+                    Description = @"The Massachusetts Institute of Technology (MIT) is a private land-grant research university in Cambridge, Massachusetts. Established in 1861, MIT has since played a key role in the development of modern technology and science, ranking it among the top academic institutions in the world.
+
+Founded in response to the increasing industrialization of the United States, MIT adopted a European polytechnic university model and stressed laboratory instruction in applied science and engineering. The institute has an urban campus that extends more than a mile (1.6 km) alongside the Charles River, and encompasses a number of major off-campus facilities such as the MIT Lincoln Laboratory, the Bates Center, and the Haystack Observatory, as well as affiliated laboratories such as the Broad and Whitehead Institutes.",
+                    CountryId = GetCountryIdByName(data, "United States"),
+                    UserId = users.FirstOrDefault(x => x.Email.Contains("mit")).Id
                 },
                 new University
                 {
-                    UserId = users[2].Id
+                    Name = "Babson College",
+                    ImageUrl = "https://meaningful.business/wp-content/uploads/2021/02/babson-500x500.png",
+                    WebsiteUrl = "babson.edu",
+                    Founded = 1919,
+                    Type = Type.Private,
+                    Description = @"Babson College is a private business school in Wellesley, Massachusetts. Established in 1919, its central focus is on entrepreneurship education. It was founded by Roger W. Babson as an all-male business institute, but became coeducational in 1970.",
+                    CountryId = GetCountryIdByName(data, "United States"),
+                    UserId = users.FirstOrDefault(x => x.Email.Contains("babson")).Id
                 },
                 new University
                 {
-                    UserId = users[3].Id
+                    Name = "Tel Aviv University",
+                    ImageUrl = "https://satchifainarolab.com/wp-content/uploads/2019/09/telaviv-e1507849017494.png",
+                    WebsiteUrl = "https://english.tau.ac.il/",
+                    Founded = 1956,
+                    Type = Type.Public,
+                    Description = @"Tel Aviv University is a public research university in Tel Aviv, Israel. With over 30,000 students, it is the largest university in the country. Located in northwest Tel Aviv, the university is the center of teaching and research of the city, comprising 9 faculties, 17 teaching hospitals, 18 performing arts centers, 27 schools, 106 departments, 340 research centers, and 400 laboratories.
+
+Besides being the largest university in Israel, Tel Aviv University is also the largest Jewish university in the world. It originated in 1956 when three education units merged to form the university. The original 170-acre campus was expanded and now makes up 220 acres (89 hectares) in Tel Aviv's Ramat Aviv neighborhood.",
+                    CountryId = GetCountryIdByName(data, "Israel"),
+                    UserId = users.FirstOrDefault(x => x.Email.Contains("telaviv")).Id
                 },
                 new University
                 {
-                    UserId = users[4].Id
+                    Name = "Stanford University",
+                    ImageUrl = "https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Stanford_University_seal_2003.svg/1200px-Stanford_University_seal_2003.svg.png",
+                    WebsiteUrl = "www.stanford.edu",
+                    Founded = 1885,
+                    Type = Type.Private,
+                    Description = @"Stanford University, officially Leland Stanford Junior University, is a private research university located in the census-designated place of Stanford, California, near the city of Palo Alto. The campus occupies 8,180 acres (3,310 hectares), among the largest in the United States, and enrolls over 17,000 students. Stanford is ranked among the top universities in the world.
+The university is organized around seven schools: three schools consisting of 40 academic departments at the undergraduate level as well as four professional schools that focus on graduate programs in law, medicine, education, and business. All schools are on the same campus. Students compete in 36 varsity sports, and the university is one of two private institutions in the Division I FBS Pac-12 Conference. Stanford has won 137 NCAA team championships, more than any other university, and was awarded the NACDA Directors' Cup for 25 consecutive years, beginning in 1994–1995. In addition, by 2021, Stanford students and alumni had won at least 296 Olympic medals including 150 gold medals.",
+                    CountryId = GetCountryIdByName(data, "United States"),
+                    UserId = users.FirstOrDefault(x => x.Email.Contains("stanford")).Id
                 },
                 new University
                 {
-                    UserId = users[5].Id
+                    Name = "Yale University",
+                    ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Yale_University_Shield_1.svg/419px-Yale_University_Shield_1.svg.png",
+                    WebsiteUrl = "https://www.yale.edu/",
+                    Founded = 1701,
+                    Type = Type.Private,
+                    Description = @"Yale University is a private Ivy League research university in New Haven, Connecticut. Founded in 1701 as the Collegiate School, it is the third-oldest institution of higher education in the United States and among the most prestigious in the world.
+
+Chartered by Connecticut Colony, the Collegiate School was established in 1701 by clergy to educate Congregational ministers before moving to New Haven in 1716. Originally restricted to theology and sacred languages, the curriculum began to incorporate humanities and sciences by the time of the American Revolution. In the 19th century, the college expanded into graduate and professional instruction, awarding the first PhD in the United States in 1861 and organizing as a university in 1887. Yale's faculty and student populations grew after 1890 with rapid expansion of the physical campus and scientific research.",
+                    CountryId = GetCountryIdByName(data, "United States"),
+                    UserId = users.FirstOrDefault(x => x.Email.Contains("yale")).Id
                 },
                 new University
                 {
-                    UserId = users[6].Id
+                    Name = "Software University",
+                    ImageUrl = "https://yt3.ggpht.com/ytc/AKedOLSp0TNfguM4s9wg2yTKv-_wzdu9VAZxAPnWSNYWKo4=s900-c-k-c0x00ffffff-no-rj",
+                    WebsiteUrl = "softuni.bg",
+                    Founded = 2013,
+                    Type = Type.Private,
+                    Description = @"We make the people we train real professionals in the software industry and work for their career start!
+SoftUni's Software University project was founded with the idea of ​​an innovative and modern educational center that creates true professionals in the world of programming. For us, as for the entire software industry, the most important are real practical skills.
+
+That is why we use the learning by doing model, providing our students with programming training with real practical experience and knowledge in the most popular and modern technologies, preparing to start your career as a successful software engineer.",
+                    CountryId = GetCountryIdByName(data, "Bulgaria"),
+                    UserId = users.FirstOrDefault(x => x.Email.Contains("softuni")).Id
                 },
                 new University
                 {
-                    UserId = users[7].Id
+                    Name = "Paris School of Economics",
+                    ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/b/bb/Logo_pse_petit.jpg",
+                    WebsiteUrl = "https://www.parisschoolofeconomics.eu/en/",
+                    Founded = 2006,
+                    Type = Type.Public,
+                    Description = @"The Paris School of Economics (PSE; French: École d'économie de Paris) is a French research institute in the field of economics. It offers MPhil, MSc, and PhD level programmes in various fields of theoretical and applied economics, including macroeconomics, econometrics, political economy and international economics.
+
+PSE is a brainchild of the École des Hautes Études en Sciences Sociales (EHESS, where the students are enrolled primarily), the École Normale Supérieure, the École des Ponts and University of Paris 1 Pantheon-Sorbonne, and it is physically located on the ENS campus of Jourdan in the 14th arrondissement of Paris. It was founded in 2006 as a coalition of universities and grandes écoles to unify high-level research in economics across French academia, and was first presided by economist Thomas Piketty. Since its foundation it has gained a certain amount of academic weight, and according to a ranking released by project RePEc in May 2020, it was ranked as the fifth-best university-level economics department in the world and first in Europe. Paris School of Economics' ranking has consistently risen since it was listed on the rankings on RePEc.",
+                    CountryId = GetCountryIdByName(data, "France"),
+                    UserId = users.FirstOrDefault(x => x.Email.Contains("paris")).Id
                 },
             };
 
@@ -724,9 +797,7 @@ I am sociable and reliable person. I like learning new things every day. I like 
         private static void SeedCompanies(IServiceProvider services)
         {
             var data = services.GetService<InternifyDbContext>();
-            var users = data.Companies
-                .Skip(UsersCreatedByRole * 2)
-                .ToList();
+            var users = data.Companies.ToList();
 
             var companies = new List<Company>()
             {
