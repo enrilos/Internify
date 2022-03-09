@@ -43,6 +43,7 @@
 
         public UniversityListingQueryModel All(
             string name,
+            Type? type,
             string countryId,
             int currentPage,
             int universitiesPerPage);

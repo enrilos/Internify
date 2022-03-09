@@ -187,6 +187,7 @@
 
         public UniversityListingQueryModel All(
             string name,
+            Type? type,
             string countryId,
             int currentPage,
             int universitiesPerPage)
@@ -197,6 +198,12 @@
             {
                 universitiesQuery = universitiesQuery
                     .Where(x => x.Name.ToLower().Contains(name.ToLower().Trim()));
+            }
+
+            if (type != null)
+            {
+                universitiesQuery = universitiesQuery
+                    .Where(x => x.Type == type);
             }
 
             if (countryId != null)

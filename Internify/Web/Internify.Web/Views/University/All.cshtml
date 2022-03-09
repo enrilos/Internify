@@ -13,6 +13,15 @@
             <input asp-for="Name" class="form-control">
         </section>
         <section class="form-group">
+                <label asp-for="Type"></label>
+                <select asp-for="Type" class="form-control">
+                    <option value="" selected> -- select type -- </option>
+                    <option value="@Internify.Data.Models.Enums.Type.Private">Private</option>
+                    <option value="@Internify.Data.Models.Enums.Type.Public">Public</option>
+                </select>
+                <span asp-validation-for="Type" class="small text-danger"></span>
+            </section>
+        <section class="form-group">
             <label asp-for="CountryId"></label>
             <select asp-for="CountryId" class="form-control">
                 <option value="" selected> -- select country -- </option>

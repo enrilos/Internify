@@ -43,10 +43,9 @@
 
         public IActionResult All([FromQuery] UniversityListingQueryModel queryModel)
         {
-            // filter by type? private vs public
-
             queryModel = universityService.All(
                 queryModel.Name,
+                queryModel.Type,
                 queryModel.CountryId,
                 queryModel.CurrentPage,
                 queryModel.UniversitiesPerPage);
