@@ -54,7 +54,7 @@
         <img src="@Model.ImageUrl" class="img-fluid rounded p-1" />
     </article>
     <article class="p-3">
-        @if (@Model.WebsiteUrl != null)
+        @if (!string.IsNullOrEmpty(Model.WebsiteUrl))
         {
             <p>Website: <a href="@(@Model.WebsiteUrl.Contains("http") ? @Model.WebsiteUrl : $"http://{@Model.WebsiteUrl}")">@Model.WebsiteUrl</a></p>
         }

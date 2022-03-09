@@ -123,7 +123,7 @@
             <p>Full Name: @Model.FirstName @Model.LastName</p>
             <p>Born: @Model.BirthDate</p>
             <p>Gender: @Model.Gender</p>
-            @if (@Model.WebsiteUrl != null)
+            @if (!string.IsNullOrEmpty(Model.WebsiteUrl))
             {
                 <p>Website: <a href="@(@Model.WebsiteUrl.Contains("http") ? @Model.WebsiteUrl : $"http://{@Model.WebsiteUrl}")">@Model.WebsiteUrl</a></p>
             }
@@ -134,7 +134,7 @@
         </article>
     </section>
     <article class="p-2 m-3 bg-light">
-        @if (@Model.Description == null)
+        @if (string.IsNullOrEmpty(Model.Description))
         {
             <p class="text-center">Apparently, this user prefers to keep an air of mystery about them.</p>
         }
