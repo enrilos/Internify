@@ -2,6 +2,7 @@
 {
     using Data;
     using Data.Models;
+    using Data.Models.Enums;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Candidate;
@@ -46,6 +47,7 @@
             string imageUrl,
             string websiteUrl,
             int founded,
+            Type type,
             string description,
             string countryId)
         {
@@ -56,6 +58,7 @@
                 ImageUrl = imageUrl.Trim(),
                 WebsiteUrl = websiteUrl.Trim(),
                 Founded = founded,
+                Type = type,
                 Description = description.Trim(),
                 CountryId = countryId
             };
@@ -81,6 +84,7 @@
             string imageUrl,
             string websiteUrl,
             int founded,
+            Type type,
             string description,
             string countryId)
         {
@@ -95,6 +99,7 @@
             university.ImageUrl = imageUrl.Trim();
             university.WebsiteUrl = websiteUrl.Trim();
             university.Founded = founded;
+            university.Type = type;
             university.Description = description.Trim();
             university.CountryId = countryId;
 
@@ -156,6 +161,7 @@
                 ImageUrl = x.ImageUrl,
                 WebsiteUrl = x.WebsiteUrl,
                 Founded = x.Founded,
+                Type = x.Type.ToString(),
                 Description = x.Description,
                 Country = x.Country.Name,
                 HasAlumni = x.Alumni.Any()
@@ -173,6 +179,7 @@
                 ImageUrl = x.ImageUrl,
                 WebsiteUrl = x.WebsiteUrl,
                 Founded = x.Founded,
+                Type = x.Type,
                 Description = x.Description,
                 CountryId = x.CountryId
             })

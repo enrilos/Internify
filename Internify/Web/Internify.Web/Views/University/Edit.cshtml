@@ -31,6 +31,11 @@
                 <span asp-validation-for="Founded" class="small text-danger"></span>
             </section>
             <section class="form-group">
+                <label asp-for="Type"></label>
+                <select asp-for="Type" asp-items="Html.GetEnumSelectList<Internify.Data.Models.Enums.Type>()" class="form-control"></select>
+                <span asp-validation-for="Type" class="small text-danger"></span>
+            </section>
+            <section class="form-group">
                 <label asp-for="Description"></label>
                 @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
                 <span asp-validation-for="Description" class="small text-danger"></span>

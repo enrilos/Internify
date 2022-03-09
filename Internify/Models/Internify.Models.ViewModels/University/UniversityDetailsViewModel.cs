@@ -12,6 +12,8 @@
 
         public int Founded { get; init; }
 
+        public string Type { get; init; }
+
         public string Description { get; init; }
 
         public string Country { get; init; }

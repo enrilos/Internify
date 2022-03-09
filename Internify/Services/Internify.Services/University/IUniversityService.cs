@@ -1,5 +1,6 @@
 ﻿namespace Internify.Services.University
 {
+    using Data.Models.Enums;
     using Models.InputModels.Candidate;
     using Models.InputModels.University;
     using Models.ViewModels.University;
@@ -18,6 +19,7 @@
             string imageUrl,
             string websiteUrl,
             int founded,
+            Type type,
             string description,
             string countryId);
 
@@ -27,6 +29,7 @@
             string imageUrl,
             string websiteUrl,
             int founded,
+            Type type,
             string description,
             string countryId);
 

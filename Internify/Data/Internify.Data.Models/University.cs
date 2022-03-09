@@ -1,6 +1,7 @@
 ﻿namespace Internify.Data.Models
 {
     using Common;
+    using Enums;
     using System.ComponentModel.DataAnnotations;
 
     using static Common.DataConstants;
@@ -28,6 +29,9 @@
 
         [Range(minimum: FoundedMinYear, maximum: FoundedMaxYear)]
         public int Founded { get; set; }
+
+        [EnumDataType(typeof(Type))]
+        public Type Type { get; set; }
 
         [Required]
         [MaxLength(DescriptionMaxLength)]
