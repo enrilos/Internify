@@ -21,13 +21,13 @@
 
             MigrateDatabase(services);
 
-            SeedSpecializations(services);
-            SeedCountries(services);
-            SeedRoles(services);
-            SeedAdministrator(services);
-            SeedUsers(services);
-            SeedCandidates(services);
-            SeedUniversities(services);
+            //SeedSpecializations(services);
+            //SeedCountries(services);
+            //SeedRoles(services);
+            //SeedAdministrator(services);
+            //SeedUsers(services);
+            //SeedCandidates(services);
+            //SeedUniversities(services);
             //SeedCompanies(services);
 
             return app;
@@ -36,9 +36,6 @@
         private static void MigrateDatabase(IServiceProvider services)
         {
             var data = services.GetRequiredService<InternifyDbContext>();
-
-            // Temporary.
-            data.Database.EnsureDeleted();
 
             data.Database.Migrate();
         }
@@ -429,38 +426,46 @@
                     Email = "paris@gmail.com",
                     UserName = "paris@gmail.com"
                 },
-                //new ApplicationUser
-                //{
-                //    // company
-                //},
-                //new ApplicationUser
-                //{
-                //    // company
-                //},
-                //new ApplicationUser
-                //{
-                //    // company
-                //},
-                //new ApplicationUser
-                //{
-                //    // company
-                //},
-                //new ApplicationUser
-                //{
-                //    // company
-                //},
-                //new ApplicationUser
-                //{
-                //    // company
-                //},
-                //new ApplicationUser
-                //{
-                //    // company
-                //},
-                //new ApplicationUser
-                //{
-                //    // company
-                //},
+                new ApplicationUser
+                {
+                    Email = "novoresume@gmail.com",
+                    UserName = "novoresume@gmail.com"
+                },
+                new ApplicationUser
+                {
+                    Email = "postbank@gmail.com",
+                    UserName = "postbank@gmail.com"
+                },
+                new ApplicationUser
+                {
+                    Email = "smartit@gmail.com",
+                    UserName = "smartit@gmail.com"
+                },
+                new ApplicationUser
+                {
+                    Email = "americaneagle@gmail.com",
+                    UserName = "americaneagle@gmail.com"
+                },
+                new ApplicationUser
+                {
+                    Email = "lidl@gmail.com",
+                    UserName = "lidl@gmail.com"
+                },
+                new ApplicationUser
+                {
+                    Email = "codexio@gmail.com",
+                    UserName = "codexio@gmail.com"
+                },
+                new ApplicationUser
+                {
+                    Email = "motion@gmail.com",
+                    UserName = "motion@gmail.com"
+                },
+                new ApplicationUser
+                {
+                    Email = "cocacola@gmail.com",
+                    UserName = "cocacola@gmail.com"
+                },
             };
 
             var candidates = users.Take(UsersCreatedByRole);
@@ -797,41 +802,141 @@ PSE is a brainchild of the École des Hautes Études en Sciences Sociales (EHESS
         private static void SeedCompanies(IServiceProvider services)
         {
             var data = services.GetService<InternifyDbContext>();
-            var users = data.Companies.ToList();
+            var users = data.Users.ToList();
 
             var companies = new List<Company>()
             {
                 new Company
                 {
-                    UserId = users[0].Id
+                    Name = "Novoresume",
+                    ImageUrl = "https://advancemed.com.au/wp-content/uploads/2019/11/vertical-color.png",
+                    WebsiteUrl = "novoresume.com",
+                    Founded = 2014,
+                    Description = @"Novorésumé began in 2014 when Andrei, Cristian, and Stefan noticed a common problem among several of their contacts. Despite having extensive work experience and impressive skill sets, these individuals didn’t know how to showcase their talents with a professional resume and cover letter. Sensing an opportunity to help others with their job search, the three of them joined forces in exploring possible solutions as part of a university project.",
+                    RevenueUSD = 67512587,
+                    CEO = "Stefan Polexe",
+                    EmployeesCount = 12,
+                    IsPublic = false,
+                    IsGovernmentOwned = false,
+                    SpecializationId = GetSpecializationIdByName(data, "IT, Engineering, Technology"),
+                    CountryId = GetCountryIdByName(data, "Belgium"),
+                    UserId = data.Users.FirstOrDefault(x => x.Email.Contains("novoresume")).Id
                 },
                 new Company
                 {
-                    UserId = users[1].Id
+                    Name = "Postbank",
+                    ImageUrl = "https://www.theswiftcodes.com/images/bank-logo/bulgaria/postbank.png",
+                    WebsiteUrl = "postbank.bg",
+                    Founded = 1991,
+                    Description = @"Postbank has a 30-year presence among the leaders in the banking market in Bulgaria. The bank is a leading factor in innovation and the formation of trends in the banking sector in the country in recent years and has been awarded many times for its innovations. Postbank occupies a strategic place in retail banking and corporate banking in Bulgaria. It is one of the leaders in the market of credit and debit cards, housing and consumer lending, savings products, as well as in terms of products for corporate clients - from small companies to large international companies with a presence in the country. The bank has one of the best developed branch networks and modern digital banking channels.
+
+In just a few years, Postbank completed two successful transactions by acquiring and integrating in record time, first Alfa Bank - Bulgaria Branch, and then Piraeus Bank Bulgaria. They are the next step in consolidating its position as a systemic bank and expanding its customer base.
+
+The bank is a member of Eurobank Group - a dynamic banking organization operating in six countries, with total assets of 70.9 billion euros and nearly 11,329 employees.",
+                    RevenueUSD = 77999999,
+                    CEO = "Petya Dimitrova",
+                    EmployeesCount = 3000,
+                    IsPublic = false,
+                    IsGovernmentOwned = false,
+                    SpecializationId = GetSpecializationIdByName(data, "Banking, Lending, Insurance"),
+                    CountryId = GetCountryIdByName(data, "Bulgaria"),
+                    UserId = data.Users.FirstOrDefault(x => x.Email.Contains("postbank")).Id
                 },
                 new Company
                 {
-                    UserId = users[2].Id
+                    Name = "Smart IT",
+                    ImageUrl = "https://digitalk.bg/shimg/zx952y526_4126656.jpg",
+                    WebsiteUrl = "smartit.bg",
+                    Founded = 2006,
+                    Description = @"Smart IT is the technological hub that ensures the work of 8300 employees and the companies in Management Financial Group in Bulgaria, Romania, Poland, Ukraine, Northern Macedonia, and Spain. The business entities of MFG have over 16 years of experience in developing and managing complex software solutions and in administrating ICT infrastructure. 
+
+The main focus of Smart IT is the development of a fully generic modular no-code platform for onboarding of fintech companies with various business models. We use technologies such as C# and .NET/Core, ASP.NET/Core MVC, Web API, RabbitMQ, OAuth 2.0, Microservices, Docker, Kubernetes, ELK Stack, Grafana/InfluxDB, Polymer, DevExpress, JavaScript, jQuery, SignalR, EF, EF Core, MS SQL, MongoDB.",
+                    CEO = "Bogdan Radostinov",
+                    EmployeesCount = 130,
+                    IsPublic = true,
+                    IsGovernmentOwned = false,
+                    SpecializationId = GetSpecializationIdByName(data, "IT, Engineering, Technology"),
+                    CountryId = GetCountryIdByName(data, "Bulgaria"),
+                    UserId = data.Users.FirstOrDefault(x => x.Email.Contains("smartit")).Id
                 },
                 new Company
                 {
-                    UserId = users[3].Id
+                    Name = "American Eagle Software, Inc.",
+                    ImageUrl = "https://ameagle-assets.azureedge.net/aecom-blobs/images/default-source/news-images/americaneagle-com1261183069.png",
+                    WebsiteUrl = "americaneagle.com",
+                    Founded = 1978,
+                    Description = @"Partnering with a family-owned, industry leader with a sole focus on helping customers grow and achieve success is a winning combination. The team at Americaneagle.com understands that each client has a different story and unique digital goals. Regardless of business size, industry, or technology, our talented team has a proven track record of delivering exciting, high-performing digital solutions that produce positive results for businesses across the globe.",
+                    CEO = "Chris Pratt",
+                    EmployeesCount = 650,
+                    IsPublic = false,
+                    IsGovernmentOwned = false,
+                    SpecializationId = GetSpecializationIdByName(data, "IT, Engineering, Technology"),
+                    CountryId = GetCountryIdByName(data, "United States"),
+                    UserId = data.Users.FirstOrDefault(x => x.Email.Contains("americaneagle")).Id
                 },
                 new Company
                 {
-                    UserId = users[4].Id
+                    Name = "Lidl Bulgaria",
+                    ImageUrl = "https://www.lidl.bg/bundles/retail/images/meta/og_default_600_600.png",
+                    WebsiteUrl = "lidl.bg",
+                    Founded = 1973,
+                    Description = @"Lidl Stiftung & Co. KG is a German international discount retailer chain that operates over 11,000 stores across Europe and the United States. Headquartered in Neckarsulm, Baden-Württemberg, the company belongs to the Schwarz Group, which also operates the hypermarket chain Kaufland.
+
+Lidl is the chief competitor of the similar German discount chain Aldi in several markets. There are Lidl stores in every member state of the European Union as well as in Switzerland, Serbia, the United Kingdom, and the United States.",
+                    RevenueUSD = 57000000000,
+                    CEO = "Gerd Chrzanowski",
+                    EmployeesCount = 315000,
+                    IsPublic = false,
+                    IsGovernmentOwned = false,
+                    SpecializationId = GetSpecializationIdByName(data, "Trade and Sales"),
+                    CountryId = GetCountryIdByName(data, "Bulgaria"),
+                    UserId = data.Users.FirstOrDefault(x => x.Email.Contains("lidl")).Id
                 },
                 new Company
                 {
-                    UserId = users[5].Id
+                    Name = "Codexio",
+                    ImageUrl = "https://assets.jobs.bg/assets/cover_photo/2021-06-07/s_72e820a74ccad9bf6a84c4eb084e8273.png",
+                    WebsiteUrl = "codexio.bg",
+                    Founded = 2017,
+                    Description = @"Codexio is a fast-growing software company. We offer complex software solutions, development of internal projects, and external consulting services in the eCommerce and Fintech field. Our team includes passionate experts who have the ability to build next-generation IT solutions. Creativity, teamwork, and learning have been encouraged since its establishment in 2017.
+Using modern technologies and methodologies we are constantly seeking to improve our services.",
+                    CEO = "Ivan Yonkov (RoYaL)",
+                    EmployeesCount = 20,
+                    IsPublic = false,
+                    IsGovernmentOwned = false,
+                    SpecializationId = GetSpecializationIdByName(data, "IT, Engineering, Technology"),
+                    CountryId = GetCountryIdByName(data, "Bulgaria"),
+                    UserId = data.Users.FirstOrDefault(x => x.Email.Contains("codexio")).Id
                 },
                 new Company
                 {
-                    UserId = users[6].Id
+                    Name = "Motion Software",
+                    ImageUrl = "https://lh3.ggpht.com/p/AF1QipP-2bH32lsbcKL8AhAj2FUzAu1uC0lAA9PBHdhx=s1536",
+                    WebsiteUrl = "motion-software.com",
+                    Founded = 2015,
+                    Description = @"Motion Software started as a small collective of software specialists truly passionate about creating an organization where everyone is encouraged to develop the skills and personal qualities required to achieve one’s life goals and make dreams come true. Today, we are grateful to be trusted by the world’s leading companies in providing top talent and critical remote work infrastructure when they need it the most.",
+                    CEO = "Christo Peev",
+                    EmployeesCount = 89,
+                    IsPublic = false,
+                    IsGovernmentOwned = false,
+                    SpecializationId = GetSpecializationIdByName(data, "IT, Engineering, Technology"),
+                    CountryId = GetCountryIdByName(data, "Bulgaria"),
+                    UserId = data.Users.FirstOrDefault(x => x.Email.Contains("motion")).Id
                 },
                 new Company
                 {
-                    UserId = users[7].Id
+                    Name = "Coca Cola Bulgaria",
+                    ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Coca-Cola_logo.svg/1024px-Coca-Cola_logo.svg.png",
+                    WebsiteUrl = "https://www.coca-cola.bg/",
+                    Founded = 1886,
+                    Description = "Does it need an introduction?",
+                    CEO = "James Quincey",
+                    EmployeesCount = 79000,
+                    IsPublic = true,
+                    IsGovernmentOwned = false,
+                    SpecializationId = GetSpecializationIdByName(data, "Trade and Sales"),
+                    CountryId = GetCountryIdByName(data, "Bulgaria"),
+                    UserId = data.Users.FirstOrDefault(x => x.Email.Contains("cocacola")).Id
                 },
             };
 
