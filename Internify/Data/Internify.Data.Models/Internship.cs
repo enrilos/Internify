@@ -19,7 +19,7 @@
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
-        public bool IsSalaryPublic { get; set; }
+        public bool IsPaid { get; set; }
 
         [Range(typeof(decimal), "0", "9999999")]
         public decimal? Salary { get; set; }
