@@ -2,6 +2,7 @@
 {
     using Data;
     using Data.Models;
+    using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Internship;
     using Models.ViewModels.Internship;
 
@@ -65,8 +66,30 @@
 
         public bool Delete(string id)
         {
-            throw new NotImplementedException();
+            var internship = data
+                .Internships
+                .Include(x => x.Applications)
+                .FirstOrDefault(x => x.Id == id && !x.IsDeleted);
+
+            if (internship == null)
+            {
+                return false;
+            }
+
+            internship.IsDeleted = true;
+            internship.DeletedOn = DateTime.UtcNow;
+
+            foreach (var application in internship.Applications)
+            {
+                application.IsDeleted = true;
+                application.DeletedOn = internship.DeletedOn;
+            }
+
+            data.SaveChanges();
+
+            return true;
         }
+
         public bool IsInternshipOwnedByCompany(
             string internshipId,
             string companyId)
