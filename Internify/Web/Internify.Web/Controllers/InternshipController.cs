@@ -42,6 +42,14 @@
         }
 
         [Authorize]
+        public IActionResult MyInternships([FromQuery] InternshipListingQueryModel queryModel)
+        {
+            // company's internships
+
+            return null;
+        }
+
+        [Authorize]
         public IActionResult Add()
         {
             if (!companyService.IsCompanyByUserId(User.Id()))
@@ -176,7 +184,14 @@
 
         public IActionResult Details(string id)
         {
-            return null;
+            var internship = internshipService.GetDetailsModel(id);
+
+            if (internship == null)
+            {
+                return NotFound();
+            }
+
+            return View(internship);
         }
 
         [Authorize]
