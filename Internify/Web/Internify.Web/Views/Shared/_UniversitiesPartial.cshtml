@@ -6,7 +6,7 @@
         <section class="card col-md-3 m-2 bg-light">
             <img src="@university.ImageUrl" class="card-img-center m-1 rounded" alt="University Logo" style="min-height: 200px; max-height: 200px; object-fit:contain;" />
             <section class="card-body">
-                <h5 class="card-title">@university.Name</h5>
+                <p class="card-title h5">@university.Name</p>
                 <p class="card-text"><i class="fas fa-map-marker-alt"></i> @university.Country</p>
                 <a asp-controller="University" asp-action="Details" asp-route-id="@university.Id" class="btn btn-primary">Details</a>
             </section>

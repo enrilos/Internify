@@ -19,6 +19,8 @@
             using var serviceScope = app.ApplicationServices.CreateScope();
             var services = serviceScope.ServiceProvider;
 
+            //MigrateDatabase();
+
             //SeedSpecializations(services);
             //SeedCountries(services);
             //SeedRoles(services);
@@ -34,6 +36,9 @@
         private static void MigrateDatabase(IServiceProvider services)
         {
             var data = services.GetRequiredService<InternifyDbContext>();
+
+            // Temporary.
+            data.Database.EnsureDeleted();
 
             data.Database.Migrate();
         }

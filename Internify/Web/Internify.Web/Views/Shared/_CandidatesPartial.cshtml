@@ -6,7 +6,7 @@
         <section class="card col-md-3 m-2 bg-light">
             <img src="@candidate.ImageUrl" class="card-img-center m-1 rounded" alt="Candidate Picture" style="min-height: 300px; max-height: 300px; object-fit: contain;" />
             <section class="card-body">
-                <h5 class="card-title">@candidate.FirstName @candidate.LastName (@candidate.Age)</h5>
+                <p class="card-title h5">@candidate.FirstName @candidate.LastName (@candidate.Age)</p>
                 <p class="card-text">@candidate.Specialization</p>
                 <p class="card-text"><i class="fas fa-map-marker-alt"></i> @candidate.Country</p>
                 <a asp-controller="Candidate" asp-action="Details" asp-route-id="@candidate.Id" class="btn btn-primary">Details</a>

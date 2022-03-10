@@ -296,12 +296,12 @@
                 }
             }
 
+            // Otherwise, list all.
             if (isPublic)
             {
                 companiesQuery = companiesQuery
                     .Where(x => x.IsPublic);
             }
-            // Otherwise, list all.
 
             if (isGovernmentOwned)
             {
