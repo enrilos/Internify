@@ -21,7 +21,7 @@
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .Property(x => x.Salary)
+                .Property(x => x.SalaryUSD)
                 .HasColumnType("decimal(18, 2)");
         }
     }

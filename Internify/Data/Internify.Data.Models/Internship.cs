@@ -15,16 +15,16 @@
         [MaxLength(RoleMaxLength)]
         public string Role { get; set; }
 
-        [Required]
-        [MaxLength(DescriptionMaxLength)]
-        public string Description { get; set; }
-
         public bool IsPaid { get; set; }
 
         [Range(typeof(decimal), "0", "9999999")]
-        public decimal? Salary { get; set; }
+        public decimal? SalaryUSD { get; set; }
 
         public bool IsRemote { get; set; }
+
+        [Required]
+        [MaxLength(DescriptionMaxLength)]
+        public string Description { get; set; }
 
         [Required]
         public string CompanyId { get; set; }
