@@ -31,14 +31,21 @@
             this.cache = cache;
         }
 
-        [Authorize]
         public IActionResult All([FromQuery] InternshipListingQueryModel queryModel)
         {
-            // filter
-            // acquire companies (not cached OR cached for < 10 minutes?)
-            // acquire cached countries
+            queryModel = internshipService.All(
+                  queryModel.Role,
+                  queryModel.IsPaid,
+                  queryModel.IsRemote,
+                  queryModel.CompanyId,
+                  queryModel.CountryId,
+                  queryModel.CurrentPage,
+                  queryModel.InternshipsPerPage);
 
-            return View();
+            queryModel.Companies = companyService.GetCompaniesSelectOptions();
+            queryModel.Countries = AcquireCachedCountries();
+
+            return View(queryModel);
         }
 
         [Authorize]
