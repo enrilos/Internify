@@ -2,7 +2,6 @@
 {
     using System.ComponentModel.DataAnnotations;
     using ViewModels.Country;
-    using ViewModels.Internship;
 
     using static Data.Common.DataConstants;
     using static Data.Common.DataConstants.Internship;

@@ -19,8 +19,6 @@
             using var serviceScope = app.ApplicationServices.CreateScope();
             var services = serviceScope.ServiceProvider;
 
-            MigrateDatabase(services);
-
             //SeedSpecializations(services);
             //SeedCountries(services);
             //SeedRoles(services);

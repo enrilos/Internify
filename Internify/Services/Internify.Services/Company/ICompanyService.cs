@@ -45,9 +45,13 @@
 
         public bool Delete(string id);
 
+        public bool Exists(string id);
+
         public CompanyDetailsViewModel GetDetailsModel(string id);
 
         public EditCompanyFormModel GetEditModel(string id);
+
+        public IEnumerable<CompanySelectOptionsViewModel> GetCompaniesSelectOptions();
 
         public CompanyListingQueryModel All(
             string name,

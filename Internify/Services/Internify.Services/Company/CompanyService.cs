@@ -6,6 +6,7 @@
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Company;
     using Models.ViewModels.Company;
+    using Models.ViewModels.Internship;
 
     using static Common.GlobalConstants;
 
@@ -149,7 +150,6 @@
 
             foreach (var internship in company.OpenInternships)
             {
-                internship.CompanyId = null;
                 internship.IsDeleted = true;
                 internship.DeletedOn = company.DeletedOn;
             }
@@ -161,14 +161,12 @@
 
             foreach (var article in company.Articles)
             {
-                article.CompanyId = null;
                 article.IsDeleted = true;
                 article.DeletedOn = company.DeletedOn;
             }
 
             foreach (var review in company.Reviews)
             {
-                review.CompanyId = null;
                 review.IsDeleted = true;
                 review.DeletedOn = company.DeletedOn;
             }
@@ -188,6 +186,11 @@
 
             return true;
         }
+
+        public bool Exists(string id)
+            => data
+            .Companies
+            .Any(x => x.Id == id && !x.IsDeleted);
 
         public CompanyDetailsViewModel GetDetailsModel(string id)
             => data
@@ -232,6 +235,19 @@
                 CountryId = x.CountryId
             })
             .FirstOrDefault();
+
+        // Use for internships querying (filter by company)
+        public IEnumerable<CompanySelectOptionsViewModel> GetCompaniesSelectOptions()
+            => data
+            .Companies
+            .Where(x => !x.IsDeleted)
+            .OrderBy(x => x.Name)
+            .Select(x => new CompanySelectOptionsViewModel
+            {
+                Id = x.Id,
+                Name = x.Name
+            })
+            .ToList();
 
         public CompanyListingQueryModel All(
            string name,
