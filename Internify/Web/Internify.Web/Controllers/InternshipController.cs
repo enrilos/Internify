@@ -119,12 +119,7 @@
         [Authorize]
         public IActionResult Edit(string id)
         {
-            var isCurrentCompanyOwner = internshipService
-                .IsInternshipOwnedByCompany(
-                id,
-                companyService.GetIdByUserId(User.Id()));
-
-            if (!isCurrentCompanyOwner)
+            if (!IsCurrentCompanyOwner(id))
             {
                 return Unauthorized();
             }
@@ -143,12 +138,7 @@
         [HttpPost]
         public IActionResult Edit(EditInternshipFormModel internship)
         {
-            var isCurrentCompanyOwner = internshipService
-                .IsInternshipOwnedByCompany(
-                internship.Id,
-                companyService.GetIdByUserId(User.Id()));
-
-            if (!isCurrentCompanyOwner)
+            if (!IsCurrentCompanyOwner(internship.Id))
             {
                 return Unauthorized();
             }
@@ -188,6 +178,32 @@
         {
             return null;
         }
+
+        [Authorize]
+        public IActionResult Delete(string id)
+        {
+            if (!IsCurrentCompanyOwner(id))
+            {
+                return Unauthorized();
+            }
+
+            var deleteResult = internshipService.Delete(id);
+
+            if (!deleteResult)
+            {
+                return BadRequest();
+            }
+
+            TempData[GlobalMessageKey] = "Successfully deleted internship.";
+
+            return RedirectToAction(nameof(All));
+        }
+
+        private bool IsCurrentCompanyOwner(string internshipId)
+            => internshipService
+                .IsInternshipOwnedByCompany(
+                internshipId,
+                companyService.GetIdByUserId(User.Id()));
 
         private IEnumerable<CountryListingViewModel> AcquireCachedCountries()
         {
