@@ -14,6 +14,10 @@
            asp-controller="Company"
            asp-action="Edit"
            asp-route-id="@Model.Id">Edit</a>
+
+           <a class="btn btn-primary rounded m-1"
+           asp-controller="Internship"
+           asp-action="Add">Add Internship</a>
         }
         @if (User.IsAdmin())
         {
