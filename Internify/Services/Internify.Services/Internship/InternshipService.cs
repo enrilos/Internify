@@ -101,9 +101,23 @@
             && !x.IsDeleted);
 
         public InternshipDetailsViewModel GetDetailsModel(string id)
-        {
-            throw new NotImplementedException();
-        }
+            => data
+            .Internships
+            .Where(x => x.Id == id && !x.IsDeleted)
+            .Select(x => new InternshipDetailsViewModel
+            {
+                Id = x.Id,
+                Role = x.Role,
+                IsPaid = x.IsPaid,
+                SalaryUSD = x.SalaryUSD,
+                IsRemote = x.IsRemote,
+                Description = x.Description,
+                CompanyImageUrl = x.Company.ImageUrl,
+                Country = x.Country.Name,
+                CreatedOn = x.CreatedOn,
+                ModifiedOn = x.ModifiedOn
+            })
+            .FirstOrDefault();
 
         public EditInternshipFormModel GetEditModel(string id)
             => data
