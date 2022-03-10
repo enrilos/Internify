@@ -4,6 +4,7 @@ using Internify.Services.Candidate;
 using Internify.Services.CandidateUniversity;
 using Internify.Services.Company;
 using Internify.Services.Country;
+using Internify.Services.Internship;
 using Internify.Services.Specialization;
 using Internify.Services.University;
 using Internify.Web.Common;
@@ -55,6 +56,7 @@ builder.Services.AddTransient<ICandidateService, CandidateService>();
 builder.Services.AddTransient<ICompanyService, CompanyService>();
 builder.Services.AddTransient<IUniversityService, UniversityService>();
 builder.Services.AddTransient<ICandidateUniversityService, CandidateUniversityService>();
+builder.Services.AddTransient<IInternshipService, InternshipService>();
 builder.Services.AddTransient<ICountryService, CountryService>();
 builder.Services.AddTransient<ISpecializationService, SpecializationService>();
 
