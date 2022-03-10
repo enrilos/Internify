@@ -1,0 +1,76 @@
+﻿@model InternshipDetailsViewModel
+
+@inject IInternshipService internshipService;
+@inject ICompanyService companyService;
+
+@{
+    ViewData["Title"] = "Internship Details";
+}
+
+<section class="border border-dark rounded p-4">
+
+    @{
+        var companyId = companyService.GetIdByUserId(User?.Id());
+    }
+
+    @if (internshipService.IsInternshipOwnedByCompany(Model.Id, companyId))
+    {
+        <a class="btn btn-primary rounded m-1"
+       asp-controller="Internship"
+       asp-action="Edit"
+       asp-route-id="@Model.Id">Edit</a>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Delete
+        </button>
+
+        <!-- Modal -->
+        <section class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <section class="modal-dialog">
+                <section class="modal-content">
+                    <section class="modal-header">
+                        <p class="modal-title h5" id="exampleModalLabel">Delete</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </section>
+                    <section class="modal-body">
+                        <p class="h5">Delete this internship?</p>
+                    </section>
+                    <section class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <a class="btn btn-danger rounded m-1"
+                       asp-controller="Internship"
+                       asp-action="Delete"
+                       asp-route-id="@Model.Id">Delete</a>
+                    </section>
+                </section>
+            </section>
+        </section>
+    }
+
+    <section class="container d-flex bd-highlight justify-content-evenly align-items-center flex-wrap">
+        <article style="max-width: 400px;">
+            <img src="@Model.CompanyImageUrl" class="img-fluid rounded p-1" />
+        </article>
+        <article class="p-3">
+            <p>Role: @Model.Role</p>
+            <p>Is Paid: @(Model.IsPaid == true ? "✔️ Yes" : "❌ No")</p>
+            @if (Model.IsPaid)
+            {
+                <p>SalaryUSD: @Model.SalaryUSD</p>
+            }
+            @if (Model.IsRemote)
+            {
+                <p>Is Remote: ✔️ Yes</p>
+            }
+            else
+            {
+                <p>Country: @Model.Country</p>
+            }
+            <p>@(@Model.ModifiedOn == null ? $"Created on: {@Model.CreatedOn}" : $"Modified on: {@Model.ModifiedOn}")</p>
+        </article>
+    </section>
+    <article class="p-2 m-3 bg-light">
+        <p class="text-center" style="word-wrap: break-word;">@Model.Description</p>
+    </article>
+</section>
