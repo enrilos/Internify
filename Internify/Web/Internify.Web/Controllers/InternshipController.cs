@@ -119,38 +119,75 @@
         [Authorize]
         public IActionResult Edit(string id)
         {
-            if (!IsTheSameCompany(id))
+            var isCurrentCompanyOwner = internshipService
+                .IsInternshipOwnedByCompany(
+                id,
+                companyService.GetIdByUserId(User.Id()));
+
+            if (!isCurrentCompanyOwner)
             {
                 return Unauthorized();
             }
 
-            return View();
+            var internship = internshipService.GetEditModel(id);
+
+            if (internship == null)
+            {
+                return NotFound();
+            }
+
+            return View(internship);
         }
 
-        //[Authorize]
-        //[HttpPost]
-        //public IActionResult Edit(EditInternshipFormModel internship)
-        //{
-        //    if (!IsTheSameCompany(internship.Id))
-        //    {
-        //        return Unauthorized();
-        //    }
+        [Authorize]
+        [HttpPost]
+        public IActionResult Edit(EditInternshipFormModel internship)
+        {
+            var isCurrentCompanyOwner = internshipService
+                .IsInternshipOwnedByCompany(
+                internship.Id,
+                companyService.GetIdByUserId(User.Id()));
 
-        //    if (!ModelState.IsValid)
-        //    {
-        //        // get countries & companies
-        //        return View(internship);
-        //    }
-        //}
+            if (!isCurrentCompanyOwner)
+            {
+                return Unauthorized();
+            }
+
+            if (internship.IsPaid && internship.SalaryUSD == null)
+            {
+                ModelState.AddModelError(nameof(internship.SalaryUSD), "SalaryUSD is mandatory when internship is paid.");
+            }
+
+            if (!internship.IsPaid && internship.SalaryUSD != null)
+            {
+                ModelState.AddModelError(nameof(internship.SalaryUSD), "SalaryUSD is not required when internship is not paid.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(internship);
+            }
+
+            var editResult = internshipService.Edit(
+                internship.Id,
+                internship.IsPaid,
+                internship.SalaryUSD,
+                internship.Description);
+
+            if (!editResult)
+            {
+                return BadRequest();
+            }
+
+            TempData[GlobalMessageKey] = "Successfully edited internship.";
+
+            return RedirectToAction(nameof(Details), new { id = internship.Id });
+        }
 
         public IActionResult Details(string id)
         {
             return null;
         }
-
-        private bool IsTheSameCompany(string id)
-            => companyService
-            .GetIdByUserId(User?.Id()) == id;
 
         private IEnumerable<CountryListingViewModel> AcquireCachedCountries()
         {
