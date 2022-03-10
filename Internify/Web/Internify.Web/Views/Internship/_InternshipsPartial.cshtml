@@ -1,0 +1,26 @@
+﻿@model IEnumerable<InternshipListingViewModel>
+
+<section class="row justify-content-center mt-3">
+    @foreach (var internship in @Model)
+    {
+        <section class="card col-md-3 m-2 bg-light">
+            <img src="@internship.CompanyImageUrl" class="card-img-center m-1 rounded" alt="Company Logo" style="min-height: 300px; max-height: 300px; object-fit: contain;" />
+            <section class="card-body">
+                <p class="h5" class="card-title">@internship.Role</p>
+                @if (internship.IsPaid)
+                {
+                    <p class="card-text">✔️ Paid</p>
+                }
+                @if (internship.IsRemote)
+                {
+                    <p class="card-text">✔️ Remote</p>
+                }
+                else
+                {
+                    <p class="card-text"><i class="fas fa-map-marker-alt"></i> @internship.Country</p>
+                }
+                <a asp-controller="Internship" asp-action="Details" asp-route-id="@internship.Id" class="btn btn-primary">Details</a>
+            </section>
+        </section>
+    }
+</section>
