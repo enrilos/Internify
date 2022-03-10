@@ -139,9 +139,87 @@
             string companyId,
             string countryId,
             int currentPage,
-            int companiesPerPage)
+            int internshipsPerPage)
         {
-            throw new NotImplementedException();
+            var internshipsQuery = data
+                .Internships
+                .Where(x => !x.IsDeleted)
+                .AsQueryable();
+
+            if (role != null)
+            {
+                internshipsQuery = internshipsQuery
+                    .Where(x => x.Role.ToLower().Contains(role.ToLower()));
+            }
+
+            // Otherwise, ignore filter
+            if (isPaid)
+            {
+                internshipsQuery = internshipsQuery
+                    .Where(x => x.IsPaid);
+            }
+
+            // Otherwise, ignore filter
+            if (isRemote)
+            {
+                internshipsQuery = internshipsQuery
+                    .Where(x => x.IsRemote);
+            }
+
+            if (companyId != null)
+            {
+                internshipsQuery = internshipsQuery
+                    .Where(x => x.Company.Id == companyId);
+            }
+
+            if (countryId != null)
+            {
+                internshipsQuery = internshipsQuery
+                    .Where(x => x.CountryId == countryId);
+            }
+
+            if (currentPage <= 0)
+            {
+                currentPage = 1;
+            }
+
+            if (internshipsPerPage < 6)
+            {
+                internshipsPerPage = 6;
+            }
+            else if (internshipsPerPage > 96)
+            {
+                internshipsPerPage = 96;
+            }
+
+            var internships = internshipsQuery
+                .OrderByDescending(x => x.CreatedOn)
+                .ThenBy(x => x.Role)
+                .Skip((currentPage - 1) * internshipsPerPage)
+                .Take(internshipsPerPage)
+                .Select(x => new InternshipListingViewModel
+                {
+                    Id = x.Id,
+                    Role = x.Role,
+                    IsPaid = x.IsPaid,
+                    IsRemote = x.IsRemote,
+                    CompanyImageUrl = x.Company.ImageUrl,
+                    Country = x.Country.Name
+                })
+               .ToList();
+
+            return new InternshipListingQueryModel
+            {
+                Role = role,
+                IsPaid = isPaid,
+                IsRemote = isRemote,
+                CompanyId = companyId,
+                CountryId = countryId,
+                Internships = internships,
+                CurrentPage = currentPage,
+                InternshipsPerPage = internshipsPerPage,
+                TotalInternships = internshipsQuery.Count()
+            };
         }
     }
 }

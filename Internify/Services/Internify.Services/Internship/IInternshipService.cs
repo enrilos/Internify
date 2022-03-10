@@ -37,6 +37,6 @@
             string companyId,
             string countryId,
             int currentPage,
-            int companiesPerPage);
+            int internshipsPerPage);
     }
 }
