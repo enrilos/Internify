@@ -43,21 +43,57 @@
             string id,
             bool isPaid,
             decimal? salaryUSD,
-            string description,
-            string countryId)
+            string description)
         {
-            throw new NotImplementedException();
+            var internship = data.Internships.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
+
+            if (internship == null)
+            {
+                return false;
+            }
+
+            internship.IsPaid = isPaid;
+            internship.SalaryUSD = salaryUSD;
+            internship.Description = description;
+
+            internship.ModifiedOn = DateTime.UtcNow;
+
+            data.SaveChanges();
+
+            return true;
         }
 
         public bool Delete(string id)
         {
             throw new NotImplementedException();
         }
+        public bool IsInternshipOwnedByCompany(
+            string internshipId,
+            string companyId)
+            => data
+            .Internships
+            .Any(x =>
+            x.Id == internshipId
+            && x.CompanyId == companyId
+            && !x.IsDeleted);
 
         public InternshipDetailsViewModel GetDetailsModel(string id)
         {
             throw new NotImplementedException();
         }
+
+        public EditInternshipFormModel GetEditModel(string id)
+            => data
+            .Internships
+            .Where(x => x.Id == id && !x.IsDeleted)
+            .Select(x => new EditInternshipFormModel
+            {
+                Id = x.Id,
+                IsPaid = x.IsPaid,
+                SalaryUSD = x.SalaryUSD,
+                Description = x.Description
+            })
+            .FirstOrDefault();
 
         public InternshipListingQueryModel All(
             string role,

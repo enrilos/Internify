@@ -18,14 +18,17 @@
             string id,
             bool isPaid,
             decimal? salaryUSD,
-            string description,
-            string countryId);
+            string description);
 
         public bool Delete(string id);
 
+        public bool IsInternshipOwnedByCompany(
+            string internshipId,
+            string companyId);
+
         public InternshipDetailsViewModel GetDetailsModel(string id);
 
-        //public EditInternshipFormModel GetEditModel(string id);
+        public EditInternshipFormModel GetEditModel(string id);
 
         public InternshipListingQueryModel All(
             string role,
