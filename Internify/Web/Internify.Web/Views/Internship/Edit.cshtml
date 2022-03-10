@@ -1,0 +1,35 @@
+﻿@model EditInternshipFormModel
+
+@{
+    ViewData["Title"] = "Add Internship";
+}
+
+<section class="row">
+    <section class="col-md-6 offset-md-3">
+        <h2 class="heading-margin text-center">@ViewData["Title"]</h2>
+
+        <form method="post">
+            <input asp-for="Id" type="hidden">
+            <section class="form-check form-switch my-2">
+                <label class="form-check-label" asp-for="IsPaid">Is Paid</label>
+                <input class="form-check-input" type="checkbox" asp-for="IsPaid">
+            </section>
+            <section class="form-group">
+                <label asp-for="SalaryUSD"></label>
+                <input asp-for="SalaryUSD" class="form-control">
+                <span asp-validation-for="SalaryUSD" class="small text-danger"></span>
+            </section>
+            <section class="form-group">
+                <label asp-for="Description"></label>
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </section>
+            <input class="btn btn-primary mt-3" type="submit" value="Submit" />
+        </form>
+
+    </section>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
