@@ -51,9 +51,20 @@
         [Authorize]
         public IActionResult MyInternships([FromQuery] InternshipListingQueryModel queryModel)
         {
-            // company's internships
+            var companyId = companyService.GetIdByUserId(User.Id());
 
-            return null;
+            queryModel = internshipService.All(
+                queryModel.Role,
+                queryModel.IsPaid,
+                queryModel.IsRemote,
+                companyId,
+                queryModel.CountryId,
+                queryModel.CurrentPage,
+                queryModel.InternshipsPerPage);
+
+            queryModel.Countries = AcquireCachedCountries();
+
+            return View(queryModel);
         }
 
         [Authorize]
