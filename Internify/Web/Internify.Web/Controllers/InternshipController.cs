@@ -170,7 +170,7 @@
 
             if (!internship.IsPaid && internship.SalaryUSD != null)
             {
-                ModelState.AddModelError(nameof(internship.SalaryUSD), "SalaryUSD is not required when internship is not paid.");
+                internship.SalaryUSD = null;
             }
 
             if (!ModelState.IsValid)
