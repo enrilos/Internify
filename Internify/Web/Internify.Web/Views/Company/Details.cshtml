@@ -16,11 +16,13 @@
            asp-route-id="@Model.Id">Edit</a>
 
            <a class="btn btn-primary rounded m-1"
+           asp-area="Company"
            asp-controller="Internship"
            asp-action="MyInternships"
            asp-route-companyId="@Model.Id">My Internships</a>
 
            <a class="btn btn-primary rounded m-1"
+           asp-area="Company"
            asp-controller="Internship"
            asp-action="Add">Add Internship</a>
         }

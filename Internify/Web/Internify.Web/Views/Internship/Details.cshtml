@@ -16,6 +16,7 @@
     @if (internshipService.IsInternshipOwnedByCompany(Model.Id, companyId))
     {
         <a class="btn btn-primary rounded m-1"
+       asp-area="Company"
        asp-controller="Internship"
        asp-action="Edit"
        asp-route-id="@Model.Id">Edit</a>
@@ -39,6 +40,7 @@
                     <section class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <a class="btn btn-danger rounded m-1"
+                       asp-area="Company"
                        asp-controller="Internship"
                        asp-action="Delete"
                        asp-route-id="@Model.Id">Delete</a>

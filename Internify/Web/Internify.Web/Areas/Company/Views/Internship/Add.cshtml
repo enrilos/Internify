@@ -1,11 +1,4 @@
-﻿@{
-             /*
-             * also validate it in the controller in case someone tries parameter tampering (isPaid = false, but Salary != null)
-            isRemove check (with js) remove country location dynamicaly
-            isPaid check (with js) so that if its checked an input SalaryUSD would appear
-    */
-}
-@model AddInternshipFormModel
+﻿@model AddInternshipFormModel
 
 @{
     ViewData["Title"] = "Add Internship";
@@ -84,12 +77,6 @@
     });
 </script>
 
-@{
-    // custom .js file and a section just for Add and Edit internship ?
-    // (which will be used for dynamic display for SalaryUSD when IsPaid is checked)
-    // (and IsRemote chacked as well, country must disappear)
-}
-
 @section Scripts {
-<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }
