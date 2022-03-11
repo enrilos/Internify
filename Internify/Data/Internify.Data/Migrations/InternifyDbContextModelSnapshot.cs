@@ -58,7 +58,7 @@ namespace Internify.Data.Migrations
 
                     b.HasIndex("InternshipId");
 
-                    b.ToTable("Applications");
+                    b.ToTable("Applications", (string)null);
                 });
 
             modelBuilder.Entity("Internify.Data.Models.ApplicationUser", b =>
@@ -177,7 +177,7 @@ namespace Internify.Data.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Articles");
+                    b.ToTable("Articles", (string)null);
                 });
 
             modelBuilder.Entity("Internify.Data.Models.Candidate", b =>
@@ -254,7 +254,7 @@ namespace Internify.Data.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Candidates");
+                    b.ToTable("Candidates", (string)null);
                 });
 
             modelBuilder.Entity("Internify.Data.Models.CandidateUniversity", b =>
@@ -269,7 +269,7 @@ namespace Internify.Data.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("CandidateUniversities");
+                    b.ToTable("CandidateUniversities", (string)null);
                 });
 
             modelBuilder.Entity("Internify.Data.Models.Comment", b =>
@@ -308,7 +308,7 @@ namespace Internify.Data.Migrations
 
                     b.HasIndex("CandidateId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("Internify.Data.Models.Company", b =>
@@ -387,7 +387,7 @@ namespace Internify.Data.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companies", (string)null);
                 });
 
             modelBuilder.Entity("Internify.Data.Models.Country", b =>
@@ -402,7 +402,7 @@ namespace Internify.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
                 });
 
             modelBuilder.Entity("Internify.Data.Models.Internship", b =>
@@ -454,7 +454,7 @@ namespace Internify.Data.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Internships");
+                    b.ToTable("Internships", (string)null);
                 });
 
             modelBuilder.Entity("Internify.Data.Models.Review", b =>
@@ -503,7 +503,7 @@ namespace Internify.Data.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("Internify.Data.Models.Specialization", b =>
@@ -518,7 +518,7 @@ namespace Internify.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Specializations");
+                    b.ToTable("Specializations", (string)null);
                 });
 
             modelBuilder.Entity("Internify.Data.Models.University", b =>
@@ -579,7 +579,7 @@ namespace Internify.Data.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Universities");
+                    b.ToTable("Universities", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

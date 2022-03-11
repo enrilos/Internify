@@ -10,7 +10,7 @@
 
         public bool IsPaid { get; set; }
 
-        [Range(typeof(decimal), "0", "9999999")]
+        [Range(typeof(decimal), "1", "9999999")]
         public decimal? SalaryUSD { get; set; }
 
         [Required]
