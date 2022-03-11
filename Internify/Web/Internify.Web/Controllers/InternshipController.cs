@@ -110,6 +110,11 @@
                 ModelState.AddModelError(nameof(internship.CountryId), "Remote internships do not require a country.");
             }
 
+            if (!internship.IsRemote && internship.CountryId == null)
+            {
+                ModelState.AddModelError(nameof(internship.CountryId), "Non-remote internships require a country.");
+            }
+
             if (!ModelState.IsValid)
             {
                 internship.Countries = AcquireCachedCountries();
