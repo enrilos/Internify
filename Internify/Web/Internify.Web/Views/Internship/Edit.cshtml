@@ -1,7 +1,7 @@
 ﻿@model EditInternshipFormModel
 
 @{
-    ViewData["Title"] = "Add Internship";
+    ViewData["Title"] = "Edit Internship";
 }
 
 <section class="row">
@@ -12,9 +12,9 @@
             <input asp-for="Id" type="hidden">
             <section class="form-check form-switch my-2">
                 <label class="form-check-label" asp-for="IsPaid">Is Paid</label>
-                <input class="form-check-input" type="checkbox" asp-for="IsPaid">
+                <input class="form-check-input" type="checkbox" asp-for="IsPaid" id="isPaid">
             </section>
-            <section class="form-group">
+            <section class="form-group" id="salaryUSD" style="display: @(Model.IsPaid == true ? "block;" : "none;")">
                 <label asp-for="SalaryUSD"></label>
                 <input asp-for="SalaryUSD" class="form-control">
                 <span asp-validation-for="SalaryUSD" class="small text-danger"></span>
@@ -52,6 +52,18 @@
 
     </section>
 </section>
+
+<script>
+    document.querySelector('#isPaid').addEventListener('change', () => {
+        let salaryUSDSection = document.querySelector('#salaryUSD');
+
+        if (salaryUSDSection.style.display === 'block') {
+            salaryUSDSection.style.display = 'none';
+        } else {
+            salaryUSDSection.style.display = 'block';
+        }
+    });
+</script>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
