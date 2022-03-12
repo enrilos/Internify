@@ -15,17 +15,25 @@
            asp-action="Edit"
            asp-route-id="@Model.Id">Edit</a>
 
-           <a class="btn btn-primary rounded m-1"
+            <a class="btn btn-primary rounded m-1"
            asp-area="Company"
            asp-controller="Internship"
            asp-action="MyInternships"
            asp-route-companyId="@Model.Id">My Internships</a>
 
-           <a class="btn btn-primary rounded m-1"
+            <a class="btn btn-primary rounded m-1"
            asp-area="Company"
            asp-controller="Internship"
            asp-action="Add">Add Internship</a>
         }
+        else
+        {
+            <a class="btn btn-primary rounded m-1"
+           asp-controller="Internship"
+           asp-action="All"
+           asp-route-companyId="@Model.Id">Internships</a>
+        }
+
         @if (User.IsAdmin())
         {
             <!-- Button trigger modal -->
