@@ -1,6 +1,8 @@
 ﻿@model InternshipDetailsViewModel
 
 @inject IInternshipService internshipService;
+@inject ICandidateService candidateService;
+@inject IApplicationService applicationService;
 @inject ICompanyService companyService;
 
 @{
@@ -48,6 +50,27 @@
                 </section>
             </section>
         </section>
+    }
+
+    @if (candidateService.IsCandidateByUserId(User.Id()))
+    {
+        // check if candidate has already applied for this internship
+
+        var candidateId = candidateService.GetIdByUserId(User.Id());
+        var hasApplied = applicationService.HasCandidateApplied(candidateId, Model.Id);
+
+        @if (!hasApplied)
+        {
+            <a class="btn btn-primary rounded m-1"
+            asp-area="Candidate"
+            asp-controller="Application"
+            asp-action="ApplyForInternship"
+            asp-route-id="@Model.Id">Apply</a>
+        }
+        else
+        {
+            <p class="border border-success rounded h5 text-success p-3">You have a submitted application for this internship.</p>
+        }
     }
 
     <section class="container d-flex bd-highlight justify-content-evenly align-items-center flex-wrap">
