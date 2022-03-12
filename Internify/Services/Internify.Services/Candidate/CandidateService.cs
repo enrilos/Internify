@@ -154,6 +154,13 @@
             return true;
         }
 
+        public bool Exists(string id)
+            => data
+            .Candidates
+            .Any(x =>
+            x.Id == id
+            && !x.IsDeleted);
+
         public CandidateDetailsViewModel GetDetailsModel(string id)
             => data
             .Candidates
