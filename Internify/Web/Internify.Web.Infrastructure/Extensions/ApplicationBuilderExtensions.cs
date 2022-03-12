@@ -30,6 +30,9 @@
             //SeedUniversities(services);
             //SeedCompanies(services);
 
+            // seed CandidateUniversities ?
+            // seed Internships ?
+
             return app;
         }
 

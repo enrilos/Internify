@@ -32,11 +32,6 @@
 
         public IActionResult MyInternships([FromQuery] InternshipListingQueryModel queryModel)
         {
-            if (!companyService.IsCompanyByUserId(User.Id()))
-            {
-                return Unauthorized();
-            }
-
             var companyId = companyService.GetIdByUserId(User.Id());
 
             queryModel = internshipService.All(
@@ -55,11 +50,6 @@
 
         public IActionResult Add()
         {
-            if (!companyService.IsCompanyByUserId(User.Id()))
-            {
-                return Unauthorized();
-            }
-
             var internshipModel = new AddInternshipFormModel
             {
                 CompanyId = companyService.GetIdByUserId(User.Id()),
@@ -72,11 +62,6 @@
         [HttpPost]
         public IActionResult Add(AddInternshipFormModel internship)
         {
-            if (!companyService.IsCompanyByUserId(User.Id()))
-            {
-                return Unauthorized();
-            }
-
             if (!companyService.Exists(internship.CompanyId))
             {
                 ModelState.AddModelError(nameof(internship.CompanyId), "Invalid option.");

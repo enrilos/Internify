@@ -1,5 +1,6 @@
 using Internify.Data;
 using Internify.Data.Models;
+using Internify.Services.Application;
 using Internify.Services.Candidate;
 using Internify.Services.CandidateUniversity;
 using Internify.Services.Company;
@@ -57,6 +58,7 @@ builder.Services.AddTransient<ICompanyService, CompanyService>();
 builder.Services.AddTransient<IUniversityService, UniversityService>();
 builder.Services.AddTransient<ICandidateUniversityService, CandidateUniversityService>();
 builder.Services.AddTransient<IInternshipService, InternshipService>();
+builder.Services.AddTransient<IApplicationService, ApplicationService>();
 builder.Services.AddTransient<ICountryService, CountryService>();
 builder.Services.AddTransient<ISpecializationService, SpecializationService>();
 
