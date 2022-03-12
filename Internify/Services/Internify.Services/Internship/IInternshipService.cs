@@ -22,6 +22,8 @@
 
         public bool Delete(string id);
 
+        public bool Exists(string id);
+
         public bool IsInternshipOwnedByCompany(
             string internshipId,
             string companyId);

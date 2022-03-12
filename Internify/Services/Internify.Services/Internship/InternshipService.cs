@@ -90,6 +90,13 @@
             return true;
         }
 
+        public bool Exists(string id)
+            => data
+            .Internships
+            .Any(x =>
+            x.Id == id
+            && !x.IsDeleted);
+
         public bool IsInternshipOwnedByCompany(
             string internshipId,
             string companyId)
