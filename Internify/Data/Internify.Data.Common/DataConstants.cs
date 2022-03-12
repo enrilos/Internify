@@ -26,7 +26,7 @@
 
         public class Application
         {
-            public const int MotivationLetterMaxLength = 3000;
+            public const int CoverLetterMaxLength = 3000;
         }
 
         public class Article

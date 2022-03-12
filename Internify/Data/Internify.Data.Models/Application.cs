@@ -17,8 +17,8 @@
         public Internship Internship { get; set; }
 
         [Required]
-        [MaxLength(MotivationLetterMaxLength)]
-        public string MotivationLetter { get; set; }
+        [MaxLength(CoverLetterMaxLength)]
+        public string CoverLetter { get; set; }
 
         [Required]
         public string CandidateId { get; set; }
