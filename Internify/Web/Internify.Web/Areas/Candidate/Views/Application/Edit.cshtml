@@ -1,0 +1,52 @@
+﻿@model ApplicationFormModel
+
+@{
+    ViewData["Title"] = "Edit Application";
+}
+
+<section class="row">
+    <section class="col-md-6 offset-md-3">
+        <h2 class="heading-margin text-center">@ViewData["Title"]</h2>
+
+        <form method="post">
+            <input asp-for="Id" type="hidden" />
+            <input asp-for="InternshipId" type="hidden" />
+            <input asp-for="CandidateId" type="hidden" />
+
+            <section class="form-group">
+                <label asp-for="CoverLetter"></label>
+                @Html.TextAreaFor(m => m.CoverLetter, new { @class = "form-control" })
+                <span asp-validation-for="CoverLetter" class="small text-danger"></span>
+            </section>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Submit
+            </button>
+
+            <!-- Modal -->
+            <section class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <section class="modal-dialog">
+                    <section class="modal-content">
+                        <section class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </section>
+                        <section class="modal-body">
+                            <p class="h5">Confirm new changes?</p>
+                        </section>
+                        <section class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input class="btn btn-primary" type="submit" value="Submit" />
+                        </section>
+                    </section>
+                </section>
+            </section>
+
+        </form>
+    </section>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
