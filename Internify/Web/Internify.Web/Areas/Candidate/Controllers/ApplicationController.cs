@@ -47,13 +47,13 @@
             return View(applications);
         }
 
-        public IActionResult ApplyForInternship(string internshipId)
+        public IActionResult ApplyForInternship(string id)
         {
             var candidateId = candidateService.GetIdByUserId(User.Id());
 
-            var applicationModel = new AddApplicationFormModel
+            var applicationModel = new ApplicationFormModel
             {
-                InternshipId = internshipId,
+                InternshipId = id,
                 CandidateId = candidateId
             };
 
@@ -61,7 +61,7 @@
         }
 
         [HttpPost]
-        public IActionResult ApplyForInternship(AddApplicationFormModel application)
+        public IActionResult ApplyForInternship(ApplicationFormModel application)
         {
             if (!internshipService.Exists(application.InternshipId))
             {
@@ -91,6 +91,63 @@
             return RedirectToAction("Details", "Internship", new { id = application.InternshipId });
         }
 
+        public IActionResult Edit(string id)
+        {
+            if (!IsCurrentCandidateOwner(id))
+            {
+                return Unauthorized();
+            }
+
+            if (!applicationService.Exists(id))
+            {
+                return NotFound();
+            }
+
+            var application = applicationService.GetEditModel(id);
+
+            return View(application);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ApplicationFormModel application)
+        {
+            if (!IsCurrentCandidateOwner(application.Id))
+            {
+                return Unauthorized();
+            }
+
+            if (!applicationService.Exists(application.Id))
+            {
+                return NotFound();
+            }
+
+            if (!internshipService.Exists(application.InternshipId))
+            {
+                ModelState.AddModelError(nameof(application.InternshipId), "Invalid option.");
+            }
+
+            if (!candidateService.Exists(application.CandidateId))
+            {
+                ModelState.AddModelError(nameof(application.CandidateId), "Invalid option.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(application);
+            }
+
+            var editResult = applicationService.Edit(
+                application.Id,
+                application.CoverLetter);
+
+            if (editResult == null)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction(nameof(Details), new { id = application.Id });
+        }
+
         public IActionResult Details(string id)
         {
             // check if user is owner.
@@ -104,5 +161,11 @@
 
             return null;
         }
+
+        private bool IsCurrentCandidateOwner(string applicationId)
+            => applicationService
+                .IsApplicationOwnedByCandidate(
+                applicationId,
+                candidateService.GetIdByUserId(User.Id()));
     }
 }
