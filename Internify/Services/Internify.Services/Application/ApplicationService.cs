@@ -22,7 +22,7 @@
             {
                 InternshipId = internshipId,
                 CandidateId = candidateId,
-                CoverLetter = coverLetter
+                CoverLetter = coverLetter.Trim()
             };
 
             data.Applications.Add(application);
@@ -37,6 +37,25 @@
             return true;
         }
 
+        public string Edit(
+            string id,
+            string coverLetter)
+        {
+            var application = data.Applications.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
+
+            if (application == null)
+            {
+                return null;
+            }
+
+            application.CoverLetter = coverLetter.Trim();
+            application.ModifiedOn = DateTime.UtcNow;
+
+            data.SaveChanges();
+
+            return id;
+        }
+
         public bool HasCandidateApplied(
             string candidateId,
             string internshipId)
@@ -46,6 +65,50 @@
             x.CandidateId == candidateId
             && x.InternshipId == internshipId
             && !x.IsDeleted);
+
+        public bool Exists(string id)
+            => data
+            .Applications
+            .Any(x =>
+            x.Id == id
+            && !x.IsDeleted);
+
+        public bool IsApplicationOwnedByCandidate(
+            string applicationId,
+            string candidateId)
+            => data
+            .Applications
+            .Any(x =>
+            x.Id == applicationId
+            && x.CandidateId == candidateId
+            && !x.IsDeleted);
+
+        public ApplicationDetailsViewModel GetDetailsModel(string id)
+            => data
+            .Applications
+            .Where(x =>
+            x.Id == id
+            && !x.IsDeleted)
+            .Select(x => new ApplicationDetailsViewModel
+            {
+                // TODO
+            })
+            .FirstOrDefault();
+
+        public ApplicationFormModel GetEditModel(string id)
+            => data
+            .Applications
+            .Where(x =>
+            x.Id == id
+            && !x.IsDeleted)
+            .Select(x => new ApplicationFormModel
+            {
+                Id = x.Id,
+                InternshipId = x.InternshipId,
+                CandidateId = x.CandidateId,
+                CoverLetter = x.CoverLetter
+            })
+            .FirstOrDefault();
 
         public MyApplicationListingQueryModel GetCandidateApplications(
             string candidateId,
@@ -64,7 +127,7 @@
             if (role != null)
             {
                 applicationsQuery = applicationsQuery
-                    .Where(x => x.Internship.Role.ToLower().Contains(role.ToLower()));
+                    .Where(x => x.Internship.Role.ToLower().Contains(role.ToLower().Trim()));
             }
 
             if (companyId != null)
