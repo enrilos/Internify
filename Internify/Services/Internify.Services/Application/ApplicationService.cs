@@ -91,7 +91,14 @@
             && !x.IsDeleted)
             .Select(x => new ApplicationDetailsViewModel
             {
-                // TODO
+                Id = x.Id,
+                InternshipId = x.InternshipId,
+                Role = x.Internship.Role,
+                CompanyId = x.Internship.CompanyId,
+                Company = x.Internship.Company.Name,
+                CoverLetter = x.CoverLetter,
+                CreatedOn = x.CreatedOn,
+                ModifiedOn = x.ModifiedOn
             })
             .FirstOrDefault();
 

@@ -150,9 +150,14 @@
 
         public IActionResult Details(string id)
         {
-            // check if user is owner.
+            if (!IsCurrentCandidateOwner(id))
+            {
+                return Unauthorized();
+            }
 
-            return null;
+            var application = applicationService.GetDetailsModel(id);
+
+            return View(application);
         }
 
         public IActionResult Delete(string id)
