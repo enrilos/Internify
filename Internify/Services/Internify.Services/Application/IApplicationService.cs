@@ -24,6 +24,8 @@
             string applicationId,
             string candidateId);
 
+        public bool Delete(string id);
+
         public ApplicationDetailsViewModel GetDetailsModel(string id);
 
         public ApplicationFormModel GetEditModel(string id);

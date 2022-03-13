@@ -11,29 +11,55 @@
        asp-action="Edit"
        asp-route-id="@Model.Id">Edit</a>
 
-    <a class="btn btn-danger rounded m-1"
-       asp-area="Candidate"
-       asp-controller="Application"
-       asp-action="Delete"
-       asp-route-id="@Model.Id">Delete</a>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Delete
+    </button>
+
+    <!-- Modal -->
+    <section class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <section class="modal-dialog">
+            <section class="modal-content">
+                <section class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete application</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </section>
+                <section class="modal-body">
+                    <p>Delete this application?</p>
+                </section>
+                <section class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    <a class="btn btn-danger rounded m-1"
+                       asp-area="Candidate"
+                       asp-controller="Application"
+                       asp-action="Delete"
+                       asp-route-id="@Model.Id">Delete</a>
+                </section>
+            </section>
+        </section>
+    </section>
 
     <section class="container bd-highlight text-center">
         <article class="p2">
-            <p>Role: 
+            <p>
+                Role:
                 <a class="container-nav-title-content"
-                asp-controller="Internship"
-                asp-action="Details"
-                asp-route-id="@Model.InternshipId">@Model.Role</a>
+                   asp-controller="Internship"
+                   asp-action="Details"
+                   asp-route-id="@Model.InternshipId">@Model.Role</a>
             </p>
-            <p>Company: 
+            <p>
+                Company:
                 <a class="container-nav-title-content"
-                asp-controller="Company"
-                asp-action="Details"
-                asp-route-id="@Model.CompanyId">@Model.Company</a>
+                   asp-controller="Company"
+                   asp-action="Details"
+                   asp-route-id="@Model.CompanyId">@Model.Company</a>
             </p>
             <p>@(@Model.ModifiedOn == null ? $"Created on: {@Model.CreatedOn}" : $"Modified on: {@Model.ModifiedOn}")</p>
         </article>
     </section>
+    <p class="p2 text-center">Your Cover Letter:</p>
     <article class="p-2 m-3 bg-light">
         <p class="text-center">@Model.CoverLetter</p>
     </article>

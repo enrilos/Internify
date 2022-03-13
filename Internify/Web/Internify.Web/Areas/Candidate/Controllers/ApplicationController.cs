@@ -162,9 +162,21 @@
 
         public IActionResult Delete(string id)
         {
-            // delete application if user-candidate is owner.
+            if (!IsCurrentCandidateOwner(id))
+            {
+                return Unauthorized();
+            }
 
-            return null;
+            var result = applicationService.Delete(id);
+
+            if (!result)
+            {
+                return BadRequest();
+            }
+
+            var candidateId = candidateService.GetIdByUserId(User.Id());
+
+            return RedirectToAction(nameof(MyApplications), new { candidateId = candidateId });
         }
 
         private bool IsCurrentCandidateOwner(string applicationId)

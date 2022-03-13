@@ -83,6 +83,23 @@
             && x.CandidateId == candidateId
             && !x.IsDeleted);
 
+        public bool Delete(string id)
+        {
+            var application = data.Applications.Find(id);
+
+            if (application == null)
+            {
+                return false;
+            }
+
+            application.IsDeleted = true;
+            application.DeletedOn = DateTime.UtcNow;
+
+            data.SaveChanges();
+
+            return true;
+        }
+
         public ApplicationDetailsViewModel GetDetailsModel(string id)
             => data
             .Applications
