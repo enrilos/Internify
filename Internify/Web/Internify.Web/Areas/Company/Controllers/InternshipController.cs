@@ -30,15 +30,21 @@
             this.cache = cache;
         }
 
+        // each company can see all applications for their X internship/s.
+
         public IActionResult MyInternships([FromQuery] InternshipListingQueryModel queryModel)
         {
-            var companyId = companyService.GetIdByUserId(User.Id());
+            // Prevent other copmaines from viewing internships of others.
+            if (queryModel.CompanyId != companyService.GetIdByUserId(User.Id()))
+            {
+                return Unauthorized();
+            }
 
             queryModel = internshipService.All(
                 queryModel.Role,
                 queryModel.IsPaid,
                 queryModel.IsRemote,
-                companyId,
+                queryModel.CompanyId,
                 queryModel.CountryId,
                 queryModel.CurrentPage,
                 queryModel.InternshipsPerPage);

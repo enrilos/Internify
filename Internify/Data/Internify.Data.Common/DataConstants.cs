@@ -26,6 +26,7 @@
 
         public class Application
         {
+            public const int CoverLetterMinLength = 30;
             public const int CoverLetterMaxLength = 3000;
         }
 

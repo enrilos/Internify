@@ -13,7 +13,7 @@
         public string CandidateId { get; set; }
 
         [Required]
-        [MaxLength(CoverLetterMaxLength)]
+        [StringLength(CoverLetterMaxLength, MinimumLength = CoverLetterMinLength)]
         [Display(Name = "Cover Letter")]
         public string CoverLetter { get; set; }
     }
