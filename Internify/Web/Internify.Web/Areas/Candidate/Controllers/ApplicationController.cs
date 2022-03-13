@@ -2,6 +2,7 @@
 {
     using Infrastructure.Extensions;
     using Internify.Models.InputModels.Application;
+    using Internify.Services.Company;
     using Microsoft.AspNetCore.Mvc;
     using Services.Application;
     using Services.Candidate;
@@ -11,36 +12,48 @@
     {
         private readonly IApplicationService applicationService;
         private readonly IInternshipService internshipService;
+        private readonly ICompanyService companyService;
         private readonly ICandidateService candidateService;
 
         public ApplicationController(
             IApplicationService applicationService,
             IInternshipService internshipService,
+            ICompanyService companyService,
             ICandidateService candidateService)
         {
             this.applicationService = applicationService;
             this.internshipService = internshipService;
+            this.companyService = companyService;
             this.candidateService = candidateService;
         }
 
-        public IActionResult MyApplications(string candidateId)
+        public IActionResult MyApplications([FromQuery] MyApplicationListingQueryModel queryModel)
         {
-            // applications listing and other data;
+            // Prevent other candidates from viewing applications of others.
+            if (queryModel.CandidateId != candidateService.GetIdByUserId(User.Id()))
+            {
+                return Unauthorized();
+            }
 
-            // TODO...
+            var applications = applicationService.GetCandidateApplications(
+                queryModel.CandidateId,
+                queryModel.Role,
+                queryModel.CompanyId,
+                queryModel.CurrentPage,
+                queryModel.ApplicationsPerPage);
 
-            var obj = new { };
+            applications.Companies = companyService.GetCompaniesSelectOptions();
 
-            return View(obj);
+            return View(applications);
         }
 
-        public IActionResult ApplyForInternship(string id)
+        public IActionResult ApplyForInternship(string internshipId)
         {
             var candidateId = candidateService.GetIdByUserId(User.Id());
 
             var applicationModel = new AddApplicationFormModel
             {
-                InternshipId = id,
+                InternshipId = internshipId,
                 CandidateId = candidateId
             };
 
@@ -76,6 +89,20 @@
             }
 
             return RedirectToAction("Details", "Internship", new { id = application.InternshipId });
+        }
+
+        public IActionResult Details(string id)
+        {
+            // check if user is owner.
+
+            return null;
+        }
+
+        public IActionResult Delete(string id)
+        {
+            // delete application if user-candidate is owner.
+
+            return null;
         }
     }
 }
