@@ -4,8 +4,10 @@
 
     using static Data.Common.DataConstants.Application;
 
-    public class AddApplicationFormModel
+    public class ApplicationFormModel
     {
+        public string Id { get; set; }
+
         [Required]
         public string InternshipId { get; set; }
 
