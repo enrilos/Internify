@@ -1,0 +1,18 @@
+﻿@model IEnumerable<MyApplicationListingViewModel>
+
+<section class="row justify-content-center mt-3">
+    @foreach (var application in @Model)
+    {
+        <section class="card col-md-3 m-2 p-3 bg-light text-center">
+            <p class="card-title">@application.Role</p>
+            <p class="card-title">@application.Company</p>
+            <section class="card-body">
+                <a class="btn btn-primary"
+               asp-area="Candidate"
+               asp-controller="Application"
+               asp-action="Details"
+               asp-route-id="@application.Id">Details</a>
+            </section>
+        </section>
+    }
+</section>
