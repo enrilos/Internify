@@ -125,6 +125,9 @@
             var candidate = data
                 .Candidates
                 .Include(x => x.Universities)
+                .Include(x => x.Applications)
+                .Include(x => x.Comments)
+                .Include(x => x.Reviews)
                 .FirstOrDefault(x => x.Id == id && !x.IsDeleted);
 
             if (candidate == null)
@@ -138,6 +141,24 @@
             foreach (var candidateUniversity in candidate.Universities)
             {
                 data.CandidateUniversities.Remove(candidateUniversity);
+            }
+
+            foreach (var application in candidate.Applications)
+            {
+                application.IsDeleted = true;
+                application.DeletedOn = candidate.DeletedOn;
+            }
+
+            foreach (var comment in candidate.Comments)
+            {
+                comment.IsDeleted = true;
+                comment.DeletedOn = candidate.DeletedOn;
+            }
+
+            foreach (var review in candidate.Reviews)
+            {
+                review.IsDeleted = true;
+                review.DeletedOn = candidate.DeletedOn;
             }
 
             Task.Run(async () =>
