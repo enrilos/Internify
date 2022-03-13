@@ -4,34 +4,34 @@
 
     public class CandidateDetailsViewModel
     {
-        public string Id { get; set; }
+        public string Id { get; init; }
 
-        public string FirstName { get; set; }
+        public string FirstName { get; init; }
 
-        public string LastName { get; set; }
+        public string LastName { get; init; }
 
-        public string ImageUrl { get; set; }
+        public string ImageUrl { get; init; }
 
-        public string WebsiteUrl { get; set; }
+        public string WebsiteUrl { get; init; }
 
-        public string Description { get; set; }
+        public string Description { get; init; }
 
-        public string BirthDate { get; set; }
+        public string BirthDate { get; init; }
 
-        public string Gender { get; set; }
+        public string Gender { get; init; }
 
-        public string IsAvailableMessage { get; set; }
+        public string IsAvailableMessage { get; init; }
 
-        public string Specialization { get; set; }
+        public string Specialization { get; init; }
 
-        public IEnumerable<UniversityListingViewModel> Universities { get; set; }
+        public IEnumerable<UniversityListingViewModel> Universities { get; init; }
 
-        public string Country { get; set; }
+        public string Country { get; init; }
 
-        public string Company { get; set; }
+        public string Company { get; init; }
 
         public string CreatedOn { get; init; }
 
-        public string ModifiedOn { get; set; }
+        public string ModifiedOn { get; init; }
     }
 }

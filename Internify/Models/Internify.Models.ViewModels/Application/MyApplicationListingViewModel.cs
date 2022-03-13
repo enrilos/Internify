@@ -2,10 +2,10 @@
 {
     public class MyApplicationListingViewModel
     {
-        public string Id { get; set; }
+        public string Id { get; init; }
 
-        public string Role { get; set; }
+        public string Role { get; init; }
 
-        public string Company { get; set; }
+        public string Company { get; init; }
     }
 }

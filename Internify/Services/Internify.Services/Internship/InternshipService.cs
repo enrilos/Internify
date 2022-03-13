@@ -25,11 +25,11 @@
             var internship = new Internship
             {
                 CompanyId = companyId,
-                Role = role,
+                Role = role.Trim(),
                 IsPaid = isPaid,
                 SalaryUSD = salaryUSD,
                 IsRemote = isRemote,
-                Description = description,
+                Description = description.Trim(),
                 CountryId = countryId
             };
 
@@ -55,7 +55,7 @@
 
             internship.IsPaid = isPaid;
             internship.SalaryUSD = salaryUSD;
-            internship.Description = description;
+            internship.Description = description.Trim();
 
             internship.ModifiedOn = DateTime.UtcNow;
 
@@ -156,7 +156,7 @@
             if (role != null)
             {
                 internshipsQuery = internshipsQuery
-                    .Where(x => x.Role.ToLower().Contains(role.ToLower()));
+                    .Where(x => x.Role.ToLower().Contains(role.ToLower().Trim()));
             }
 
             // Otherwise, ignore filter
