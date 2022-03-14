@@ -5,6 +5,7 @@
     using Internify.Models.ViewModels.Country;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
+    using Services.Application;
     using Services.Company;
     using Services.Country;
     using Services.Internship;
@@ -14,17 +15,20 @@
     public class InternshipController : CompanyControllerBase
     {
         private readonly IInternshipService internshipService;
+        private readonly IApplicationService applicationService;
         private readonly ICompanyService companyService;
         private readonly ICountryService countryService;
         private readonly IMemoryCache cache;
 
         public InternshipController(
             IInternshipService internshipService,
+            IApplicationService applicationService,
             ICompanyService companyService,
             ICountryService countryService,
             IMemoryCache cache)
         {
             this.internshipService = internshipService;
+            this.applicationService = applicationService;
             this.companyService = companyService;
             this.countryService = countryService;
             this.cache = cache;
@@ -48,6 +52,27 @@
                 queryModel.InternshipsPerPage);
 
             queryModel.Countries = AcquireCachedCountries();
+
+            return View(queryModel);
+        }
+
+        public IActionResult Applicants([FromQuery] InternshipApplicantListingQueryModel queryModel)
+        {
+            var companyId = companyService.GetIdByUserId(User.Id());
+
+            if (!internshipService.IsInternshipOwnedByCompany(queryModel.InternshipId, companyId))
+            {
+                return Unauthorized();
+            }
+
+            // only one candidate can be approved for an internship. After being approved, they become part of the company's interns.
+            // Moreover, the internship should be deleted. This will also delete all its applications.
+            // approve button in application details
+
+            queryModel = applicationService.GetInternshipApplicants(
+                queryModel.InternshipId,
+                queryModel.CurrentPage,
+                queryModel.ApplicantsPerPage);
 
             return View(queryModel);
         }

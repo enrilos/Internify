@@ -20,6 +20,12 @@
         <a class="btn btn-primary rounded m-1"
        asp-area="Company"
        asp-controller="Internship"
+       asp-action="Applicants"
+       asp-route-internshipId="@Model.Id">Applicants</a>
+
+        <a class="btn btn-primary rounded m-1"
+       asp-area="Company"
+       asp-controller="Internship"
        asp-action="Edit"
        asp-route-id="@Model.Id">Edit</a>
 
