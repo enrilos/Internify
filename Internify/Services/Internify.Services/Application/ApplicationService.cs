@@ -3,12 +3,16 @@
     using Data;
     using Data.Models;
     using Models.InputModels.Application;
+    using Models.InputModels.Internship;
     using Models.ViewModels.Application;
+    using Models.ViewModels.Internship;
+
+    using static Common.GlobalConstants;
 
     public class ApplicationService : IApplicationService
     {
         private readonly InternifyDbContext data;
-        private const int CoverLetterSegmentNumber = 150;
+        private const int CoverLetterSegmentNumber = 65;
 
         public ApplicationService(InternifyDbContext data)
             => this.data = data;
@@ -133,6 +137,59 @@
                 CoverLetter = x.CoverLetter
             })
             .FirstOrDefault();
+
+        public InternshipApplicantListingQueryModel GetInternshipApplicants(
+            string internshipId,
+            int currentPage,
+            int applicantsPerPage)
+        {
+            var internshipApplicantsQuery = data
+                .Applications
+                .Where(x =>
+                x.InternshipId == internshipId
+                && !x.IsDeleted)
+                .AsQueryable();
+
+            if (currentPage <= 0)
+            {
+                currentPage = 1;
+            }
+
+            if (applicantsPerPage < 6)
+            {
+                applicantsPerPage = 6;
+            }
+            else if (applicantsPerPage > 96)
+            {
+                applicantsPerPage = 96;
+            }
+
+            var internshipApplicants = internshipApplicantsQuery
+                .OrderByDescending(x => x.CreatedOn)
+                .ThenBy(x => x.Candidate.FirstName + " " + x.Candidate.LastName)
+                .Skip((currentPage - 1) * applicantsPerPage)
+                .Take(applicantsPerPage)
+                .Select(x => new InternshipApplicantListingViewModel
+                {
+                    ApplicationId = x.Id,
+                    CandidateFullName = x.Candidate.FirstName + " " + x.Candidate.LastName,
+                    CandidateImageUrl = x.Candidate.ImageUrl,
+                    CandidateAge = (int)((DateTime.Now - x.Candidate.BirthDate).TotalDays / DaysInAYear),
+                    CandidateCoverLetterSegment = x.CoverLetter.Length > CoverLetterSegmentNumber
+                    ? x.CoverLetter.Substring(0, CoverLetterSegmentNumber) + "..."
+                    : x.CoverLetter.Substring(0, CoverLetterSegmentNumber)
+                })
+               .ToList();
+
+            return new InternshipApplicantListingQueryModel
+            {
+                InternshipId = internshipId,
+                CurrentPage = currentPage,
+                ApplicantsPerPage = applicantsPerPage,
+                Applicants = internshipApplicants,
+                TotalApplicants = internshipApplicantsQuery.Count()
+            };
+        }
 
         public MyApplicationListingQueryModel GetCandidateApplications(
             string candidateId,

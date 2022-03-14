@@ -1,6 +1,7 @@
 ﻿namespace Internify.Services.Application
 {
     using Models.InputModels.Application;
+    using Models.InputModels.Internship;
     using Models.ViewModels.Application;
 
     public interface IApplicationService
@@ -29,6 +30,11 @@
         public ApplicationDetailsViewModel GetDetailsModel(string id);
 
         public ApplicationFormModel GetEditModel(string id);
+
+        public InternshipApplicantListingQueryModel GetInternshipApplicants(
+            string internshipId,
+            int currentPage,
+            int applicantsPerPage);
 
         public MyApplicationListingQueryModel GetCandidateApplications(
             string candidateId,
