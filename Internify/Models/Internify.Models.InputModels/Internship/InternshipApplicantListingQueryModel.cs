@@ -7,6 +7,8 @@
     {
         public string InternshipId { get; set; }
 
+        public string InternshipRole { get; set; }
+
         public int CurrentPage { get; set; }
 
         [Display(Name = "Per Page")]
