@@ -2,7 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    public class ArticleController : CompanyController
+    public class ArticleController : CompanyControllerBase
     {
     }
 }

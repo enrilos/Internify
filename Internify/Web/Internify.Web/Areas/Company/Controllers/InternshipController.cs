@@ -11,7 +11,7 @@
 
     using static Common.WebConstants;
 
-    public class InternshipController : CompanyController
+    public class InternshipController : CompanyControllerBase
     {
         private readonly IInternshipService internshipService;
         private readonly ICompanyService companyService;
@@ -29,8 +29,6 @@
             this.countryService = countryService;
             this.cache = cache;
         }
-
-        // each company can see all applications for their X internship/s.
 
         public IActionResult MyInternships([FromQuery] InternshipListingQueryModel queryModel)
         {
