@@ -65,12 +65,9 @@
                 return Unauthorized();
             }
 
-            // only one candidate can be approved for an internship. After being approved, they become part of the company's interns.
-            // Moreover, the internship should be deleted. This will also delete all its applications.
-            // approve button in application details
-
             queryModel = applicationService.GetInternshipApplicants(
                 queryModel.InternshipId,
+                queryModel.InternshipRole,
                 queryModel.CurrentPage,
                 queryModel.ApplicantsPerPage);
 
