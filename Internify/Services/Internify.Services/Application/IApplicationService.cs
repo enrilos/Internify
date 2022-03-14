@@ -25,14 +25,21 @@
             string applicationId,
             string candidateId);
 
+        public bool DoesApplicationBelongToCompanyInternship(
+            string applicationId,
+            string companyId);
+
         public bool Delete(string id);
 
         public ApplicationDetailsViewModel GetDetailsModel(string id);
+
+        public ApplicationForCompanyDetailsViewModel GetDetailsModelForCompany(string id);
 
         public ApplicationFormModel GetEditModel(string id);
 
         public InternshipApplicantListingQueryModel GetInternshipApplicants(
             string internshipId,
+            string internshipRole,
             int currentPage,
             int applicantsPerPage);
 

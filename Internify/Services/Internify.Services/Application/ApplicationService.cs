@@ -6,16 +6,23 @@
     using Models.InputModels.Internship;
     using Models.ViewModels.Application;
     using Models.ViewModels.Internship;
+    using Services.Internship;
 
     using static Common.GlobalConstants;
 
     public class ApplicationService : IApplicationService
     {
         private readonly InternifyDbContext data;
+        private readonly IInternshipService internshipService;
         private const int CoverLetterSegmentNumber = 65;
 
-        public ApplicationService(InternifyDbContext data)
-            => this.data = data;
+        public ApplicationService(
+            InternifyDbContext data,
+            IInternshipService internshipService)
+        {
+            this.data = data;
+            this.internshipService = internshipService;
+        }
 
         public bool Add(
             string internshipId,
@@ -87,6 +94,16 @@
             && x.CandidateId == candidateId
             && !x.IsDeleted);
 
+        public bool DoesApplicationBelongToCompanyInternship(
+            string applicationId,
+            string companyId)
+            => data
+            .Applications
+            .Any(x =>
+            x.Id == applicationId
+            && x.Internship.CompanyId == companyId
+            && !x.IsDeleted);
+
         public bool Delete(string id)
         {
             var application = data.Applications.Find(id);
@@ -123,6 +140,23 @@
             })
             .FirstOrDefault();
 
+        public ApplicationForCompanyDetailsViewModel GetDetailsModelForCompany(string id)
+            => data
+            .Applications
+            .Where(x =>
+            x.Id == id
+            && !x.IsDeleted)
+            .Select(x => new ApplicationForCompanyDetailsViewModel
+            {
+                InternshipRole = x.Internship.Role,
+                CandidateId = x.CandidateId,
+                CandidateFullName = x.Candidate.FirstName + " " + x.Candidate.LastName,
+                CandidateAge = (int)((DateTime.Now - x.Candidate.BirthDate).TotalDays / DaysInAYear),
+                CandidateImageUrl = x.Candidate.ImageUrl,
+                CandidateCoverLetter = x.CoverLetter
+            })
+            .FirstOrDefault();
+
         public ApplicationFormModel GetEditModel(string id)
             => data
             .Applications
@@ -140,6 +174,7 @@
 
         public InternshipApplicantListingQueryModel GetInternshipApplicants(
             string internshipId,
+            string internshipRole,
             int currentPage,
             int applicantsPerPage)
         {
@@ -149,6 +184,11 @@
                 x.InternshipId == internshipId
                 && !x.IsDeleted)
                 .AsQueryable();
+
+            if (internshipRole == null)
+            {
+                internshipRole = internshipService.GetRoleById(internshipId);
+            }
 
             if (currentPage <= 0)
             {
@@ -184,6 +224,7 @@
             return new InternshipApplicantListingQueryModel
             {
                 InternshipId = internshipId,
+                InternshipRole = internshipRole,
                 CurrentPage = currentPage,
                 ApplicantsPerPage = applicantsPerPage,
                 Applicants = internshipApplicants,
