@@ -43,6 +43,14 @@
             string countryId,
             string hostName);
 
+        public bool AddCandidateToInterns(
+            string candidateId,
+            string companyId);
+
+        public bool IsCandidateInCompanyInterns(
+            string candidateId,
+            string companyId);
+
         public bool Delete(string id);
 
         public bool Exists(string id);

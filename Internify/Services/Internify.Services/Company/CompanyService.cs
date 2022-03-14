@@ -130,6 +130,45 @@
             return true;
         }
 
+        public bool AddCandidateToInterns(
+            string candidateId,
+            string companyId)
+        {
+            var candidate = data
+                .Candidates
+                .FirstOrDefault(x =>
+                x.Id == candidateId
+                && !x.IsDeleted);
+
+            var companyDataId = data
+                .Companies
+                .FirstOrDefault(x =>
+                x.Id == companyId
+                && !x.IsDeleted)?.Id;
+
+            if (candidate == null
+                || companyDataId == null)
+            {
+                return false;
+            }
+
+            candidate.CompanyId = companyDataId;
+
+            data.SaveChanges();
+
+            return true;
+        }
+
+        public bool IsCandidateInCompanyInterns(
+            string candidateId,
+            string companyId)
+            => data
+            .Companies
+            .Any(x =>
+            x.Id == companyId
+            && x.Interns.Any(i => i.Id == candidateId && !i.IsDeleted)
+            && !x.IsDeleted);
+
         public bool Delete(string id)
         {
             var company = data
