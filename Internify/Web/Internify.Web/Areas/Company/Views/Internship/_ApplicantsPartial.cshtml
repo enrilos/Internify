@@ -1,0 +1,19 @@
+﻿@model IEnumerable<InternshipApplicantListingViewModel>
+
+<section class="row justify-content-center mt-3">
+    @foreach (var applicant in @Model)
+    {
+        <section class="card col-md-3 m-2 bg-light">
+            <img src="@applicant.CandidateImageUrl" class="card-img-center m-1 rounded" alt="Applicant Picture" style="min-height: 300px; max-height: 300px; object-fit: contain;" />
+            <section class="card-body">
+                <p class="card-title h5">@applicant.CandidateFullName (@applicant.CandidateAge)</p>
+                <p>@applicant.CandidateCoverLetterSegment</p>
+                @{
+                    // TODO..
+                    // Finish Details btn
+                }
+                <a class="btn btn-primary">Details</a>
+            </section>
+        </section>
+    }
+</section>
