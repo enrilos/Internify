@@ -35,6 +35,12 @@
                 return Unauthorized();
             }
 
+            // Check if candidate is already an intern.
+            if (candidateService.IsCandidateAlreadyAnIntern(queryModel.CandidateId))
+            {
+                return BadRequest();
+            }
+
             var applications = applicationService.GetCandidateApplications(
                 queryModel.CandidateId,
                 queryModel.Role,
@@ -51,6 +57,12 @@
         {
             var candidateId = candidateService.GetIdByUserId(User.Id());
 
+            // Check if candidate is already an intern.
+            if (candidateService.IsCandidateAlreadyAnIntern(candidateId))
+            {
+                return BadRequest();
+            }
+
             var applicationModel = new ApplicationFormModel
             {
                 InternshipId = id,
@@ -63,6 +75,12 @@
         [HttpPost]
         public IActionResult ApplyForInternship(ApplicationFormModel application)
         {
+            // Check if candidate is already an intern.
+            if (candidateService.IsCandidateAlreadyAnIntern(application.CandidateId))
+            {
+                return BadRequest();
+            }
+
             if (!internshipService.Exists(application.InternshipId))
             {
                 ModelState.AddModelError(nameof(application.InternshipId), "Invalid option.");
@@ -93,9 +111,16 @@
 
         public IActionResult Edit(string id)
         {
+
             if (!IsCurrentCandidateOwner(id))
             {
                 return Unauthorized();
+            }
+
+            // Check if candidate is already an intern.
+            if (candidateService.IsCandidateAlreadyAnIntern(candidateService.GetIdByUserId(User.Id())))
+            {
+                return BadRequest();
             }
 
             if (!applicationService.Exists(id))
@@ -114,6 +139,12 @@
             if (!IsCurrentCandidateOwner(application.Id))
             {
                 return Unauthorized();
+            }
+
+            // Check if candidate is already an intern.
+            if (candidateService.IsCandidateAlreadyAnIntern(application.CandidateId))
+            {
+                return BadRequest();
             }
 
             if (!applicationService.Exists(application.Id))
@@ -155,6 +186,12 @@
                 return Unauthorized();
             }
 
+            // Check if candidate is already an intern.
+            if (candidateService.IsCandidateAlreadyAnIntern(candidateService.GetIdByUserId(User.Id())))
+            {
+                return BadRequest();
+            }
+
             var application = applicationService.GetDetailsModel(id);
 
             return View(application);
@@ -165,6 +202,12 @@
             if (!IsCurrentCandidateOwner(id))
             {
                 return Unauthorized();
+            }
+
+            // Check if candidate is already an intern.
+            if (candidateService.IsCandidateAlreadyAnIntern(candidateService.GetIdByUserId(User.Id())))
+            {
+                return BadRequest();
             }
 
             var result = applicationService.Delete(id);

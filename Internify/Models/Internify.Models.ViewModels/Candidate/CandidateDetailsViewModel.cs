@@ -28,6 +28,8 @@
 
         public string Country { get; init; }
 
+        public string CompanyId { get; init; }
+
         public string Company { get; init; }
 
         public string CreatedOn { get; init; }

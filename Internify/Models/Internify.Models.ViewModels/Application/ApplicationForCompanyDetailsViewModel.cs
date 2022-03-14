@@ -2,6 +2,8 @@
 {
     public class ApplicationForCompanyDetailsViewModel
     {
+        public string InternshipId { get; init; }
+
         public string InternshipRole { get; init; }
 
         public string CandidateId { get; init; }

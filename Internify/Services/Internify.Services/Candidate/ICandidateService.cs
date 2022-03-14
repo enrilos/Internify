@@ -40,6 +40,8 @@
 
         public bool Delete(string id);
 
+        public bool IsCandidateAlreadyAnIntern(string id);
+
         public bool Exists(string id);
 
         public CandidateDetailsViewModel GetDetailsModel(string id);

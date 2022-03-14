@@ -60,12 +60,11 @@
 
     @if (candidateService.IsCandidateByUserId(User.Id()))
     {
-        // check if candidate has already applied for this internship
-
         var candidateId = candidateService.GetIdByUserId(User.Id());
         var hasApplied = applicationService.HasCandidateApplied(candidateId, Model.Id);
+        var isCandidateAnInternOfAnyCompany = candidateService.IsCandidateAlreadyAnIntern(candidateId);
 
-        @if (!hasApplied)
+        @if (!hasApplied && !isCandidateAnInternOfAnyCompany)
         {
             <a class="btn btn-primary rounded m-1"
             asp-area="Candidate"
@@ -75,7 +74,15 @@
         }
         else
         {
-            <p class="border border-success rounded h5 text-success p-3">You have a submitted application for this internship.</p>
+            if (hasApplied)
+            {
+                <p class="border border-success rounded h5 text-success p-3">You have a submitted application for this internship.</p>
+            }
+            else if (isCandidateAnInternOfAnyCompany)
+            {
+                <p class="border border-success rounded h5 text-success p-3">You are already an intern of a company.</p>
+            }
+
         }
     }
 

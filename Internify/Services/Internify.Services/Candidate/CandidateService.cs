@@ -175,6 +175,14 @@
             return true;
         }
 
+        public bool IsCandidateAlreadyAnIntern(string id)
+            => data
+            .Candidates
+            .Any(x =>
+            x.Id == id
+            && x.CompanyId != null
+            && !x.IsDeleted);
+
         public bool Exists(string id)
             => data
             .Candidates
@@ -207,6 +215,7 @@
                         Country = x.University.Country.Name
                     })
                     .ToList(),
+                CompanyId = x.CompanyId,
                 Country = x.Country.Name,
                 Company = x.Company == null ? "" : x.Company.Name,
                 CreatedOn = x.CreatedOn.ToString("d"),

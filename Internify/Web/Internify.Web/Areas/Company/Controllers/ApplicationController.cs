@@ -3,24 +3,30 @@
     using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Mvc;
     using Services.Application;
+    using Services.Candidate;
     using Services.Company;
+    using Services.Internship;
+
+    using static Common.WebConstants;
 
     public class ApplicationController : CompanyControllerBase
     {
         private readonly IApplicationService applicationService;
+        private readonly ICandidateService candidateService;
+        private readonly IInternshipService internshipService;
         private readonly ICompanyService companyService;
 
         public ApplicationController(
             IApplicationService applicationService,
+            ICandidateService candidateService,
+            IInternshipService internshipService,
             ICompanyService companyService)
         {
             this.applicationService = applicationService;
+            this.candidateService = candidateService;
+            this.internshipService = internshipService;
             this.companyService = companyService;
         }
-
-        // only one candidate can be approved for an internship. After being approved, they become part of the company's interns.
-        // Moreover, the internship should be deleted. This will also delete all its applications.
-        // approve button in application details
 
         public IActionResult Details(string id)
         {
@@ -36,6 +42,40 @@
             return View(applicationForCompany);
         }
 
-        public IActionResult Approve(string candidateId) => null;
+        public IActionResult Approve(
+            string candidateId,
+            string internshipId)
+        {
+            var companyId = companyService.GetIdByUserId(User.Id());
+
+            if (companyService.IsCandidateInCompanyInterns(candidateId, companyId))
+            {
+                return BadRequest();
+            }
+
+            if (!candidateService.Exists(candidateId)
+                || !internshipService.Exists(internshipId))
+            {
+                return NotFound();
+            }
+
+            var internshipDeleteResult = internshipService.Delete(internshipId);
+
+            if (!internshipDeleteResult)
+            {
+                return BadRequest();
+            }
+
+            var approvalResult = companyService.AddCandidateToInterns(candidateId, companyId);
+
+            if (!approvalResult)
+            {
+                return BadRequest();
+            }
+
+            TempData[GlobalMessageKey] = "Successfully employed candidate as an intern.";
+
+            return RedirectToAction("Details", "Company", new { id = companyId });
+        }
     }
 }

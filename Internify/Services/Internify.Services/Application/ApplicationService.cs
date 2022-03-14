@@ -148,6 +148,7 @@
             && !x.IsDeleted)
             .Select(x => new ApplicationForCompanyDetailsViewModel
             {
+                InternshipId = x.InternshipId,
                 InternshipRole = x.Internship.Role,
                 CandidateId = x.CandidateId,
                 CandidateFullName = x.Candidate.FirstName + " " + x.Candidate.LastName,

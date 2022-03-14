@@ -18,11 +18,22 @@
        asp-action="Edit"
        asp-route-id="@Model.Id">Edit</a>
 
-        <a class="btn btn-primary rounded m-1"
-       asp-area="Candidate"
-       asp-controller="Application"
-       asp-action="MyApplications"
-       asp-route-candidateId="@Model.Id">My Applications</a>
+        if (candidateService.IsCandidateAlreadyAnIntern(Model.Id))
+        {
+            <a class="btn btn-primary rounded m-1"
+            asp-controller="Company"
+            asp-action="Details"
+            asp-route-id="@Model.CompanyId">My Company</a>
+        }
+        else
+        {
+            <a class="btn btn-primary rounded m-1"
+            asp-area="Candidate"
+            asp-controller="Application"
+            asp-action="MyApplications"
+            asp-route-candidateId="@Model.Id">My Applications</a>
+        }
+
     }
     @if (User.IsAdmin())
     {
