@@ -8,11 +8,11 @@
             <section class="card-body">
                 <p class="card-title h5">@applicant.CandidateFullName (@applicant.CandidateAge)</p>
                 <p>@applicant.CandidateCoverLetterSegment</p>
-                @{
-                    // TODO..
-                    // Finish Details btn
-                }
-                <a class="btn btn-primary">Details</a>
+                <a class="btn btn-primary"
+                asp-area="Company"
+                asp-controller="Application"
+                asp-action="Details"
+                asp-route-id="@applicant.ApplicationId">Details</a>
             </section>
         </section>
     }
