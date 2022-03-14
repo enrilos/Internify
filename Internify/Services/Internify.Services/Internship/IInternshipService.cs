@@ -28,6 +28,8 @@
             string internshipId,
             string companyId);
 
+        public string GetRoleById(string id);
+
         public InternshipDetailsViewModel GetDetailsModel(string id);
 
         public EditInternshipFormModel GetEditModel(string id);

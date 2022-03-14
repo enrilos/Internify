@@ -107,6 +107,13 @@
             && x.CompanyId == companyId
             && !x.IsDeleted);
 
+        public string GetRoleById(string id)
+            => data
+            .Internships
+            .FirstOrDefault(x =>
+            x.Id == id
+            && !x.IsDeleted)?.Role;
+
         public InternshipDetailsViewModel GetDetailsModel(string id)
             => data
             .Internships
