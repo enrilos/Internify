@@ -1,0 +1,50 @@
+﻿@model ApplicationForCompanyDetailsViewModel
+
+<section class="container d-flex bd-highlight justify-content-evenly align-items-center flex-column">
+    <article>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Approve Candidate
+        </button>
+
+        <!-- Modal -->
+        <section class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <section class="modal-dialog">
+                <section class="modal-content">
+                    <section class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </section>
+                    <section class="modal-body">
+                        <p class="h5">Approve this candidate for the @Model.InternshipRole internship?</p>
+                        <p class="h6 text-danger">Note: After approval, this internship will be deleted as well as its applications.</p>
+                    </section>
+                    <section class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <a class="btn btn-primary"
+                           asp-area="Company"
+                           asp-controller="Application"
+                           asp-action="Approve"
+                           asp-route-candidateId="@Model.CandidateId">Approve Candidate</a>
+                    </section>
+                </section>
+            </section>
+        </section>
+
+        <a class="btn btn-primary"
+           asp-controller="Candidate"
+           asp-action="Details"
+           asp-route-id="@Model.CandidateId">Details</a>
+    </article>
+    <article class="m-4">
+        <p class="h1">@Model.CandidateFullName - @Model.CandidateAge</p>
+    </article>
+    <article style="max-width: 500px;">
+        <img src="@Model.CandidateImageUrl" class="img-fluid rounded p-1" />
+    </article>
+</section>
+<p class="h2 text-center mt-2">Cover Letter:</p>
+<article class="p-2 m-3 bg-light">
+    <p class="text-center" style="word-wrap: break-word;">@Model.CandidateCoverLetter</p>
+</article>
