@@ -111,7 +111,7 @@
 
         private bool IsTheSameCandidate(string id)
             => candidateService
-            .GetIdByUserId(User?.Id()) == id;
+            .GetIdByUserId(User.Id()) == id;
 
         private IEnumerable<SpecializationListingViewModel> AcquireCachedSpecializations()
         {

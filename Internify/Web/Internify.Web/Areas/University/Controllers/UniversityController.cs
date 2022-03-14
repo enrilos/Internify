@@ -144,7 +144,7 @@
 
         private bool IsTheSameUniversity(string id)
             => universityService
-            .GetIdByUserId(User?.Id()) == id;
+            .GetIdByUserId(User.Id()) == id;
 
         private IEnumerable<CountryListingViewModel> AcquireCachedCountries()
         {
