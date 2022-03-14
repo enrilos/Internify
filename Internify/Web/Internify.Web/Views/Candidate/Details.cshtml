@@ -13,6 +13,7 @@
     @if (Model.Id == candidateService.GetIdByUserId(User?.Id()))
     {
         <a class="btn btn-primary rounded m-1"
+       asp-area="Candidate"
        asp-controller="Candidate"
        asp-action="Edit"
        asp-route-id="@Model.Id">Edit</a>

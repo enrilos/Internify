@@ -8,7 +8,7 @@
     using Services.Candidate;
     using Services.Internship;
 
-    public class ApplicationController : CandidateController
+    public class ApplicationController : CandidateControllerBase
     {
         private readonly IApplicationService applicationService;
         private readonly IInternshipService internshipService;
