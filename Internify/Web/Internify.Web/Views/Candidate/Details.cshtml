@@ -80,6 +80,7 @@
                         <section class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <a class="btn btn-primary rounded m-1"
+                       asp-area="University"
                        asp-controller="University"
                        asp-action="AddToAlumni"
                        asp-route-universityId="@universityId"
@@ -110,6 +111,7 @@
                         <section class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <a class="btn btn-danger rounded m-1"
+                       asp-area="University"
                        asp-controller="University"
                        asp-action="RemoveFromAlumni"
                        asp-route-universityId="@universityId"
@@ -149,7 +151,7 @@
             <p class="text-center" style="word-wrap: break-word;">@Model.Description</p>
         }
     </article>
-    </section>
+</section>
 <section>
     @if (Model.Universities.Any())
     {

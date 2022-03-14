@@ -21,7 +21,6 @@
         private readonly IUniversityService universityService;
         private readonly ICountryService countryService;
         private readonly ISpecializationService specializationService;
-        private readonly ICandidateUniversityService candidateUniversityService;
         private readonly IMemoryCache cache;
         private readonly RoleChecker roleChecker;
 
@@ -29,14 +28,12 @@
             IUniversityService universityService,
             ICountryService countryService,
             ISpecializationService specializationService,
-            ICandidateUniversityService candidateUniversityService,
             IMemoryCache cache,
             RoleChecker roleChecker)
         {
             this.universityService = universityService;
             this.countryService = countryService;
             this.specializationService = specializationService;
-            this.candidateUniversityService = candidateUniversityService;
             this.cache = cache;
             this.roleChecker = roleChecker;
         }
@@ -121,67 +118,6 @@
             return View(university);
         }
 
-        [Authorize]
-        public IActionResult Edit(string id)
-        {
-            if (!IsTheSameUniversity(id))
-            {
-                return Unauthorized();
-            }
-
-            var university = universityService.GetEditModel(id);
-
-            if (university == null)
-            {
-                return NotFound();
-            }
-
-            university.Countries = AcquireCachedCountries();
-
-            return View(university);
-        }
-
-        [Authorize]
-        [HttpPost]
-        public IActionResult Edit(EditUniversityFormModel university)
-        {
-            if (!IsTheSameUniversity(university.Id))
-            {
-                return Unauthorized();
-            }
-
-            if (!countryService.Exists(university.CountryId))
-            {
-                ModelState.AddModelError(nameof(university.CountryId), "Invalid option.");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                university.Countries = AcquireCachedCountries();
-
-                return View(university);
-            }
-
-            var editResult = universityService.Edit(
-                university.Id,
-                university.Name,
-                university.ImageUrl,
-                university.WebsiteUrl,
-                university.Founded,
-                university.Type,
-                university.Description,
-                university.CountryId);
-
-            if (!editResult)
-            {
-                return BadRequest();
-            }
-
-            TempData[GlobalMessageKey] = "Successfully edited university.";
-
-            return RedirectToAction(nameof(Details), new { id = university.Id });
-        }
-
         public IActionResult Alumni([FromQuery] CandidateListingQueryModel queryModel)
         {
             if (!universityService.Exists(queryModel.UniversityId))
@@ -204,60 +140,6 @@
 
             return View(queryModel);
         }
-
-        [Authorize]
-        public IActionResult AddToAlumni(string universityId, string candidateId)
-        {
-            if (!IsTheSameUniversity(universityId))
-            {
-                return Unauthorized();
-            }
-
-            if (candidateUniversityService.IsCandidateInUniversityAlumni(universityId, candidateId))
-            {
-                return BadRequest();
-            }
-
-            var result = candidateUniversityService.AddCandidateToAlumni(universityId, candidateId);
-
-            if (!result)
-            {
-                return BadRequest();
-            }
-
-            TempData[GlobalMessageKey] = "Candidate was successfully added to your alumni!";
-
-            return RedirectToAction(nameof(Details), new { id = universityId });
-        }
-
-        [Authorize]
-        public IActionResult RemoveFromAlumni(string universityId, string candidateId)
-        {
-            if (!IsTheSameUniversity(universityId))
-            {
-                return Unauthorized();
-            }
-
-            if (!candidateUniversityService.IsCandidateInUniversityAlumni(universityId, candidateId))
-            {
-                return NotFound();
-            }
-
-            var result = candidateUniversityService.RemoveCandidateFromAlumni(universityId, candidateId);
-
-            if (!result)
-            {
-                return BadRequest();
-            }
-
-            TempData[GlobalMessageKey] = "Candidate was successfully removed from your alumni!";
-
-            return RedirectToAction(nameof(Details), new { id = universityId });
-        }
-
-        private bool IsTheSameUniversity(string id)
-            => universityService
-            .GetIdByUserId(User?.Id()) == id;
 
         private IEnumerable<SpecializationListingViewModel> AcquireCachedSpecializations()
         {
