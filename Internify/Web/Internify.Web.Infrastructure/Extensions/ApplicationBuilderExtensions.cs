@@ -19,16 +19,16 @@
             using var serviceScope = app.ApplicationServices.CreateScope();
             var services = serviceScope.ServiceProvider;
 
-            //MigrateDatabase();
+            MigrateDatabase(services);
 
-            //SeedSpecializations(services);
-            //SeedCountries(services);
-            //SeedRoles(services);
-            //SeedAdministrator(services);
-            //SeedUsers(services);
-            //SeedCandidates(services);
-            //SeedUniversities(services);
-            //SeedCompanies(services);
+            SeedSpecializations(services);
+            SeedCountries(services);
+            SeedRoles(services);
+            SeedAdministrator(services);
+            SeedUsers(services);
+            SeedCandidates(services);
+            SeedUniversities(services);
+            SeedCompanies(services);
 
             // seed CandidateUniversities ?
             // seed Internships ?
@@ -57,6 +57,7 @@
                 new Specialization { Name = "Management"},
                 new Specialization { Name = "Human Resources (HR)"},
                 new Specialization { Name = "Production"},
+                new Specialization { Name = "Food Retailer"},
                 new Specialization { Name = "Banking, Lending, Insurance"},
                 new Specialization { Name = "Administrative, Office and Business Activities"},
                 new Specialization { Name = "Restaurants, Hotels, Tourism"},
@@ -894,7 +895,7 @@ Lidl is the chief competitor of the similar German discount chain Aldi in severa
                     EmployeesCount = 315000,
                     IsPublic = false,
                     IsGovernmentOwned = false,
-                    SpecializationId = GetSpecializationIdByName(data, "Trade and Sales"),
+                    SpecializationId = GetSpecializationIdByName(data, "Food Retailer"),
                     CountryId = GetCountryIdByName(data, "Bulgaria"),
                     UserId = data.Users.FirstOrDefault(x => x.Email.Contains("lidl")).Id
                 },
@@ -940,7 +941,7 @@ Using modern technologies and methodologies we are constantly seeking to improve
                     EmployeesCount = 79000,
                     IsPublic = true,
                     IsGovernmentOwned = false,
-                    SpecializationId = GetSpecializationIdByName(data, "Trade and Sales"),
+                    SpecializationId = GetSpecializationIdByName(data, "Food Retailer"),
                     CountryId = GetCountryIdByName(data, "Bulgaria"),
                     UserId = data.Users.FirstOrDefault(x => x.Email.Contains("cocacola")).Id
                 },
