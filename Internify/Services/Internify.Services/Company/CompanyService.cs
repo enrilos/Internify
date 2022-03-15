@@ -137,15 +137,13 @@
         {
             var candidate = data
                 .Candidates
-                .FirstOrDefault(x =>
-                x.Id == candidateId
-                && !x.IsDeleted);
+                .Where(x => x.Id == candidateId && !x.IsDeleted)
+                .Include(x => x.Applications)
+                .FirstOrDefault();
 
             var companyDataId = data
                 .Companies
-                .FirstOrDefault(x =>
-                x.Id == companyId
-                && !x.IsDeleted)?.Id;
+                .FirstOrDefault(x => x.Id == companyId && !x.IsDeleted)?.Id;
 
             if (candidate == null
                 || companyDataId == null)
@@ -155,6 +153,14 @@
 
             candidate.CompanyId = companyDataId;
             candidate.InternshipRole = internshipRole;
+
+            var deleteDate = DateTime.UtcNow;
+
+            foreach (var application in candidate.Applications)
+            {
+                application.IsDeleted = true;
+                application.DeletedOn = deleteDate;
+            }
 
             data.SaveChanges();
 
