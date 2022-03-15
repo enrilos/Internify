@@ -1,0 +1,84 @@
+﻿@model InternListingQueryModel
+@{
+    ViewData["Title"] = "My Interns";
+}
+
+<p class="h2 heading-margin text-center">@ViewData["Title"]</p>
+
+<form method="get">
+    <input asp-for="CompanyId" type="hidden"/>
+    <section class="py-4 px-2 d-flex bd-highlight justify-content-evenly align-items-center flex-wrap">
+        <section class="form-group">
+            <label asp-for="FirstName"></label>
+            <input asp-for="FirstName" class="form-control">
+        </section>
+        <section class="form-group">
+            <label asp-for="LastName"></label>
+            <input asp-for="LastName" class="form-control">
+        </section>
+        <section class="form-group">
+            <label asp-for="InternshipRole"></label>
+            <input asp-for="InternshipRole" class="form-control">
+        </section>
+        <section class="form-group">
+            <label asp-for="InternsPerPage"></label>
+            <select asp-for="InternsPerPage" class="form-control">
+                <option value="6" selected>6</option>
+                <option value="12">12</option>
+                <option value="24">24</option>
+                <option value="48">48</option>
+                <option value="96">96</option>
+            </select>
+        </section>
+        <input class="btn btn-primary mt-3" type="submit" value="Search" />
+    </section>
+</form>
+
+@{
+    var previousPage = Model.CurrentPage - 1;
+
+    if (previousPage < 1)
+    {
+        previousPage = 1;
+    }
+    var maxPage = Math.Ceiling((double)Model.TotalInterns / Model.InternsPerPage);
+}
+
+@if (Model.Interns.Any())
+{
+    <partial name="_InternsPartial" model="@Model.Interns" />
+}
+else
+{
+    <p class="h2 text-center">Uh oh! No interns were found.</p>
+}
+
+<section class="d-flex flex-row justify-content-around text-center my-5">
+    <section>
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+           asp-area="Company"
+           asp-controller="Intern"
+           asp-action="MyInterns"
+           asp-route-currentPage="@previousPage"
+           asp-route-firstName="@Model.FirstName"
+           asp-route-lastName="@Model.LastName"
+           asp-route-internshipRole="@Model.InternshipRole"
+           asp-route-companyId="@Model.CompanyId">Previous</a>
+    </section>
+
+    @{
+        var shouldButtonBeDisabled = Model.CurrentPage == maxPage || !Model.Interns.Any();
+    }
+
+    <section>
+        <a class="btn btn-primary float-sm-right @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
+           asp-area="Company"
+           asp-controller="Intern"
+           asp-action="MyInterns"
+           asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-firstName="@Model.FirstName"
+           asp-route-lastName="@Model.LastName"
+           asp-route-internshipRole="@Model.InternshipRole"
+           asp-route-companyId="@Model.CompanyId">Next</a>
+    </section>
+</section>
