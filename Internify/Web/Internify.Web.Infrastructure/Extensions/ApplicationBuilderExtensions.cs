@@ -29,9 +29,8 @@
             SeedCandidates(services);
             SeedUniversities(services);
             SeedCompanies(services);
-
-            // seed CandidateUniversities ?
-            // seed Internships ?
+            SeedCandidateUniversities(services);
+            SeedInternships(services);
 
             return app;
         }
@@ -948,6 +947,106 @@ Using modern technologies and methodologies we are constantly seeking to improve
             };
 
             data.Companies.AddRange(companies);
+
+            data.SaveChanges();
+        }
+
+        private static void SeedCandidateUniversities(IServiceProvider services)
+        {
+            var data = services.GetService<InternifyDbContext>();
+            var candidates = data.Candidates.ToList();
+            var universities = data.Universities.ToList();
+
+            var candidateUniversities = new List<CandidateUniversity>
+            {
+                new CandidateUniversity
+                {
+                    CandidateId = candidates.FirstOrDefault(x => x.FirstName.ToLower().Contains("emre")).Id,
+                    UniversityId = universities.FirstOrDefault(x => x.Name.ToLower().Contains("software")).Id
+                },
+                new CandidateUniversity
+                {
+                    CandidateId = candidates.FirstOrDefault(x => x.FirstName.ToLower().Contains("atanas")).Id,
+                    UniversityId = universities.FirstOrDefault(x => x.Name.ToLower().Contains("software")).Id
+                },
+                new CandidateUniversity
+                {
+                    CandidateId = candidates.FirstOrDefault(x => x.FirstName.ToLower().Contains("ivaylo")).Id,
+                    UniversityId = universities.FirstOrDefault(x => x.Name.ToLower().Contains("software")).Id
+                },
+                new CandidateUniversity
+                {
+                    CandidateId = candidates.FirstOrDefault(x => x.FirstName.ToLower().Contains("nikolay")).Id,
+                    UniversityId = universities.FirstOrDefault(x => x.Name.ToLower().Contains("software")).Id
+                }
+            };
+
+            data.CandidateUniversities.AddRange(candidateUniversities);
+
+            data.SaveChanges();
+        }
+
+        private static void SeedInternships(IServiceProvider services)
+        {
+            var data = services.GetService<InternifyDbContext>();
+            var companies = data.Companies.ToList();
+
+            var internships = new List<Internship>()
+            {
+                new Internship
+                {
+                    CompanyId = companies.FirstOrDefault(x => x.Name.ToLower().Contains("codexio")).Id,
+                    Role = "Intern .NET Developer",
+                    IsPaid = true,
+                    SalaryUSD = 285,
+                    IsRemote = true,
+                    Description = @"We are looking for an ambitious .NET Developer who is motivated to become adept at
+Entity Framework Core as well as ASP.NET Core and potentionally join our team. Salary in USD is included.",
+                },
+                new Internship
+                {
+                    CompanyId = companies.FirstOrDefault(x => x.Name.ToLower().Contains("codexio")).Id,
+                    Role = "Intern Java Developer",
+                    IsPaid = true,
+                    SalaryUSD = 295,
+                    IsRemote = true,
+                    Description = @"We are looking for an ambitious Java Developer who is motivated to become adept at
+Spring Data as well as Spring MVC and potentionally join our team. Salary in USD is included.",
+                },
+                new Internship
+                {
+                    CompanyId = companies.FirstOrDefault(x => x.Name.ToLower().Contains("lidl")).Id,
+                    Role = "Cashier Intern",
+                    IsPaid = true,
+                    SalaryUSD = 150,
+                    IsRemote = false,
+                    Description = @"We at Lidl Bulgaria seek a motivated adolescent who has a strict tendency to adhere to deadlines.
+Monthly pay included.",
+                    CountryId = GetCountryIdByName(data, "Bulgaria")
+                },
+                new Internship
+                {
+                    CompanyId = companies.FirstOrDefault(x => x.Name.ToLower().Contains("coca")).Id,
+                    Role = "Social Media Marketing Intern",
+                    IsPaid = true,
+                    SalaryUSD = 150,
+                    IsRemote = true,
+                    Description = @"We at Coca Cola HBC Bulgaria are looking for a devoted candidate who finds social media marketing
+their future bread and butter. Monthly pay included.",
+                },
+                new Internship
+                {
+                    CompanyId = companies.FirstOrDefault(x => x.Name.ToLower().Contains("motion")).Id,
+                    Role = "Intern Front-End Developer",
+                    IsPaid = true,
+                    SalaryUSD = 215,
+                    IsRemote = true,
+                    Description = @"We at Motion Software are looking for a detail-oriented and inquisitive Front-End Developer who has
+focused on the long term. Monthly salary in USD is included.",
+                },
+            };
+
+            data.Internships.AddRange(internships);
 
             data.SaveChanges();
         }
