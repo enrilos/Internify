@@ -41,9 +41,9 @@
     <Folder Include="Areas\Candidate\Views\Review\" />
     <Folder Include="Areas\Company\Data\" />
     <Folder Include="Areas\Company\Models\" />
-    <Folder Include="Areas\Company\Views\Article\" />
     <Folder Include="Areas\University\Data\" />
     <Folder Include="Areas\University\Models\" />
+    <Folder Include="Views\Article\" />
   </ItemGroup>
 
 </Project>
