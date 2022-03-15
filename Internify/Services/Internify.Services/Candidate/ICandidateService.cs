@@ -43,6 +43,12 @@
 
         public bool IsCandidateAlreadyAnIntern(string id);
 
+        public bool IsCandidateInCompany(
+            string candidateId,
+            string companyId);
+
+        public bool RemoveFromCompany(string candidateId);
+
         public bool Exists(string id);
 
         public CandidateDetailsViewModel GetDetailsModel(string id);

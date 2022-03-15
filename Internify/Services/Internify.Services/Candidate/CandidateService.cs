@@ -185,6 +185,35 @@
             && x.CompanyId != null
             && !x.IsDeleted);
 
+        public bool IsCandidateInCompany(
+            string candidateId,
+            string companyId)
+            => data
+            .Candidates
+            .Any(x =>
+            x.Id == candidateId
+            && x.CompanyId == companyId
+            && !x.IsDeleted);
+
+        public bool RemoveFromCompany(string candidateId)
+        {
+            var candidate = data
+                .Candidates
+                .FirstOrDefault(x => x.Id == candidateId && !x.IsDeleted);
+
+            if (candidate == null)
+            {
+                return false;
+            }
+
+            candidate.CompanyId = null;
+            candidate.InternshipRole = null;
+
+            data.SaveChanges();
+
+            return true;
+        }
+
         public bool Exists(string id)
             => data
             .Candidates
