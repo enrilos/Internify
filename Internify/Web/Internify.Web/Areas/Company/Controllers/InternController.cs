@@ -40,13 +40,21 @@
             return View(interns);
         }
 
-        public IActionResult RemoveIntern(string candidateId)
+        public IActionResult Remove(string candidateId)
         {
             var companyId = companyService.GetIdByUserId(User.Id());
 
-            // TODO..
-            // Remove candidate from intern list.
-            // Set Candidate - CompanyId and InternshipRole to null.
+            if (!candidateService.IsCandidateInCompany(candidateId, companyId))
+            {
+                return BadRequest();
+            }
+
+            var result = candidateService.RemoveFromCompany(candidateId);
+
+            if (!result)
+            {
+                return BadRequest();
+            }
 
             return RedirectToAction(nameof(MyInterns), new { companyId = companyId });
         }

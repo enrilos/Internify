@@ -1,6 +1,7 @@
 ﻿@model CandidateDetailsViewModel
 
 @inject ICandidateService candidateService;
+@inject ICompanyService companyService;
 @inject IUniversityService universityService;
 @inject ICandidateUniversityService candidateUniversityService;
 
@@ -21,19 +22,51 @@
         if (candidateService.IsCandidateAlreadyAnIntern(Model.Id))
         {
             <a class="btn btn-primary rounded m-1"
-            asp-controller="Company"
-            asp-action="Details"
-            asp-route-id="@Model.CompanyId">My Company</a>
+       asp-controller="Company"
+       asp-action="Details"
+       asp-route-id="@Model.CompanyId">My Company</a>
         }
         else
         {
             <a class="btn btn-primary rounded m-1"
-            asp-area="Candidate"
-            asp-controller="Application"
-            asp-action="MyApplications"
-            asp-route-candidateId="@Model.Id">My Applications</a>
+       asp-area="Candidate"
+       asp-controller="Application"
+       asp-action="MyApplications"
+       asp-route-candidateId="@Model.Id">My Applications</a>
         }
 
+    }
+
+    @if (companyService.IsCompanyByUserId(User?.Id())
+    && candidateService.IsCandidateInCompany(Model.Id, companyService.GetIdByUserId(User?.Id())))
+    {
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Remove Intern from Company
+        </button>
+
+        <!-- Modal -->
+        <section class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <section class="modal-dialog">
+                <section class="modal-content">
+                    <section class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Remove candidate</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </section>
+                    <section class="modal-body">
+                        <p>Remove this intern from the company?</p>
+                    </section>
+                    <section class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <a class="btn btn-danger rounded"
+                       asp-area="Company"
+                       asp-controller="Intern"
+                       asp-action="Remove"
+                       asp-route-candidateId="@Model.Id">Remove Intern from Company</a>
+                    </section>
+                </section>
+            </section>
+        </section>
     }
     @if (User.IsAdmin())
     {
@@ -146,6 +179,10 @@
             @if (!string.IsNullOrEmpty(Model.WebsiteUrl))
             {
                 <p>Website: <a href="@(@Model.WebsiteUrl.Contains("http") ? @Model.WebsiteUrl : $"http://{@Model.WebsiteUrl}")">@Model.WebsiteUrl</a></p>
+            }
+            @if (!string.IsNullOrEmpty(Model.Company))
+            {
+                <p>Company: @Model.Company</p>
             }
             <p>Specialization: @Model.Specialization</p>
             <p>Country: @Model.Country</p>
