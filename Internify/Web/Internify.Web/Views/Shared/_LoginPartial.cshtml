@@ -34,13 +34,8 @@
                 asp-action="Details"
                 asp-route-id="@candidateService.GetIdByUserId(User?.Id())">My Candidate</a>
                 {
-                    // My Applications... (applications cam be submitted to an internship by a candidate)
-                    // My Company (if the candidate currently is an intern of a company)
                     // My Reviews... (reviews can be edited/deleted by candidate owner)
                     // My Comments... (comments can be edited/deleted by candidate owner)
-
-                    // How about putting everything in Details page?
-                    // If current user is owner, they will have all the available buttons (my applications, my reviews, etc...)
                 }
             }
             else if (universityService.IsUniversityByUserId(User?.Id()))
@@ -59,13 +54,8 @@
                 asp-action="Details"
                 asp-route-id="@companyService.GetIdByUserId(User?.Id())">My Company</a>
                 {
-                    // My (Open) Internships...
-                    // My Interns...
                     // My Articles...
                     // My Reviews... (written by interns - candidates)
-
-                    // How about putting everything in Details page?
-                    // If current user is owner, they will have all the available buttons (my internships, my interns, etc...)
                 }
             }
             else if (isAdmin)
@@ -75,10 +65,6 @@
                 asp-area="Administrator"
                 asp-controller="Home"
                 asp-action="Index">Admin</a>
-
-                // Admin page (admin nav menu option right next to USER@abv.bg)
-                // where admin can choose between options and route to different records and delete/edit them?
-                // This way, admin-priviliged operations would be more convenient.
             }
         }
 

@@ -59,7 +59,7 @@
             {
                 Name = name,
                 UserId = userId,
-                ImageUrl = imageUrl == null ? Path.Combine(hostName, "/images/company.jpg") : imageUrl.Trim(),
+                ImageUrl = string.IsNullOrEmpty(imageUrl) ? Path.Combine(hostName, "/images/company.jpg") : imageUrl.Trim(),
                 WebsiteUrl = websiteUrl?.Trim(),
                 Founded = founded,
                 Description = description.Trim(),

@@ -60,7 +60,7 @@
                 FirstName = firstName.Trim(),
                 LastName = lastName.Trim(),
                 UserId = userId,
-                ImageUrl = imageUrl == null ? Path.Combine(hostName, "/images/avatar.png") : imageUrl?.Trim(),
+                ImageUrl = string.IsNullOrEmpty(imageUrl) ? Path.Combine(hostName, "/images/avatar.png") : imageUrl.Trim(),
                 WebsiteUrl = websiteUrl?.Trim(),
                 Description = description?.Trim(),
                 BirthDate = birthDate,
