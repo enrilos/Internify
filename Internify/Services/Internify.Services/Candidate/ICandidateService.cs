@@ -1,6 +1,7 @@
 ﻿namespace Internify.Services.Candidate
 {
     using Data.Models.Enums;
+    using Models.InputModels.Intern;
     using Models.InputModels.Candidate;
     using Models.ViewModels.Candidate;
 
@@ -56,5 +57,13 @@
             bool isAvailable,
             int currentPage,
             int candidatesPerPage);
+
+        public InternListingQueryModel GetCandidatesByCompany(
+            string companyId,
+            string firstName,
+            string lastName,
+            string internshipRole,
+            int currentPage,
+            int internsPerPage);
     }
 }

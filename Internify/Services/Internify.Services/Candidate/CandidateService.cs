@@ -3,9 +3,11 @@
     using Data;
     using Data.Models;
     using Data.Models.Enums;
+    using Internify.Models.ViewModels.Intern;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Candidate;
+    using Models.InputModels.Intern;
     using Models.ViewModels.Candidate;
     using Models.ViewModels.University;
 
@@ -331,6 +333,82 @@
                 CurrentPage = currentPage,
                 CandidatesPerPage = candidatesPerPage,
                 TotalCandidates = candidatesQuery.Count()
+            };
+        }
+
+        public InternListingQueryModel GetCandidatesByCompany(
+            string companyId,
+            string firstName,
+            string lastName,
+            string internshipRole,
+            int currentPage,
+            int internsPerPage)
+        {
+            var internsQuery = data
+                .Candidates
+                .Where(x =>
+                x.CompanyId == companyId
+                && !x.IsDeleted)
+                .AsQueryable();
+
+            if (firstName != null)
+            {
+                internsQuery = internsQuery
+                    .Where(x => x.FirstName.ToLower().Contains(firstName.ToLower().Trim()));
+            }
+
+            if (lastName != null)
+            {
+                internsQuery = internsQuery
+                    .Where(x => x.LastName.ToLower().Contains(lastName.ToLower().Trim()));
+            }
+
+            if (internshipRole != null)
+            {
+                internsQuery = internsQuery
+                    .Where(x => x.InternshipRole.ToLower().Contains(internshipRole.ToLower().Trim()));
+            }
+
+            if (currentPage <= 0)
+            {
+                currentPage = 1;
+            }
+
+            if (internsPerPage < 6)
+            {
+                internsPerPage = 6;
+            }
+            else if (internsPerPage > 96)
+            {
+                internsPerPage = 96;
+            }
+
+            var interns = internsQuery
+               .OrderByDescending(x => x.CreatedOn)
+               .ThenBy(x => x.FirstName)
+               .ThenBy(x => x.LastName)
+               .Skip((currentPage - 1) * internsPerPage)
+               .Take(internsPerPage)
+               .Select(x => new InternListingViewModel
+               {
+                   Id = x.Id,
+                   FullName = x.FirstName + " " + x.LastName,
+                   ImageUrl = x.ImageUrl,
+                   Age = (int)((DateTime.Now - x.BirthDate).TotalDays / DaysInAYear),
+                   InternshipRole = x.InternshipRole
+               })
+               .ToList();
+
+            return new InternListingQueryModel
+            {
+                CompanyId = companyId,
+                FirstName = firstName,
+                LastName = lastName,
+                InternshipRole = internshipRole,
+                Interns = interns,
+                CurrentPage = currentPage,
+                InternsPerPage = internsPerPage,
+                TotalInterns = internsQuery.Count()
             };
         }
     }
