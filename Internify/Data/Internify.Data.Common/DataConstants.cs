@@ -32,7 +32,9 @@
 
         public class Article
         {
+            public const int TitleMinLength = 4;
             public const int TitleMaxLength = 50;
+            public const int ContentMinLength = 50;
             public const int ContentMaxLength = 5000;
         }
 
