@@ -1,0 +1,15 @@
+﻿@model IEnumerable<InternListingViewModel>
+
+<section class="row justify-content-center mt-3">
+    @foreach (var intern in @Model)
+    {
+        <section class="card col-md-3 m-2 bg-light">
+            <img src="@intern.ImageUrl" class="card-img-center m-1 rounded" alt="Intern Picture" style="min-height: 300px; max-height: 300px; object-fit: contain;" />
+            <section class="card-body">
+                <p class="card-title h5">@intern.FullName (@intern.Age)</p>
+                <p class="card-text">@intern.InternshipRole</p>
+                <a asp-controller="Candidate" asp-action="Details" asp-route-id="@intern.Id" class="btn btn-primary">Details</a>
+            </section>
+        </section>
+    }
+</section>
