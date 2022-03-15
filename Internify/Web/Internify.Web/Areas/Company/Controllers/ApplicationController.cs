@@ -59,6 +59,7 @@
                 return NotFound();
             }
 
+            var internshipRole = internshipService.GetRoleById(internshipId);
             var internshipDeleteResult = internshipService.Delete(internshipId);
 
             if (!internshipDeleteResult)
@@ -66,7 +67,7 @@
                 return BadRequest();
             }
 
-            var approvalResult = companyService.AddCandidateToInterns(candidateId, companyId);
+            var approvalResult = companyService.AddCandidateToInterns(candidateId, companyId, internshipRole);
 
             if (!approvalResult)
             {

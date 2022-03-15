@@ -45,7 +45,8 @@
 
         public bool AddCandidateToInterns(
             string candidateId,
-            string companyId);
+            string companyId,
+            string internshipRole);
 
         public bool IsCandidateInCompanyInterns(
             string candidateId,

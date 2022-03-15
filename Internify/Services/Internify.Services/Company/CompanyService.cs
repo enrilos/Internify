@@ -132,7 +132,8 @@
 
         public bool AddCandidateToInterns(
             string candidateId,
-            string companyId)
+            string companyId,
+            string internshipRole)
         {
             var candidate = data
                 .Candidates
@@ -153,6 +154,7 @@
             }
 
             candidate.CompanyId = companyDataId;
+            candidate.InternshipRole = internshipRole;
 
             data.SaveChanges();
 

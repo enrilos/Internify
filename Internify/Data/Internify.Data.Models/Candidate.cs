@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using static Common.DataConstants;
+    using static Common.DataConstants.Internship;
 
     public class Candidate : IAuditInfo, IDeletableEntity
     {
@@ -52,6 +53,9 @@
         public string CompanyId { get; set; }
 
         public Company Company { get; set; }
+
+        [MaxLength(RoleMaxLength)]
+        public string InternshipRole { get; set; }
 
         public ICollection<CandidateUniversity> Universities { get; set; } = new List<CandidateUniversity>();
 
