@@ -38,6 +38,10 @@
         public ApplicationFormModel GetEditModel(string id);
 
         public InternshipApplicantListingQueryModel GetInternshipApplicants(
+            string applicantFirstName,
+            string applicantLastName,
+            string applicantSpecializationId,
+            string applicantCountryId,
             string internshipId,
             string internshipRole,
             int currentPage,

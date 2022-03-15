@@ -3,6 +3,8 @@
     using Infrastructure.Extensions;
     using Internify.Models.InputModels.Internship;
     using Internify.Models.ViewModels.Country;
+    using Internify.Models.ViewModels.Specialization;
+    using Internify.Services.Specialization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
     using Services.Application;
@@ -17,6 +19,7 @@
         private readonly IInternshipService internshipService;
         private readonly IApplicationService applicationService;
         private readonly ICompanyService companyService;
+        private readonly ISpecializationService specializationService;
         private readonly ICountryService countryService;
         private readonly IMemoryCache cache;
 
@@ -24,12 +27,14 @@
             IInternshipService internshipService,
             IApplicationService applicationService,
             ICompanyService companyService,
+            ISpecializationService specializationService,
             ICountryService countryService,
             IMemoryCache cache)
         {
             this.internshipService = internshipService;
             this.applicationService = applicationService;
             this.companyService = companyService;
+            this.specializationService = specializationService;
             this.countryService = countryService;
             this.cache = cache;
         }
@@ -66,10 +71,17 @@
             }
 
             queryModel = applicationService.GetInternshipApplicants(
+                queryModel.ApplicantFirstName,
+                queryModel.ApplicantLastName,
+                queryModel.ApplicantSpecializationId,
+                queryModel.ApplicantCountryId,
                 queryModel.InternshipId,
                 queryModel.InternshipRole,
                 queryModel.CurrentPage,
                 queryModel.ApplicantsPerPage);
+
+            queryModel.Specializations = AcquireCachedSpecializations();
+            queryModel.Countries = AcquireCachedCountries();
 
             return View(queryModel);
         }
@@ -224,6 +236,23 @@
                 .IsInternshipOwnedByCompany(
                 internshipId,
                 companyService.GetIdByUserId(User.Id()));
+
+        private IEnumerable<SpecializationListingViewModel> AcquireCachedSpecializations()
+        {
+            var specializations = cache.Get<IEnumerable<SpecializationListingViewModel>>(SpecializationsCacheKey);
+
+            if (specializations == null)
+            {
+                specializations = specializationService.All();
+
+                var cacheOptions = new MemoryCacheEntryOptions()
+                     .SetPriority(CacheItemPriority.NeverRemove);
+
+                cache.Set(SpecializationsCacheKey, specializations, cacheOptions);
+            }
+
+            return specializations;
+        }
 
         private IEnumerable<CountryListingViewModel> AcquireCachedCountries()
         {

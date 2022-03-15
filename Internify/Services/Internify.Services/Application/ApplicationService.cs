@@ -174,6 +174,10 @@
             .FirstOrDefault();
 
         public InternshipApplicantListingQueryModel GetInternshipApplicants(
+            string applicantFirstName,
+            string applicantLastName,
+            string applicantSpecializationId,
+            string applicantCountryId,
             string internshipId,
             string internshipRole,
             int currentPage,
@@ -189,6 +193,30 @@
             if (internshipRole == null)
             {
                 internshipRole = internshipService.GetRoleById(internshipId);
+            }
+
+            if (applicantFirstName != null)
+            {
+                internshipApplicantsQuery = internshipApplicantsQuery
+                    .Where(x => x.Candidate.FirstName.ToLower().Contains(applicantFirstName.ToLower()));
+            }
+
+            if (applicantLastName != null)
+            {
+                internshipApplicantsQuery = internshipApplicantsQuery
+                    .Where(x => x.Candidate.LastName.ToLower().Contains(applicantLastName.ToLower()));
+            }
+
+            if (applicantSpecializationId != null)
+            {
+                internshipApplicantsQuery = internshipApplicantsQuery
+                    .Where(x => x.Candidate.SpecializationId == applicantSpecializationId);
+            }
+
+            if (applicantCountryId != null)
+            {
+                internshipApplicantsQuery = internshipApplicantsQuery
+                    .Where(x => x.Candidate.CountryId == applicantCountryId);
             }
 
             if (currentPage <= 0)
