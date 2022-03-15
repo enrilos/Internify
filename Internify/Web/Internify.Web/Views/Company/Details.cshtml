@@ -25,13 +25,18 @@
             <a class="btn btn-primary rounded m-1"
            asp-area="Company"
            asp-controller="Internship"
+           asp-action="Add">Add Internship</a>
+
+           <a class="btn btn-primary rounded m-1"
+           asp-area="Company"
+           asp-controller="Internship"
            asp-action="MyInternships"
            asp-route-companyId="@Model.Id">My Internships</a>
 
-            <a class="btn btn-primary rounded m-1"
+           <a class="btn btn-success rounded m-1"
            asp-area="Company"
-           asp-controller="Internship"
-           asp-action="Add">Add Internship</a>
+           asp-controller="Article"
+           asp-action="Add">Add Article</a>
         }
         else
         {
@@ -40,6 +45,11 @@
            asp-action="All"
            asp-route-companyId="@Model.Id">Internships</a>
         }
+
+        <a class="btn btn-success rounded m-1"
+           asp-controller="Article"
+           asp-action="CompanyArticles"
+           asp-route-companyId="@Model.Id">Articles</a>
 
         @if (User.IsAdmin())
         {
