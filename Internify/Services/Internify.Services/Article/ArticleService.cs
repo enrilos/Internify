@@ -2,8 +2,8 @@
 {
     using Data;
     using Data.Models;
-    using Internify.Models.ViewModels.Article;
     using Models.InputModels.Article;
+    using Models.ViewModels.Article;
 
     public class ArticleService : IArticleService
     {
@@ -34,12 +34,35 @@
             return article.Id;
         }
 
+        public bool Edit(
+            string id,
+            string title,
+            string content)
+        {
+            var article = data.Articles.Find(id);
+
+            if (article == null)
+            {
+                return false;
+            }
+
+            article.Title = title.Trim();
+            article.Content = content.Trim();
+
+            var result = data.SaveChanges();
+
+            if (result == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public ArticleDetailsViewModel GetDetailsModel(string id)
             => data
             .Articles
-            .Where(x =>
-            x.Id == id
-            && !x.IsDeleted)
+            .Where(x => x.Id == id && !x.IsDeleted)
             .Select(x => new ArticleDetailsViewModel
             {
                 Id = x.Id,
@@ -52,6 +75,27 @@
                 ModifiedOn = x.ModifiedOn
             })
             .FirstOrDefault();
+
+        public EditArticleFormModel GetEditModel(string id)
+            => data
+            .Articles
+            .Where(x => x.Id == id && !x.IsDeleted)
+            .Select(x => new EditArticleFormModel
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Content = x.Content
+            })
+            .FirstOrDefault();
+
+        public bool IsOwnedByCompany(
+            string articleId,
+            string companyId)
+            => data
+            .Articles
+            .Any(x =>
+            x.Id == articleId
+            && x.CompanyId == companyId);
 
         public ArticleListingQueryModel GetCompanyArticles(
             string companyId,

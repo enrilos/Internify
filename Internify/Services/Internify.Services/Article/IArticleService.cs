@@ -12,7 +12,18 @@
             string content,
             string hostName);
 
+        public bool Edit(
+            string id,
+            string title,
+            string content);
+
         public ArticleDetailsViewModel GetDetailsModel(string id);
+
+        public EditArticleFormModel GetEditModel(string id);
+
+        public bool IsOwnedByCompany(
+            string articleId,
+            string companyId);
 
         public ArticleListingQueryModel GetCompanyArticles(
             string companyId,
