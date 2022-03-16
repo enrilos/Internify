@@ -127,6 +127,8 @@
                 IsRemote = x.IsRemote,
                 Description = x.Description,
                 CompanyImageUrl = x.Company.ImageUrl,
+                CompanyId = x.CompanyId,
+                CompanyName = x.Company.Name,
                 Country = x.Country.Name,
                 CreatedOn = x.CreatedOn,
                 ModifiedOn = x.ModifiedOn

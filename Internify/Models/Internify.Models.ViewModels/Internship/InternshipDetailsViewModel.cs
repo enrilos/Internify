@@ -16,6 +16,10 @@
 
         public string CompanyImageUrl { get; init; }
 
+        public string CompanyId { get; init; }
+        
+        public string CompanyName { get; init; }
+
         public string Country { get; init; }
 
         public DateTime CreatedOn { get; init; }

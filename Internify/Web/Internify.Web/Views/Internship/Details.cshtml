@@ -91,6 +91,11 @@
             <img src="@Model.CompanyImageUrl" class="img-fluid rounded p-1" />
         </article>
         <article class="p-3">
+            <p>Company: <a class="container-nav-title-content"
+                asp-controller="Company"
+                asp-action="Details"
+                asp-route-id="@Model.CompanyId">@Model.CompanyName</a>
+            </p>
             <p>Role: @Model.Role</p>
             <p>Is Paid: @(Model.IsPaid == true ? "✔️ Yes" : "❌ No")</p>
             @if (Model.IsPaid)
