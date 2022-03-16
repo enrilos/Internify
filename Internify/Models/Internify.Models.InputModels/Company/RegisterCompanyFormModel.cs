@@ -26,7 +26,7 @@
         public int Founded { get; set; }
 
         [Required]
-        [MaxLength(DescriptionMaxLength)]
+        [StringLength(maximumLength: DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
         public string Description { get; set; }
 
         [Range(typeof(long), "1", "999999999999999")]

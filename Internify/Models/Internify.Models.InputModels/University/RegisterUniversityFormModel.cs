@@ -24,7 +24,7 @@
         public string WebsiteUrl { get; set; }
 
         [Required]
-        [MaxLength(DescriptionMaxLength)]
+        [StringLength(maximumLength: DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
         public string Description { get; set; }
 
         [Range(minimum: FoundedMinYear, maximum: FoundedMaxYear)]

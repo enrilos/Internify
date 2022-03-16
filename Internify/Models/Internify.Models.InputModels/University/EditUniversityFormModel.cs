@@ -31,7 +31,7 @@
         public Type Type { get; set; }
 
         [Required]
-        [MaxLength(DescriptionMaxLength)]
+        [StringLength(maximumLength: DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Invalid option.")]

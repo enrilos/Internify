@@ -20,7 +20,7 @@
         public bool IsRemote { get; set; }
 
         [Required]
-        [MaxLength(DescriptionMaxLength)]
+        [StringLength(maximumLength: DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
         public string Description { get; set; }
 
         public string CompanyId { get; set; }
