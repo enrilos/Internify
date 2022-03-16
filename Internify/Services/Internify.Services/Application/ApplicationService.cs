@@ -2,6 +2,7 @@
 {
     using Data;
     using Data.Models;
+    using Ganss.XSS;
     using Models.InputModels.Application;
     using Models.InputModels.Internship;
     using Models.ViewModels.Application;
@@ -29,11 +30,14 @@
             string candidateId,
             string coverLetter)
         {
+            var sanitizer = new HtmlSanitizer();
+            var sanitizedCoverLetter = sanitizer.Sanitize(coverLetter);
+
             var application = new Application
             {
                 InternshipId = internshipId,
                 CandidateId = candidateId,
-                CoverLetter = coverLetter.Trim()
+                CoverLetter = sanitizedCoverLetter.Trim()
             };
 
             data.Applications.Add(application);
@@ -59,7 +63,10 @@
                 return null;
             }
 
-            application.CoverLetter = coverLetter.Trim();
+            var sanitizer = new HtmlSanitizer();
+            var sanitizedCoverLetter = sanitizer.Sanitize(coverLetter);
+
+            application.CoverLetter = sanitizedCoverLetter.Trim();
             application.ModifiedOn = DateTime.UtcNow;
 
             data.SaveChanges();
@@ -243,10 +250,7 @@
                     ApplicationId = x.Id,
                     CandidateFullName = x.Candidate.FirstName + " " + x.Candidate.LastName,
                     CandidateImageUrl = x.Candidate.ImageUrl,
-                    CandidateAge = (int)((DateTime.Now - x.Candidate.BirthDate).TotalDays / DaysInAYear),
-                    CandidateCoverLetterSegment = x.CoverLetter.Length > CoverLetterSegmentNumber
-                    ? x.CoverLetter.Substring(0, CoverLetterSegmentNumber) + "..."
-                    : x.CoverLetter.Substring(0, CoverLetterSegmentNumber)
+                    CandidateAge = (int)((DateTime.Now - x.Candidate.BirthDate).TotalDays / DaysInAYear)
                 })
                .ToList();
 

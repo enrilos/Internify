@@ -9,7 +9,5 @@
         public string CandidateFullName { get; init; }
 
         public int CandidateAge { get; init; }
-
-        public string CandidateCoverLetterSegment { get; init; }
     }
 }

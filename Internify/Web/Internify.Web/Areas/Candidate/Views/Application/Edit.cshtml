@@ -15,7 +15,7 @@
 
             <section class="form-group">
                 <label asp-for="CoverLetter"></label>
-                @Html.TextAreaFor(m => m.CoverLetter, new { @class = "form-control" })
+                @Html.TextAreaFor(m => m.CoverLetter, new { @class = "form-control", id="editor" })
                 <span asp-validation-for="CoverLetter" class="small text-danger"></span>
             </section>
 
@@ -46,6 +46,15 @@
         </form>
     </section>
 </section>
+
+<script src="~/ckeditor/ckeditor.js"></script>
+<link href="~/ckeditor/contents.css" ryle="stylesheet" />
+
+<script>
+    CKEDITOR.replace('editor', {
+        height: 220
+    });
+</script>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
