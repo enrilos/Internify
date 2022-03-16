@@ -2,6 +2,7 @@
 {
     using Data;
     using Data.Models;
+    using Ganss.XSS;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Company;
@@ -55,6 +56,9 @@
             string countryId,
             string hostName)
         {
+            var sanitizer = new HtmlSanitizer();
+            var sanitizedDescription = sanitizer.Sanitize(description);
+
             var company = new Company
             {
                 Name = name,
@@ -62,7 +66,7 @@
                 ImageUrl = string.IsNullOrEmpty(imageUrl) ? Path.Combine(hostName, "/images/company.jpg") : imageUrl.Trim(),
                 WebsiteUrl = websiteUrl?.Trim(),
                 Founded = founded,
-                Description = description.Trim(),
+                Description = sanitizedDescription.Trim(),
                 RevenueUSD = revenueUSD,
                 CEO = ceo.Trim(),
                 EmployeesCount = employeesCount,
@@ -110,11 +114,14 @@
                 return false;
             }
 
+            var sanitizer = new HtmlSanitizer();
+            var sanitizedDescription = sanitizer.Sanitize(description);
+
             company.Name = name.Trim();
             company.ImageUrl = imageUrl == null ? Path.Combine(hostName, "/images/company.jpg") : imageUrl.Trim();
             company.WebsiteUrl = websiteUrl?.Trim();
             company.Founded = founded;
-            company.Description = description.Trim();
+            company.Description = sanitizedDescription.Trim();
             company.RevenueUSD = revenueUSD;
             company.CEO = ceo.Trim();
             company.EmployeesCount = employeesCount;
@@ -283,7 +290,6 @@
             })
             .FirstOrDefault();
 
-        // Use for internships querying (filter by company)
         public IEnumerable<CompanySelectOptionsViewModel> GetCompaniesSelectOptions()
             => data
             .Companies
