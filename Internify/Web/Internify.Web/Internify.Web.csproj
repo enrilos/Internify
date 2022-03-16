@@ -43,7 +43,6 @@
     <Folder Include="Areas\Company\Models\" />
     <Folder Include="Areas\University\Data\" />
     <Folder Include="Areas\University\Models\" />
-    <Folder Include="Views\Article\" />
   </ItemGroup>
 
 </Project>

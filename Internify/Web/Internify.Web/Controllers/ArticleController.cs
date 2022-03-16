@@ -2,19 +2,25 @@
 {
     using Internify.Models.InputModels.Article;
     using Microsoft.AspNetCore.Mvc;
+    using Services.Article;
 
     public class ArticleController : Controller
     {
-        // services..
+        private readonly IArticleService articleService;
 
-        // ctor..
+        public ArticleController(IArticleService articleService)
+            => this.articleService = articleService;
 
         public IActionResult CompanyArticles([FromQuery] ArticleListingQueryModel queryModel)
         {
-            // TODO..
-            // filter/paginate..
+            var articles = articleService.GetCompanyArticles(
+                queryModel.CompanyId,
+                queryModel.CompanyName,
+                queryModel.Title,
+                queryModel.CurrentPage,
+                queryModel.ArticlesPerPage);
 
-            return null;
+            return View(articles);
         }
 
         public IActionResult Details(string id)
