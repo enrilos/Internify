@@ -59,17 +59,64 @@
 
         public IActionResult Edit(string id)
         {
-            // check if company is owner of article.
+            var companyId = companyService.GetIdByUserId(User.Id());
 
-            return null;
+            if (!articleService.IsOwnedByCompany(id, companyId))
+            {
+                return Unauthorized();
+            }
+
+            var article = articleService.GetEditModel(id);
+
+            if (article == null)
+            {
+                return NotFound();
+            }
+
+            return View(article);
         }
 
         [HttpPost]
         public IActionResult Edit(EditArticleFormModel article)
         {
-            // check if company is owner of article.
+            var companyId = companyService.GetIdByUserId(User.Id());
 
-            return null;
+            if (!articleService.IsOwnedByCompany(article.Id, companyId))
+            {
+                return Unauthorized();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(article);
+            }
+
+            var editResult = articleService.Edit(
+                article.Id,
+                article.Title,
+                article.Content);
+
+            if (!editResult)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction("Details", "Article", new { id = article.Id });
+        }
+
+        public IActionResult Delete(string id)
+        {
+            var companyId = companyService.GetIdByUserId(User.Id());
+
+            if (!articleService.IsOwnedByCompany(id, companyId))
+            {
+                return Unauthorized();
+            }
+
+            // TODO..
+            // delete result..
+
+            return RedirectToAction("CompanyArticles", "Article", new { id = companyId });
         }
     }
 }
