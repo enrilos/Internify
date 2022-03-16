@@ -21,6 +21,7 @@
 
         public class Internship
         {
+            public const int RoleMinLength = 2;
             public const int RoleMaxLength = 50;
         }
 

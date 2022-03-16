@@ -9,7 +9,7 @@
     public class AddInternshipFormModel
     {
         [Required]
-        [MaxLength(RoleMaxLength)]
+        [StringLength(maximumLength: RoleMaxLength, MinimumLength = RoleMinLength)]
         public string Role { get; set; }
 
         public bool IsPaid { get; set; }
