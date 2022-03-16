@@ -113,10 +113,14 @@
                 return Unauthorized();
             }
 
-            // TODO..
-            // delete result..
+            var result = articleService.Delete(id);
 
-            return RedirectToAction("CompanyArticles", "Article", new { id = companyId });
+            if (!result)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction("CompanyArticles", "Article", new { companyId = companyId });
         }
     }
 }
