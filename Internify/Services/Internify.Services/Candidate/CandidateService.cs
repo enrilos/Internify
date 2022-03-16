@@ -3,6 +3,7 @@
     using Data;
     using Data.Models;
     using Data.Models.Enums;
+    using Ganss.XSS;
     using Internify.Models.ViewModels.Intern;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
@@ -55,6 +56,9 @@
             string countryId,
             string hostName)
         {
+            var sanitizer = new HtmlSanitizer();
+            var sanitizedDescription = sanitizer.Sanitize(description);
+
             var candidate = new Candidate
             {
                 FirstName = firstName.Trim(),
@@ -62,7 +66,7 @@
                 UserId = userId,
                 ImageUrl = string.IsNullOrEmpty(imageUrl) ? Path.Combine(hostName, "/images/avatar.png") : imageUrl.Trim(),
                 WebsiteUrl = websiteUrl?.Trim(),
-                Description = description?.Trim(),
+                Description = sanitizedDescription?.Trim(),
                 BirthDate = birthDate,
                 Gender = gender,
                 SpecializationId = specializationId,
@@ -104,11 +108,14 @@
                 return false;
             }
 
+            var sanitizer = new HtmlSanitizer();
+            var sanitizedDescription = sanitizer.Sanitize(description);
+
             candidate.FirstName = firstName.Trim();
             candidate.LastName = lastName.Trim();
-            candidate.ImageUrl = imageUrl.Trim();
-            candidate.WebsiteUrl = websiteUrl.Trim();
-            candidate.Description = description.Trim();
+            candidate.ImageUrl = imageUrl?.Trim();
+            candidate.WebsiteUrl = websiteUrl?.Trim();
+            candidate.Description = sanitizedDescription?.Trim();
             candidate.BirthDate = birthDate;
             candidate.Gender = gender;
             candidate.IsAvailable = isAvailable;
