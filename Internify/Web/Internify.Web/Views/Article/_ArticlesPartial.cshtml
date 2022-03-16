@@ -1,0 +1,14 @@
+﻿@model IEnumerable<ArticleListingViewModel>
+
+<section class="row justify-content-center mt-3">
+    @foreach (var article in @Model)
+    {
+        <section class="card col-md-3 m-2 bg-light">
+            <img src="@article.ImageUrl" class="card-img-center m-1 rounded" alt="Article Image" style="min-height: 300px; max-height: 300px; object-fit: contain;" />
+            <section class="card-body">
+                <p class="card-title h5">@article.Title</p>
+                <a asp-controller="Article" asp-action="Details" asp-route-id="@article.Id" class="btn btn-primary mt-2">Read</a>
+            </section>
+        </section>
+    }
+</section>
