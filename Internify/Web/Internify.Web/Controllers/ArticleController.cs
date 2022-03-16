@@ -25,9 +25,14 @@
 
         public IActionResult Details(string id)
         {
-            // check if company is owner.
+            var article = articleService.GetDetailsModel(id);
 
-            return View(new Object { });
+            if (article == null)
+            {
+                return NotFound();
+            }
+
+            return View(article);
         }
     }
 }
