@@ -17,6 +17,8 @@
             string title,
             string content);
 
+        public bool Delete(string id);
+
         public ArticleDetailsViewModel GetDetailsModel(string id);
 
         public EditArticleFormModel GetEditModel(string id);

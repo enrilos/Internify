@@ -48,6 +48,29 @@
 
             article.Title = title.Trim();
             article.Content = content.Trim();
+            article.ModifiedOn = DateTime.UtcNow;
+
+            var result = data.SaveChanges();
+
+            if (result == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool Delete(string id)
+        {
+            var article = data.Articles.Find(id);
+
+            if (article == null)
+            {
+                return false;
+            }
+
+            article.IsDeleted = true;
+            article.DeletedOn = DateTime.UtcNow;
 
             var result = data.SaveChanges();
 
