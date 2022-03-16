@@ -2,6 +2,7 @@
 {
     using Data;
     using Data.Models;
+    using Ganss.XSS;
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Internship;
     using Models.ViewModels.Internship;
@@ -22,6 +23,9 @@
             string description,
             string countryId)
         {
+            var sanitizer = new HtmlSanitizer();
+            var sanitizedDescription = sanitizer.Sanitize(description);
+
             var internship = new Internship
             {
                 CompanyId = companyId,
@@ -29,7 +33,7 @@
                 IsPaid = isPaid,
                 SalaryUSD = salaryUSD,
                 IsRemote = isRemote,
-                Description = description.Trim(),
+                Description = sanitizedDescription.Trim(),
                 CountryId = countryId
             };
 
@@ -53,9 +57,12 @@
                 return false;
             }
 
+            var sanitizer = new HtmlSanitizer();
+            var sanitizedDescription = sanitizer.Sanitize(description);
+
             internship.IsPaid = isPaid;
             internship.SalaryUSD = salaryUSD;
-            internship.Description = description.Trim();
+            internship.Description = sanitizedDescription.Trim();
 
             internship.ModifiedOn = DateTime.UtcNow;
 

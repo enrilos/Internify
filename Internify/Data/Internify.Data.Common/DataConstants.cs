@@ -3,6 +3,7 @@
     public class DataConstants
     {
         public const int UrlMaxLength = 500;
+        public const int DescriptionMinLength = 30;
         public const int DescriptionMaxLength = 4000;
         public const int NameMaxLength = 70;
         public const int NameMinLength = 2;

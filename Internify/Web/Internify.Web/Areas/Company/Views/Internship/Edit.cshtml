@@ -12,16 +12,16 @@
             <input asp-for="Id" type="hidden">
             <section class="form-check form-switch my-2">
                 <label class="form-check-label" asp-for="IsPaid">Is Paid</label>
-                <input class="form-check-input" type="checkbox" asp-for="IsPaid" id="isPaid">
+                <input class="form-check-input" type="checkbox" asp-for="IsPaid">
             </section>
-            <section class="form-group" id="salaryUSD" style="display: @(Model.IsPaid == true ? "block;" : "none;")">
+            <section class="form-group">
                 <label asp-for="SalaryUSD"></label>
                 <input asp-for="SalaryUSD" class="form-control">
                 <span asp-validation-for="SalaryUSD" class="small text-danger"></span>
             </section>
             <section class="form-group">
                 <label asp-for="Description"></label>
-                @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", id="editor" })
                 <span asp-validation-for="Description" class="small text-danger"></span>
             </section>
 
@@ -53,15 +53,12 @@
     </section>
 </section>
 
-<script>
-    document.querySelector('#isPaid').addEventListener('change', () => {
-        let salaryUSDSection = document.querySelector('#salaryUSD');
+<script src="~/ckeditor/ckeditor.js"></script>
+<link href="~/ckeditor/contents.css" ryle="stylesheet" />
 
-        if (salaryUSDSection.style.display === 'block') {
-            salaryUSDSection.style.display = 'none';
-        } else {
-            salaryUSDSection.style.display = 'block';
-        }
+<script>
+    CKEDITOR.replace('editor', {
+        height: 220
     });
 </script>
 
