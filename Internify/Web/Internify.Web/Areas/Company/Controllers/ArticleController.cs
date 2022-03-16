@@ -56,5 +56,20 @@
 
             return RedirectToAction("Details", "Article", new { id = id });
         }
+
+        public IActionResult Edit(string id)
+        {
+            // check if company is owner of article.
+
+            return null;
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EditArticleFormModel article)
+        {
+            // check if company is owner of article.
+
+            return null;
+        }
     }
 }

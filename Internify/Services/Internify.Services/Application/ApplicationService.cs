@@ -190,7 +190,7 @@
                 && !x.IsDeleted)
                 .AsQueryable();
 
-            if (internshipRole == null)
+            if (string.IsNullOrEmpty(internshipRole?.Trim()))
             {
                 internshipRole = internshipService.GetRoleById(internshipId);
             }

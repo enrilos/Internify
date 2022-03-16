@@ -6,6 +6,7 @@
 
     public class EditInternshipFormModel
     {
+        [Required]
         public string Id { get; set; }
 
         public bool IsPaid { get; set; }

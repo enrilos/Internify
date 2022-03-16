@@ -9,6 +9,7 @@
 
     public class EditUniversityFormModel
     {
+        [Required]
         public string Id { get; set; }
 
         [Required]

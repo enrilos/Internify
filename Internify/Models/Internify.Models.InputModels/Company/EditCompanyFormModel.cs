@@ -10,6 +10,7 @@
 
     public class EditCompanyFormModel : ICompanyFormModel
     {
+        [Required]
         public string Id { get; set; }
 
         [Required]

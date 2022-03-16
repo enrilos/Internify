@@ -9,6 +9,7 @@
 
     public class EditCandidateFormModel
     {
+        [Required]
         public string Id { get; set; }
 
         [Required]
@@ -45,11 +46,6 @@
         public string SpecializationId { get; set; }
 
         public IEnumerable<SpecializationListingViewModel> Specializations { get; set; }
-
-        // TODO: Being able to edit university
-        //public string UniversityId { get; }
-
-        //public ICollection<UniversityListingViewModel> Universities { get; }
 
         [Required(ErrorMessage = "Invalid option.")]
         [Display(Name = "Country")]
