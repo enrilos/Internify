@@ -34,6 +34,25 @@
             return article.Id;
         }
 
+        public ArticleDetailsViewModel GetDetailsModel(string id)
+            => data
+            .Articles
+            .Where(x =>
+            x.Id == id
+            && !x.IsDeleted)
+            .Select(x => new ArticleDetailsViewModel
+            {
+                Id = x.Id,
+                Title = x.Title,
+                ImageUrl = x.ImageUrl,
+                Content = x.Content,
+                CompanyId = x.CompanyId,
+                CompanyName = x.Company.Name,
+                CreatedOn = x.CreatedOn,
+                ModifiedOn = x.ModifiedOn
+            })
+            .FirstOrDefault();
+
         public ArticleListingQueryModel GetCompanyArticles(
             string companyId,
             string companyName,

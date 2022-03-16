@@ -1,6 +1,7 @@
 ﻿namespace Internify.Services.Article
 {
     using Models.InputModels.Article;
+    using Models.ViewModels.Article;
 
     public interface IArticleService
     {
@@ -10,6 +11,8 @@
             string imageUrl,
             string content,
             string hostName);
+
+        public ArticleDetailsViewModel GetDetailsModel(string id);
 
         public ArticleListingQueryModel GetCompanyArticles(
             string companyId,
