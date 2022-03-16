@@ -2,6 +2,7 @@
 {
     using Data;
     using Data.Models;
+    using Ganss.XSS;
     using Models.InputModels.Article;
     using Models.ViewModels.Article;
 
@@ -19,11 +20,14 @@
             string content,
             string hostName)
         {
+            var sanitizer = new HtmlSanitizer();
+            var sanitizedContent = sanitizer.Sanitize(content);
+
             var article = new Article
             {
                 Title = title.Trim(),
                 ImageUrl = string.IsNullOrEmpty(imageUrl) ? Path.Combine(hostName, "/images/article.jpg") : imageUrl.Trim(),
-                Content = content.Trim(),
+                Content = sanitizedContent.Trim(),
                 CompanyId = companyId
             };
 
@@ -46,8 +50,11 @@
                 return false;
             }
 
+            var sanitizer = new HtmlSanitizer();
+            var sanitizedContent = sanitizer.Sanitize(content);
+
             article.Title = title.Trim();
-            article.Content = content.Trim();
+            article.Content = sanitizedContent.Trim();
             article.ModifiedOn = DateTime.UtcNow;
 
             var result = data.SaveChanges();

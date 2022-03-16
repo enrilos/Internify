@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HtmlSanitizer" Version="7.1.488" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Common\Internify.Common\Internify.Common.csproj" />
     <ProjectReference Include="..\..\Data\Internify.Data\Internify.Data.csproj" />
     <ProjectReference Include="..\..\Models\Internify.Models.InputModels\Internify.Models.InputModels.csproj" />
