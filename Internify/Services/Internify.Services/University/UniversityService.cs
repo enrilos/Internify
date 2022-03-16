@@ -3,6 +3,7 @@
     using Data;
     using Data.Models;
     using Data.Models.Enums;
+    using Ganss.XSS;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Candidate;
@@ -51,6 +52,9 @@
             string description,
             string countryId)
         {
+            var sanitizer = new HtmlSanitizer();
+            var sanitizedDescription = sanitizer.Sanitize(description);
+
             var university = new University
             {
                 UserId = userId,
@@ -59,7 +63,7 @@
                 WebsiteUrl = websiteUrl.Trim(),
                 Founded = founded,
                 Type = type,
-                Description = description.Trim(),
+                Description = sanitizedDescription.Trim(),
                 CountryId = countryId
             };
 
@@ -95,12 +99,15 @@
                 return false;
             }
 
+            var sanitizer = new HtmlSanitizer();
+            var sanitizedDescription = sanitizer.Sanitize(description);
+
             university.Name = name.Trim();
             university.ImageUrl = imageUrl.Trim();
             university.WebsiteUrl = websiteUrl.Trim();
             university.Founded = founded;
             university.Type = type;
-            university.Description = description.Trim();
+            university.Description = sanitizedDescription.Trim();
             university.CountryId = countryId;
 
             university.ModifiedOn = DateTime.UtcNow;

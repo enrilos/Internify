@@ -6,6 +6,15 @@
 
 <partial name="_RegisterUniversityPartial" model="@Model" />
 
+<script src="~/ckeditor/ckeditor.js"></script>
+<link href="~/ckeditor/contents.css" ryle="stylesheet" />
+
+<script>
+    CKEDITOR.replace('editor', {
+        height: 220
+    });
+</script>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
