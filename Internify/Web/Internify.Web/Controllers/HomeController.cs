@@ -22,6 +22,8 @@
 
         public IActionResult Index() => View();
 
+        public IActionResult Privacy() => View();
+
         [Authorize]
         public IActionResult SelectRole()
         {
