@@ -75,7 +75,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 
 var app = builder.Build();
 
-//app.PrepareDatabase();
+app.PrepareDatabase();
 
 if (app.Environment.IsDevelopment())
 {
