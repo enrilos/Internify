@@ -77,6 +77,21 @@ var app = builder.Build();
 
 //app.PrepareDatabase();
 
+app.Use(async (context, next) =>
+{
+    var clientIP = context.Connection.RemoteIpAddress.ToString();
+
+    var torIps = File.ReadAllText("wwwroot/tor/torbulkexitlist.txt");
+
+    if (torIps.Contains(clientIP))
+    {
+        context.Response.StatusCode = 403;
+        return;
+    }
+
+    await next();
+});
+
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
