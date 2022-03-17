@@ -5,28 +5,34 @@
     ViewData["Title"] = "Sign in";
 }
 
-<div class="row">
-    <div class="col-md-6 offset-md-3">
+<section class="row">
+    <section class="col-md-6 offset-md-3">
     <h1 class="text-center">@ViewData["Title"]</h1>
         <section>
             <form id="account" method="post">
                 <hr />
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
+                <section asp-validation-summary="ModelOnly" class="text-danger"></section>
+                <section class="form-group">
                     <label asp-for="Input.Email" class="form-label"></label>
                     <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
+                </section>
+                <section class="form-group">
                     <label asp-for="Input.Password" class="form-label"></label>
                     <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
+                </section>
                     <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary mt-3">Log in</button>
             </form>
         </section>
-    </div>
-</div>
+
+        <section class="form-group mt-4">
+            <p>
+                Don't have an account?<a class="container-nav-title-content" asp-page="./Register"> Register here.</a>
+            </p>
+        </section>
+    </section>
+</section>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
