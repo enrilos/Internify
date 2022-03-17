@@ -75,7 +75,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 
 var app = builder.Build();
 
-app.PrepareDatabase();
+//app.PrepareDatabase();
 
 if (app.Environment.IsDevelopment())
 {
@@ -83,8 +83,10 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+    //app.UseExceptionHandler("/Home/Error");
+    //app.UseHsts();
+
+    app.UseStatusCodePagesWithReExecute("/Error/{0}");
 }
 
 //app.UseWebSockets();
