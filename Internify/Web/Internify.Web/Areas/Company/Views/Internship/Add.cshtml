@@ -79,15 +79,13 @@
     </section>
 </section>
 
-<script src="~/ckeditor/ckeditor.js"></script>
-<link href="~/ckeditor/contents.css" ryle="stylesheet" />
-
-<script>
-    CKEDITOR.replace('editor', {
-        height: 220
-    });
-</script>
+@section CKEditorCSS
+{
+    <link href="~/ckeditor/contents.css" ryle="stylesheet" />
+}
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script>CKEDITOR.replace('editor');</script>
 }
