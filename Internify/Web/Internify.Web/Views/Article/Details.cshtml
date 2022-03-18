@@ -5,6 +5,7 @@
 }
 
 @inject ICompanyService companyService;
+@inject ICandidateService candidateService;
 
 <section class="container d-flex bd-highlight justify-content-evenly align-items-center flex-column">
     <article>
@@ -45,6 +46,21 @@
             </section>
 
         }
+
+        <a class="btn btn-primary rounded m-1"
+           asp-controller="Comment"
+           asp-action="ArticleComments"
+           asp-route-id="@Model.Id">Comments</a>
+
+        @if (candidateService.IsCandidateByUserId(User?.Id()))
+        {
+            <a class="btn btn-primary rounded m-1"
+           asp-area="Candidate"
+           asp-controller="Comment"
+           asp-action="CommentArticle"
+           asp-route-articleId="@Model.Id">Add Comment</a>
+        }
+
     </article>
     <article class="m-4 text-center">
         <p class="h1">@Model.Title</p>
