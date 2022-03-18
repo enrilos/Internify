@@ -89,6 +89,11 @@
             return true;
         }
 
+        public bool Exists(string id)
+            => data
+            .Articles
+            .Any(x => x.Id == id && !x.IsDeleted);
+
         public ArticleDetailsViewModel GetDetailsModel(string id)
             => data
             .Articles
