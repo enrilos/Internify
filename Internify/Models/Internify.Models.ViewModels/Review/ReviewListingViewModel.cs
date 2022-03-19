@@ -8,6 +8,10 @@
 
         public string CandidateId { get; init; }
 
+        public string CompanyName { get; init; }
+
+        public string CompanyId { get; init; }
+
         public string Title { get; init; }
 
         public int Rating { get; init; }
