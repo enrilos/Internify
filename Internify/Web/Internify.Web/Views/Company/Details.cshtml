@@ -2,6 +2,7 @@
 
 @inject ICompanyService companyService;
 @inject ICandidateService candidateService;
+@inject IReviewService reviewService;
 
 @{
     ViewData["Title"] = "Company Details";
@@ -17,7 +18,7 @@
            asp-action="Edit"
            asp-route-id="@Model.Id">Edit</a>
 
-           <a class="btn btn-primary rounded m-1"
+            <a class="btn btn-primary rounded m-1"
            asp-area="Company"
            asp-controller="Intern"
            asp-action="MyInterns"
@@ -28,13 +29,13 @@
            asp-controller="Internship"
            asp-action="Add">Add Internship</a>
 
-           <a class="btn btn-primary rounded m-1"
+            <a class="btn btn-primary rounded m-1"
            asp-area="Company"
            asp-controller="Internship"
            asp-action="MyInternships"
            asp-route-companyId="@Model.Id">My Internships</a>
 
-           <a class="btn btn-success rounded m-1"
+            <a class="btn btn-success rounded m-1"
            asp-area="Company"
            asp-controller="Article"
            asp-action="Add">Add Article</a>

@@ -48,7 +48,7 @@
         {
             var companyId = companyService.GetIdByUserId(User.Id());
 
-            if (companyService.IsCandidateInCompanyInterns(candidateId, companyId))
+            if (candidateService.IsCandidateInCompany(candidateId, companyId))
             {
                 return BadRequest();
             }

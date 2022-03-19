@@ -48,10 +48,6 @@
             string companyId,
             string internshipRole);
 
-        public bool IsCandidateInCompanyInterns(
-            string candidateId,
-            string companyId);
-
         public bool Delete(string id);
 
         public bool Exists(string id);

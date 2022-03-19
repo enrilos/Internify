@@ -7,7 +7,6 @@
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Company;
     using Models.ViewModels.Company;
-    using Models.ViewModels.Internship;
 
     using static Common.GlobalConstants;
 
@@ -173,16 +172,6 @@
 
             return true;
         }
-
-        public bool IsCandidateInCompanyInterns(
-            string candidateId,
-            string companyId)
-            => data
-            .Companies
-            .Any(x =>
-            x.Id == companyId
-            && x.Interns.Any(i => i.Id == candidateId && !i.IsDeleted)
-            && !x.IsDeleted);
 
         public bool Delete(string id)
         {

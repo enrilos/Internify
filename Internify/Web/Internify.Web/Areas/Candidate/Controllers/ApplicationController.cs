@@ -93,7 +93,7 @@
 
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return View(application);
             }
 
             var result = applicationService.Add(
