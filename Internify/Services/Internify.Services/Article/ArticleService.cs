@@ -3,6 +3,7 @@
     using Data;
     using Data.Models;
     using Ganss.XSS;
+    using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Article;
     using Models.ViewModels.Article;
 
@@ -69,7 +70,11 @@
 
         public bool Delete(string id)
         {
-            var article = data.Articles.Find(id);
+            var article = data
+                .Articles
+                .Where(x => x.Id == id && !x.IsDeleted)
+                .Include(x => x.Comments)
+                .FirstOrDefault();
 
             if (article == null)
             {
@@ -78,6 +83,12 @@
 
             article.IsDeleted = true;
             article.DeletedOn = DateTime.UtcNow;
+
+            foreach (var comment in article.Comments)
+            {
+                comment.IsDeleted = true;
+                comment.DeletedOn = article.DeletedOn;
+            }
 
             var result = data.SaveChanges();
 

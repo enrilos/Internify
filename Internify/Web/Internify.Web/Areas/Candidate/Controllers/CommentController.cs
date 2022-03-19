@@ -55,17 +55,17 @@
                 return View(comment);
             }
 
-            var result = commentService.CommentArticle(
+            var id = commentService.CommentArticle(
                 comment.ArticleId,
                 comment.CandidateId,
                 comment.Content);
 
-            if (!result)
+            if (id == null)
             {
                 return BadRequest();
             }
 
-            return RedirectToAction("Details", "Article", new { id = comment.ArticleId });
+            return RedirectToAction("ArticleComments", "Comment", new { articleId = comment.ArticleId });
         }
     }
 }

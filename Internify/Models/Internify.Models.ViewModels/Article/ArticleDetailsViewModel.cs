@@ -14,9 +14,6 @@
 
         public string CompanyName { get; init; }
 
-        // TODO..
-        //public ICollection<CommentListingViewModel> Comments { get; init; }
-
         public DateTime CreatedOn { get; init; }
 
         public DateTime? ModifiedOn { get; init; }
