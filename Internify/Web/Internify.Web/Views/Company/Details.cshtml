@@ -1,6 +1,7 @@
 ﻿@model CompanyDetailsViewModel
 
 @inject ICompanyService companyService;
+@inject ICandidateService candidateService;
 
 @{
     ViewData["Title"] = "Company Details";
@@ -44,6 +45,15 @@
            asp-controller="Internship"
            asp-action="All"
            asp-route-companyId="@Model.Id">Internships</a>
+        }
+
+        @if (candidateService.IsCandidateInCompany(candidateService.GetIdByUserId(User?.Id()), Model.Id))
+        {
+            <a class="btn btn-primary rounded m-1"
+           asp-area="Candidate"
+           asp-controller="Review"
+           asp-action="Add"
+           asp-route-companyId="@Model.Id">Write Review</a>
         }
 
         <a class="btn btn-success rounded m-1"
