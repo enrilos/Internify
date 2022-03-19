@@ -48,6 +48,7 @@ else
            asp-controller="Comment"
            asp-action="ArticleComments"
            asp-route-currentPage="@previousPage"
+           asp-route-commentsPerPage="@Model.CommentsPerPage"
            asp-route-articleId="@Model.ArticleId">Previous</a>
     </section>
 
@@ -60,6 +61,7 @@ else
            asp-controller="Comment"
            asp-action="ArticleComments"
            asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-commentsPerPage="@Model.CommentsPerPage"
            asp-route-articleId="@Model.ArticleId">Next</a>
     </section>
 </section>
