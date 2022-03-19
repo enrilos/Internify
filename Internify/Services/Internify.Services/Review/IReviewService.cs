@@ -8,5 +8,9 @@
             string title,
             int rating,
             string content);
+
+        bool HasCandidateReviewedCompany(
+            string candidateId,
+            string companyId);
     }
 }

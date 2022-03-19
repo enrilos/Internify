@@ -41,5 +41,15 @@
 
             return true;
         }
+
+        public bool HasCandidateReviewedCompany(
+            string candidateId,
+            string companyId)
+            => data
+            .Reviews
+            .Any(x =>
+            x.CandidateId == candidateId
+            && x.CompanyId == companyId
+            && !x.IsDeleted);
     }
 }
