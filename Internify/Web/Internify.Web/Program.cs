@@ -8,6 +8,7 @@ using Internify.Services.Comment;
 using Internify.Services.Company;
 using Internify.Services.Country;
 using Internify.Services.Internship;
+using Internify.Services.Review;
 using Internify.Services.Specialization;
 using Internify.Services.University;
 using Internify.Web.Common;
@@ -65,6 +66,7 @@ builder.Services.AddTransient<IInternshipService, InternshipService>();
 builder.Services.AddTransient<IApplicationService, ApplicationService>();
 builder.Services.AddTransient<IArticleService, ArticleService>();
 builder.Services.AddTransient<ICommentService, CommentService>();
+builder.Services.AddTransient<IReviewService, ReviewService>();
 builder.Services.AddTransient<ICountryService, CountryService>();
 builder.Services.AddTransient<ISpecializationService, SpecializationService>();
 
