@@ -1,0 +1,16 @@
+﻿@model IEnumerable<CommentListingViewModel>
+
+<section class="row justify-content-center mt-3">
+    @foreach (var comment in @Model)
+    {
+        <section class="container p-3 m-3 bg-light border">
+            <p class="h6 mb-4">Posted by: 
+                <a class="container-nav-title-content"
+                asp-controller="Candidate"
+                asp-action="Details"
+                asp-route-id="@comment.CandidateId">@comment.CandidateFullName</a> at @comment.CreatedOn
+            </p>
+            <p class="m-2">@Html.Raw(comment.Content)</p>
+        </section>
+    }
+</section>
