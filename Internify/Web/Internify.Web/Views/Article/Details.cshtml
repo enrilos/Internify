@@ -50,7 +50,7 @@
         <a class="btn btn-primary rounded m-1"
            asp-controller="Comment"
            asp-action="ArticleComments"
-           asp-route-id="@Model.Id">Comments</a>
+           asp-route-articleId="@Model.Id">Comments</a>
 
         @if (candidateService.IsCandidateByUserId(User?.Id()))
         {
