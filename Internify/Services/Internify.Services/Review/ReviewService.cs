@@ -122,10 +122,15 @@
             var reviewsQuery = data
                 .Reviews
                 .Where(x =>
-                x.CompanyId == companyId
-                && x.CandidateId == candidateId
+                x.CandidateId == candidateId
                 && !x.IsDeleted)
                 .AsQueryable();
+
+            if (companyId != null)
+            {
+                reviewsQuery = reviewsQuery
+                    .Where(x => x.CompanyId == companyId);
+            }
 
             if (!string.IsNullOrEmpty(title?.Trim()))
             {
@@ -162,6 +167,8 @@
                     Id = x.Id,
                     CandidateFullName = x.Candidate.FirstName + " " + x.Candidate.LastName,
                     CandidateId = x.CandidateId,
+                    CompanyName = x.Company.Name,
+                    CompanyId = x.CompanyId,
                     Title = x.Title,
                     Rating = x.Rating,
                     Content = x.Content,

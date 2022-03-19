@@ -8,7 +8,11 @@
                 <a class="container-nav-title-content"
                 asp-controller="Candidate"
                 asp-action="Details"
-                asp-route-id="@review.CandidateId">@review.CandidateFullName</a> at @review.CreatedOn
+                asp-route-id="@review.CandidateId">@review.CandidateFullName</a> at @review.CreatedOn for 
+                <a class="container-nav-title-content"
+                asp-controller="Company"
+                asp-action="Details"
+                asp-route-id="@review.CompanyId">@review.CompanyName</a>
             </p>
             <p class="my-2 h4">@review.Title</p>
             <p>

@@ -33,10 +33,6 @@
                 asp-controller="Candidate"
                 asp-action="Details"
                 asp-route-id="@candidateService.GetIdByUserId(User?.Id())">My Candidate</a>
-                {
-                    // My Reviews... (reviews can be edited/deleted by candidate owner)
-                    // My Comments... (comments can be edited/deleted by candidate owner)
-                }
             }
             else if (universityService.IsUniversityByUserId(User?.Id()))
             {
@@ -53,9 +49,6 @@
                 asp-controller="Company"
                 asp-action="Details"
                 asp-route-id="@companyService.GetIdByUserId(User?.Id())">My Company</a>
-                {
-                    // My Reviews... (written by interns - candidates)
-                }
             }
             else if (isAdmin)
             {

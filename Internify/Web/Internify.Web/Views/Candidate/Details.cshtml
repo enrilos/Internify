@@ -19,6 +19,12 @@
        asp-action="Edit"
        asp-route-id="@Model.Id">Edit</a>
 
+       <a class="btn btn-primary rounded m-1"
+       asp-area="Candidate"
+       asp-controller="Review"
+       asp-action="CandidateReviews"
+       asp-route-candidateId="@Model.Id">My Reviews</a>
+
         if (candidateService.IsCandidateAlreadyAnIntern(Model.Id))
         {
             <a class="btn btn-primary rounded m-1"

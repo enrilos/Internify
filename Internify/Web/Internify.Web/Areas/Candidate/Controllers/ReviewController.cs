@@ -23,6 +23,31 @@
             this.companyService = companyService;
         }
 
+        public IActionResult CandidateReviews(ReviewListingQueryModel queryModel)
+        {
+            if (!candidateService.Exists(queryModel.CandidateId))
+            {
+                return NotFound();
+            }
+
+            if (candidateService.GetIdByUserId(User.Id()) != queryModel.CandidateId)
+            {
+                return Unauthorized();
+            }
+
+            queryModel = reviewService.CandidateReviews(
+                queryModel.CandidateId,
+                queryModel.CompanyId,
+                queryModel.Title,
+                queryModel.Rating,
+                queryModel.CurrentPage,
+                queryModel.ReviewsPerPage);
+
+            queryModel.Companies = companyService.GetCompaniesSelectOptions();
+
+            return View(queryModel);
+        }
+
         public IActionResult Add(string companyId)
         {
             if (!companyService.Exists(companyId))
