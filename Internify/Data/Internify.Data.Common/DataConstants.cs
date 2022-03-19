@@ -42,7 +42,9 @@
 
         public class Review
         {
+            public const int TitleMinLength = 3;
             public const int TitleMaxLength = 50;
+            public const int ContentMinLength = 30;
             public const int ContentMaxLength = 2000;
         }
 
