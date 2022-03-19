@@ -62,6 +62,11 @@
            asp-action="CompanyArticles"
            asp-route-companyId="@Model.Id">Articles</a>
 
+        <a class="btn btn-warning rounded m-1"
+           asp-controller="Review"
+           asp-action="CompanyReviews"
+           asp-route-companyId="@Model.Id">Reviews</a>
+
         @if (User.IsAdmin())
         {
             <!-- Button trigger modal -->
