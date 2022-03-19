@@ -1,0 +1,108 @@
+﻿@model ReviewListingQueryModel
+
+@{
+    ViewData["Title"] = "My Reviews";
+}
+
+<p class="h2 heading-margin text-center">@ViewData["Title"]</p>
+
+<form method="get">
+    <input asp-for="CandidateId" type="hidden" />
+    <section class="py-4 px-2 d-flex bd-highlight justify-content-evenly align-items-center flex-wrap">
+        <section class="form-group">
+            <label asp-for="Title"></label>
+            <input asp-for="Title" class="form-control">
+        </section>
+        <section class="form-group">
+            <label asp-for="Rating"></label>
+
+            <select asp-for="Rating" class="form-control">
+                <option value="">-- rating --</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+
+            <span asp-validation-for="Rating" class="small text-danger"></span>
+        </section>
+        <section class="form-group">
+            <label asp-for="CompanyId"></label>
+            <select asp-for="CompanyId" class="form-control">
+                <option value="" selected> -- select company -- </option>
+                @foreach (var company in Model.Companies)
+                {
+                    <option value="@company.Id">@company.Name</option>
+                }
+            </select>
+            <span asp-validation-for="CompanyId" class="small text-danger"></span>
+        </section>
+        <section class="form-group">
+            <label asp-for="ReviewsPerPage"></label>
+            <select asp-for="ReviewsPerPage" class="form-control">
+                <option value="6" selected>6</option>
+                <option value="12">12</option>
+                <option value="24">24</option>
+                <option value="48">48</option>
+                <option value="96">96</option>
+            </select>
+        </section>
+        <input class="btn btn-primary mt-3" type="submit" value="Search" />
+    </section>
+</form>
+
+@{
+    var previousPage = Model.CurrentPage - 1;
+
+    if (previousPage < 1)
+    {
+        previousPage = 1;
+    }
+    var maxPage = Math.Ceiling((double)Model.TotalReviews / Model.ReviewsPerPage);
+}
+
+@if (Model.Reviews.Any())
+{
+    <partial name="_ReviewsPartial" model="@Model.Reviews" />
+}
+else
+{
+    <p class="h2 text-center">Uh oh! No reviews were found.</p>
+}
+
+<section class="d-flex flex-row justify-content-around text-center my-5">
+    <section>
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+           asp-area="Candidate"
+           asp-controller="Review"
+           asp-action="CandidateReviews"
+           asp-route-currentPage="@previousPage"
+           asp-route-reviewsPerPage="@Model.ReviewsPerPage"
+           asp-route-title="@Model.Title"
+           asp-route-rating="@Model.Rating"
+           asp-route-companyId="@Model.CompanyId"
+           asp-route-candidateId="@Model.CandidateId">Previous</a>
+    </section>
+
+    @{
+        var shouldButtonBeDisabled = Model.CurrentPage == maxPage || !Model.Reviews.Any();
+    }
+
+    <section>
+        <a class="btn btn-primary float-sm-right @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
+           asp-area="Candidate"
+           asp-controller="Review"
+           asp-action="CandidateReviews"
+           asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-reviewsPerPage="@Model.ReviewsPerPage"
+           asp-route-title="@Model.Title"
+           asp-route-rating="@Model.Rating"
+           asp-route-companyId="@Model.CompanyId"
+           asp-route-candidateId="@Model.CandidateId">Next</a>
+    </section>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
