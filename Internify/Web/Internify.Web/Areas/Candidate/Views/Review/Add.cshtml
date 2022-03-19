@@ -1,0 +1,78 @@
+﻿@model AddReviewFormModel
+
+@{
+    ViewData["Title"] = "Add Review";
+}
+
+<section class="row">
+    <section class="col-md-6 offset-md-3">
+        <h2 class="heading-margin text-center">@ViewData["Title"]</h2>
+
+        <form method="post">
+            <input asp-for="CompanyId" type="hidden" />
+            <input asp-for="CandidateId" type="hidden" />
+
+            <section class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control">
+                <span asp-validation-for="Title" class="small text-danger"></span>
+            </section>
+
+            <section class="form-group">
+                <label asp-for="Rating"></label>
+
+                <select asp-for="Rating" class="form-control">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+
+                <span asp-validation-for="Rating" class="small text-danger"></span>
+            </section>
+
+            <section class="form-group">
+                <label asp-for="Content"></label>
+                @Html.TextAreaFor(m => m.Content, new { @class = "form-control", id="editor" })
+                <span asp-validation-for="Content" class="small text-danger"></span>
+            </section>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Submit
+            </button>
+
+            <!-- Modal -->
+            <section class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <section class="modal-dialog">
+                    <section class="modal-content">
+                        <section class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </section>
+                        <section class="modal-body">
+                            <p class="h5">Publish review?</p>
+                        </section>
+                        <section class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input class="btn btn-primary" type="submit" value="Submit" />
+                        </section>
+                    </section>
+                </section>
+            </section>
+
+        </form>
+    </section>
+</section>
+
+@section CKEditorCSS
+{
+<link href="~/ckeditor/contents.css" ryle="stylesheet" />
+}
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+<script src="~/ckeditor/ckeditor.js"></script>
+<script>CKEDITOR.replace('editor');</script>
+}
