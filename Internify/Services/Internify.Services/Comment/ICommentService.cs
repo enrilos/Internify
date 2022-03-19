@@ -1,10 +1,17 @@
 ﻿namespace Internify.Services.Comment
 {
+    using Internify.Models.InputModels.Comment;
+
     public interface ICommentService
     {
-        bool CommentArticle(
+        string CommentArticle(
             string articleId,
             string candidateId,
             string content);
+
+        CommentListingQueryModel ArticleComments(
+            string articleId,
+            int currentPage,
+            int commentsPerPage);
     }
 }

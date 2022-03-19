@@ -3,6 +3,8 @@
     using Data;
     using Data.Models;
     using Ganss.XSS;
+    using Internify.Models.InputModels.Comment;
+    using Internify.Models.ViewModels.Comment;
 
     public class CommentService : ICommentService
     {
@@ -11,7 +13,7 @@
         public CommentService(InternifyDbContext data)
             => this.data = data;
 
-        public bool CommentArticle(
+        public string CommentArticle(
             string articleId,
             string candidateId,
             string content)
@@ -28,14 +30,56 @@
 
             data.Comments.Add(comment);
 
-            var result = data.SaveChanges();
+            data.SaveChanges();
 
-            if (result == 0)
+            return comment.Id;
+        }
+
+        public CommentListingQueryModel ArticleComments(
+           string articleId,
+           int currentPage,
+           int commentsPerPage)
+        {
+            var commentsQuery = data
+                .Comments
+                .Where(x => x.ArticleId == articleId && !x.IsDeleted)
+                .AsQueryable();
+
+            if (currentPage <= 0)
             {
-                return false;
+                currentPage = 1;
             }
 
-            return true;
+            if (commentsPerPage < 6)
+            {
+                commentsPerPage = 6;
+            }
+            else if (commentsPerPage > 96)
+            {
+                commentsPerPage = 96;
+            }
+
+            var comments = commentsQuery
+                .OrderByDescending(x => x.CreatedOn)
+                .Skip((currentPage - 1) * commentsPerPage)
+                .Take(commentsPerPage)
+                .Select(x => new CommentListingViewModel
+                {
+                    CandidateFullName = x.Candidate.FirstName + " " + x.Candidate.LastName,
+                    CandidateId = x.CandidateId,
+                    Content = x.Content,
+                    CreatedOn = x.CreatedOn
+                })
+                .ToList();
+
+            return new CommentListingQueryModel
+            {
+                ArticleId = articleId,
+                CurrentPage = currentPage,
+                CommentsPerPage = commentsPerPage,
+                Comments = comments,
+                TotalComments = commentsQuery.Count()
+            };
         }
     }
 }
