@@ -53,17 +53,16 @@
             string countryId)
         {
             var sanitizer = new HtmlSanitizer();
-            var sanitizedDescription = sanitizer.Sanitize(description);
 
             var university = new University
             {
                 UserId = userId,
-                Name = name.Trim(),
-                ImageUrl = imageUrl.Trim(),
-                WebsiteUrl = websiteUrl.Trim(),
+                Name = sanitizer.Sanitize(name).Trim(),
+                ImageUrl = sanitizer.Sanitize(imageUrl).Trim(),
+                WebsiteUrl = sanitizer.Sanitize(websiteUrl).Trim(),
                 Founded = founded,
                 Type = type,
-                Description = sanitizedDescription.Trim(),
+                Description = sanitizer.Sanitize(description).Trim(),
                 CountryId = countryId
             };
 
@@ -100,14 +99,13 @@
             }
 
             var sanitizer = new HtmlSanitizer();
-            var sanitizedDescription = sanitizer.Sanitize(description);
 
-            university.Name = name.Trim();
-            university.ImageUrl = imageUrl.Trim();
-            university.WebsiteUrl = websiteUrl.Trim();
+            university.Name = sanitizer.Sanitize(name).Trim();
+            university.ImageUrl = sanitizer.Sanitize(imageUrl).Trim();
+            university.WebsiteUrl = sanitizer.Sanitize(websiteUrl).Trim();
             university.Founded = founded;
             university.Type = type;
-            university.Description = sanitizedDescription.Trim();
+            university.Description = sanitizer.Sanitize(description).Trim();
             university.CountryId = countryId;
 
             university.ModifiedOn = DateTime.UtcNow;
@@ -199,12 +197,21 @@
             int currentPage,
             int universitiesPerPage)
         {
-            var universitiesQuery = data.Universities.Where(x => !x.IsDeleted).AsQueryable();
+            var universitiesQuery = data
+                .Universities
+                .Where(x => !x.IsDeleted)
+                .AsQueryable();
 
-            if (name != null)
+            var sanitizer = new HtmlSanitizer();
+
+            if (!string.IsNullOrEmpty(name))
             {
+                var sanitizedName = sanitizer
+                    .Sanitize(name)
+                    .Trim();
+
                 universitiesQuery = universitiesQuery
-                    .Where(x => x.Name.ToLower().Contains(name.ToLower().Trim()));
+                    .Where(x => x.Name.ToLower().Contains(sanitizedName.ToLower()));
             }
 
             if (type != null)
@@ -213,7 +220,7 @@
                     .Where(x => x.Type == type);
             }
 
-            if (countryId != null)
+            if (!string.IsNullOrEmpty(countryId))
             {
                 universitiesQuery = universitiesQuery
                     .Where(x => x.CountryId == countryId);
@@ -273,31 +280,41 @@
                 .Where(x => x.Universities.Any(u => u.UniversityId == universityId && !u.University.IsDeleted))
                 .AsQueryable();
 
+            var sanitizer = new HtmlSanitizer();
+
             if (isAvailable)
             {
                 alumniQuery = alumniQuery
                     .Where(x => x.IsAvailable);
             }
 
-            if (firstName != null)
+            if (!string.IsNullOrEmpty(firstName))
             {
+                var sanitizedFirstName = sanitizer
+                    .Sanitize(firstName)
+                    .Trim();
+
                 alumniQuery = alumniQuery
-                    .Where(x => x.FirstName.ToLower().Contains(firstName.ToLower().Trim()));
+                    .Where(x => x.FirstName.ToLower().Contains(sanitizedFirstName.ToLower()));
             }
 
-            if (lastName != null)
+            if (!string.IsNullOrEmpty(lastName))
             {
+                var sanitizedLastName = sanitizer
+                       .Sanitize(lastName)
+                       .Trim();
+
                 alumniQuery = alumniQuery
-                    .Where(x => x.LastName.ToLower().Contains(lastName.ToLower().Trim()));
+                    .Where(x => x.LastName.ToLower().Contains(sanitizedLastName.ToLower()));
             }
 
-            if (specializationId != null)
+            if (!string.IsNullOrEmpty(specializationId))
             {
                 alumniQuery = alumniQuery
                     .Where(x => x.SpecializationId == specializationId);
             }
 
-            if (countryId != null)
+            if (!string.IsNullOrEmpty(countryId))
             {
                 alumniQuery = alumniQuery
                     .Where(x => x.CountryId == countryId);

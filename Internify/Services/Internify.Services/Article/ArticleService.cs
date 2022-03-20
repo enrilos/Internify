@@ -22,13 +22,12 @@
             string hostName)
         {
             var sanitizer = new HtmlSanitizer();
-            var sanitizedContent = sanitizer.Sanitize(content);
 
             var article = new Article
             {
-                Title = title.Trim(),
-                ImageUrl = string.IsNullOrEmpty(imageUrl) ? Path.Combine(hostName, "/images/article.jpg") : imageUrl.Trim(),
-                Content = sanitizedContent.Trim(),
+                Title = sanitizer.Sanitize(title).Trim(),
+                ImageUrl = string.IsNullOrEmpty(imageUrl) ? Path.Combine(hostName, "/images/article.jpg") : sanitizer.Sanitize(imageUrl).Trim(),
+                Content = sanitizer.Sanitize(content).Trim(),
                 CompanyId = companyId
             };
 
@@ -52,10 +51,9 @@
             }
 
             var sanitizer = new HtmlSanitizer();
-            var sanitizedContent = sanitizer.Sanitize(content);
 
-            article.Title = title.Trim();
-            article.Content = sanitizedContent.Trim();
+            article.Title = sanitizer.Sanitize(title).Trim();
+            article.Content = sanitizer.Sanitize(content).Trim();
             article.ModifiedOn = DateTime.UtcNow;
 
             var result = data.SaveChanges();
@@ -157,15 +155,21 @@
                 && !x.IsDeleted)
                 .AsQueryable();
 
-            if (string.IsNullOrEmpty(companyName?.Trim()))
+            var sanitizer = new HtmlSanitizer();
+
+            if (string.IsNullOrEmpty(companyName))
             {
                 companyName = data.Companies.FirstOrDefault(x => x.Id == companyId)?.Name;
             }
 
-            if (title != null)
+            if (!string.IsNullOrEmpty(title))
             {
+                var sanitizedTitle = sanitizer
+                    .Sanitize(title)
+                    .Trim();
+
                 articlesQuery = articlesQuery
-                    .Where(x => x.Title.ToLower().Contains(title.ToLower().Trim()));
+                    .Where(x => x.Title.ToLower().Contains(sanitizedTitle.ToLower()));
             }
 
             if (currentPage <= 0)

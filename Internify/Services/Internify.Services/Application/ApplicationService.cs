@@ -15,7 +15,6 @@
     {
         private readonly InternifyDbContext data;
         private readonly IInternshipService internshipService;
-        private const int CoverLetterSegmentNumber = 65;
 
         public ApplicationService(
             InternifyDbContext data,
@@ -31,13 +30,12 @@
             string coverLetter)
         {
             var sanitizer = new HtmlSanitizer();
-            var sanitizedCoverLetter = sanitizer.Sanitize(coverLetter);
 
             var application = new Application
             {
                 InternshipId = internshipId,
                 CandidateId = candidateId,
-                CoverLetter = sanitizedCoverLetter.Trim()
+                CoverLetter = sanitizer.Sanitize(coverLetter).Trim()
             };
 
             data.Applications.Add(application);
@@ -64,9 +62,8 @@
             }
 
             var sanitizer = new HtmlSanitizer();
-            var sanitizedCoverLetter = sanitizer.Sanitize(coverLetter);
 
-            application.CoverLetter = sanitizedCoverLetter.Trim();
+            application.CoverLetter = sanitizer.Sanitize(coverLetter).Trim();
             application.ModifiedOn = DateTime.UtcNow;
 
             data.SaveChanges();
@@ -197,30 +194,40 @@
                 && !x.IsDeleted)
                 .AsQueryable();
 
-            if (string.IsNullOrEmpty(internshipRole?.Trim()))
+            var sanitizer = new HtmlSanitizer();
+
+            if (string.IsNullOrEmpty(internshipRole))
             {
                 internshipRole = internshipService.GetRoleById(internshipId);
             }
 
-            if (applicantFirstName != null)
+            if (!string.IsNullOrEmpty(applicantFirstName))
             {
+                var sanitizedApplicantFirstName = sanitizer
+                    .Sanitize(applicantFirstName)
+                    .Trim();
+
                 internshipApplicantsQuery = internshipApplicantsQuery
-                    .Where(x => x.Candidate.FirstName.ToLower().Contains(applicantFirstName.ToLower()));
+                    .Where(x => x.Candidate.FirstName.ToLower().Contains(sanitizedApplicantFirstName.ToLower()));
             }
 
-            if (applicantLastName != null)
+            if (!string.IsNullOrEmpty(applicantLastName))
             {
+                var sanitizedApplicantLastName = sanitizer
+                    .Sanitize(applicantLastName)
+                    .Trim();
+
                 internshipApplicantsQuery = internshipApplicantsQuery
-                    .Where(x => x.Candidate.LastName.ToLower().Contains(applicantLastName.ToLower()));
+                    .Where(x => x.Candidate.LastName.ToLower().Contains(sanitizedApplicantLastName.ToLower()));
             }
 
-            if (applicantSpecializationId != null)
+            if (!string.IsNullOrEmpty(applicantSpecializationId))
             {
                 internshipApplicantsQuery = internshipApplicantsQuery
                     .Where(x => x.Candidate.SpecializationId == applicantSpecializationId);
             }
 
-            if (applicantCountryId != null)
+            if (!string.IsNullOrEmpty(applicantCountryId))
             {
                 internshipApplicantsQuery = internshipApplicantsQuery
                     .Where(x => x.Candidate.CountryId == applicantCountryId);
@@ -279,13 +286,19 @@
                 && !x.IsDeleted)
                 .AsQueryable();
 
-            if (role != null)
+            var sanitizer = new HtmlSanitizer();
+
+            if (!string.IsNullOrEmpty(role))
             {
+                var sanitizedRole = sanitizer
+                    .Sanitize(role)
+                    .Trim();
+
                 applicationsQuery = applicationsQuery
-                    .Where(x => x.Internship.Role.ToLower().Contains(role.ToLower().Trim()));
+                    .Where(x => x.Internship.Role.ToLower().Contains(sanitizedRole.ToLower()));
             }
 
-            if (companyId != null)
+            if (!string.IsNullOrEmpty(companyId))
             {
                 applicationsQuery = applicationsQuery
                     .Where(x => x.Internship.CompanyId == companyId);

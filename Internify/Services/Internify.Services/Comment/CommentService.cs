@@ -19,13 +19,12 @@
             string content)
         {
             var sanitizer = new HtmlSanitizer();
-            var sanitizedContent = sanitizer.Sanitize(content);
 
             var comment = new Comment
             {
                 ArticleId = articleId,
                 CandidateId = candidateId,
-                Content = sanitizedContent.Trim(),
+                Content = sanitizer.Sanitize(content).Trim(),
             };
 
             data.Comments.Add(comment);

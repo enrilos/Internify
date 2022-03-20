@@ -57,16 +57,15 @@
             string hostName)
         {
             var sanitizer = new HtmlSanitizer();
-            var sanitizedDescription = sanitizer.Sanitize(description);
 
             var candidate = new Candidate
             {
-                FirstName = firstName.Trim(),
-                LastName = lastName.Trim(),
+                FirstName = sanitizer.Sanitize(firstName).Trim(),
+                LastName = sanitizer.Sanitize(lastName).Trim(),
                 UserId = userId,
-                ImageUrl = string.IsNullOrEmpty(imageUrl) ? Path.Combine(hostName, "/images/avatar.png") : imageUrl.Trim(),
-                WebsiteUrl = websiteUrl?.Trim(),
-                Description = sanitizedDescription?.Trim(),
+                ImageUrl = string.IsNullOrEmpty(imageUrl) ? Path.Combine(hostName, "/images/avatar.png") : sanitizer.Sanitize(imageUrl).Trim(),
+                WebsiteUrl = sanitizer.Sanitize(websiteUrl)?.Trim(),
+                Description = sanitizer.Sanitize(description)?.Trim(),
                 BirthDate = birthDate,
                 Gender = gender,
                 SpecializationId = specializationId,
@@ -109,13 +108,12 @@
             }
 
             var sanitizer = new HtmlSanitizer();
-            var sanitizedDescription = sanitizer.Sanitize(description);
 
-            candidate.FirstName = firstName.Trim();
-            candidate.LastName = lastName.Trim();
-            candidate.ImageUrl = imageUrl?.Trim();
-            candidate.WebsiteUrl = websiteUrl?.Trim();
-            candidate.Description = sanitizedDescription?.Trim();
+            candidate.FirstName = sanitizer.Sanitize(firstName).Trim();
+            candidate.LastName = sanitizer.Sanitize(lastName).Trim();
+            candidate.ImageUrl = sanitizer.Sanitize(imageUrl)?.Trim();
+            candidate.WebsiteUrl = sanitizer.Sanitize(websiteUrl)?.Trim();
+            candidate.Description = sanitizer.Sanitize(description)?.Trim();
             candidate.BirthDate = birthDate;
             candidate.Gender = gender;
             candidate.IsAvailable = isAvailable;
@@ -295,6 +293,8 @@
                 .Where(x => !x.IsDeleted)
                 .AsQueryable();
 
+            var sanitizer = new HtmlSanitizer();
+
             if (isAvailable)
             {
                 candidatesQuery = candidatesQuery
@@ -302,25 +302,33 @@
             }
             // Otherwise, list all despite availability.
 
-            if (firstName != null)
+            if (!string.IsNullOrEmpty(firstName))
             {
+                var sanitizedFirstName = sanitizer
+                    .Sanitize(firstName)
+                    .Trim();
+
                 candidatesQuery = candidatesQuery
-                    .Where(x => x.FirstName.ToLower().Contains(firstName.ToLower().Trim()));
+                    .Where(x => x.FirstName.ToLower().Contains(sanitizedFirstName.ToLower()));
             }
 
-            if (lastName != null)
+            if (!string.IsNullOrEmpty(lastName))
             {
+                var sanitizedLastName = sanitizer
+                    .Sanitize(lastName)
+                    .Trim();
+
                 candidatesQuery = candidatesQuery
-                    .Where(x => x.LastName.ToLower().Contains(lastName.ToLower().Trim()));
+                    .Where(x => x.LastName.ToLower().Contains(sanitizedLastName.ToLower()));
             }
 
-            if (specializationId != null)
+            if (!string.IsNullOrEmpty(specializationId))
             {
                 candidatesQuery = candidatesQuery
                     .Where(x => x.SpecializationId == specializationId);
             }
 
-            if (countryId != null)
+            if (!string.IsNullOrEmpty(countryId))
             {
                 candidatesQuery = candidatesQuery
                     .Where(x => x.CountryId == countryId);
@@ -387,22 +395,36 @@
                 && !x.IsDeleted)
                 .AsQueryable();
 
-            if (firstName != null)
+            var sanitizer = new HtmlSanitizer();
+
+            if (!string.IsNullOrEmpty(firstName))
             {
+                var sanitizedFirstName = sanitizer
+                    .Sanitize(firstName)
+                    .Trim();
+
                 internsQuery = internsQuery
-                    .Where(x => x.FirstName.ToLower().Contains(firstName.ToLower().Trim()));
+                    .Where(x => x.FirstName.ToLower().Contains(sanitizedFirstName.ToLower()));
             }
 
-            if (lastName != null)
+            if (!string.IsNullOrEmpty(lastName))
             {
+                var sanitizedLastName = sanitizer
+                    .Sanitize(lastName)
+                    .Trim();
+
                 internsQuery = internsQuery
-                    .Where(x => x.LastName.ToLower().Contains(lastName.ToLower().Trim()));
+                    .Where(x => x.LastName.ToLower().Contains(sanitizedLastName.ToLower()));
             }
 
-            if (internshipRole != null)
+            if (!string.IsNullOrEmpty(internshipRole))
             {
+                var sanitizedInternshipRole = sanitizer
+                    .Sanitize(internshipRole)
+                    .Trim();
+
                 internsQuery = internsQuery
-                    .Where(x => x.InternshipRole.ToLower().Contains(internshipRole.ToLower().Trim()));
+                    .Where(x => x.InternshipRole.ToLower().Contains(sanitizedInternshipRole.ToLower()));
             }
 
             if (currentPage <= 0)

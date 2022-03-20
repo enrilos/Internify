@@ -24,16 +24,15 @@
             string countryId)
         {
             var sanitizer = new HtmlSanitizer();
-            var sanitizedDescription = sanitizer.Sanitize(description);
 
             var internship = new Internship
             {
                 CompanyId = companyId,
-                Role = role.Trim(),
+                Role = sanitizer.Sanitize(role).Trim(),
                 IsPaid = isPaid,
                 SalaryUSD = salaryUSD,
                 IsRemote = isRemote,
-                Description = sanitizedDescription.Trim(),
+                Description = sanitizer.Sanitize(description).Trim(),
                 CountryId = countryId
             };
 
@@ -58,11 +57,10 @@
             }
 
             var sanitizer = new HtmlSanitizer();
-            var sanitizedDescription = sanitizer.Sanitize(description);
 
             internship.IsPaid = isPaid;
             internship.SalaryUSD = salaryUSD;
-            internship.Description = sanitizedDescription.Trim();
+            internship.Description = sanitizer.Sanitize(description).Trim();
 
             internship.ModifiedOn = DateTime.UtcNow;
 
@@ -169,10 +167,16 @@
                 .Where(x => !x.IsDeleted)
                 .AsQueryable();
 
-            if (role != null)
+            var sanitizer = new HtmlSanitizer();
+
+            if (!string.IsNullOrEmpty(role))
             {
+                var sanitizedRole = sanitizer
+                    .Sanitize(role)
+                    .Trim();
+
                 internshipsQuery = internshipsQuery
-                    .Where(x => x.Role.ToLower().Contains(role.ToLower().Trim()));
+                    .Where(x => x.Role.ToLower().Contains(sanitizedRole.ToLower()));
             }
 
             // Otherwise, ignore filter
@@ -189,13 +193,13 @@
                     .Where(x => x.IsRemote);
             }
 
-            if (companyId != null)
+            if (!string.IsNullOrEmpty(companyId))
             {
                 internshipsQuery = internshipsQuery
-                    .Where(x => x.Company.Id == companyId);
+                    .Where(x => x.CompanyId == companyId);
             }
 
-            if (countryId != null)
+            if (!string.IsNullOrEmpty(countryId))
             {
                 internshipsQuery = internshipsQuery
                     .Where(x => x.CountryId == countryId);

@@ -21,14 +21,13 @@
             string content)
         {
             var sanitizer = new HtmlSanitizer();
-            var sanitizedContent = sanitizer.Sanitize(content);
 
             var review = new Review
             {
                 CandidateId = candidateId,
                 CompanyId = companyId,
-                Title = title.Trim(),
-                Content = sanitizedContent.Trim(),
+                Title = sanitizer.Sanitize(title).Trim(),
+                Content = sanitizer.Sanitize(content).Trim(),
                 Rating = rating
             };
 
@@ -56,10 +55,16 @@
                 .Where(x => x.CompanyId == companyId && !x.IsDeleted)
                 .AsQueryable();
 
-            if (!string.IsNullOrEmpty(title?.Trim()))
+            var sanitizer = new HtmlSanitizer();
+
+            if (!string.IsNullOrEmpty(title))
             {
+                var sanitizedTitle = sanitizer
+                    .Sanitize(title)
+                    .Trim();
+
                 reviewsQuery = reviewsQuery
-                    .Where(x => x.Title.ToLower().Contains(title.ToLower().Trim()));
+                    .Where(x => x.Title.ToLower().Contains(sanitizedTitle.ToLower()));
             }
 
             if (rating != null)
@@ -126,16 +131,22 @@
                 && !x.IsDeleted)
                 .AsQueryable();
 
+            var sanitizer = new HtmlSanitizer();
+
             if (companyId != null)
             {
                 reviewsQuery = reviewsQuery
                     .Where(x => x.CompanyId == companyId);
             }
 
-            if (!string.IsNullOrEmpty(title?.Trim()))
+            if (!string.IsNullOrEmpty(title))
             {
+                var sanitizedTitle = sanitizer
+                       .Sanitize(title)
+                       .Trim();
+
                 reviewsQuery = reviewsQuery
-                    .Where(x => x.Title.ToLower().Contains(title.ToLower().Trim()));
+                    .Where(x => x.Title.ToLower().Contains(sanitizedTitle.ToLower()));
             }
 
             if (rating != null)

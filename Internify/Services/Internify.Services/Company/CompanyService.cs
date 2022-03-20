@@ -56,18 +56,17 @@
             string hostName)
         {
             var sanitizer = new HtmlSanitizer();
-            var sanitizedDescription = sanitizer.Sanitize(description);
 
             var company = new Company
             {
-                Name = name,
+                Name = sanitizer.Sanitize(name).Trim(),
                 UserId = userId,
-                ImageUrl = string.IsNullOrEmpty(imageUrl) ? Path.Combine(hostName, "/images/company.jpg") : imageUrl.Trim(),
-                WebsiteUrl = websiteUrl?.Trim(),
+                ImageUrl = string.IsNullOrEmpty(imageUrl) ? Path.Combine(hostName, "/images/company.jpg") : sanitizer.Sanitize(imageUrl).Trim(),
+                WebsiteUrl = sanitizer.Sanitize(websiteUrl)?.Trim(),
                 Founded = founded,
-                Description = sanitizedDescription.Trim(),
+                Description = sanitizer.Sanitize(description).Trim(),
                 RevenueUSD = revenueUSD,
-                CEO = ceo.Trim(),
+                CEO = sanitizer.Sanitize(ceo).Trim(),
                 EmployeesCount = employeesCount,
                 IsPublic = isPublic,
                 IsGovernmentOwned = isGovernmentOwned,
@@ -114,15 +113,14 @@
             }
 
             var sanitizer = new HtmlSanitizer();
-            var sanitizedDescription = sanitizer.Sanitize(description);
 
-            company.Name = name.Trim();
-            company.ImageUrl = imageUrl == null ? Path.Combine(hostName, "/images/company.jpg") : imageUrl.Trim();
-            company.WebsiteUrl = websiteUrl?.Trim();
+            company.Name = sanitizer.Sanitize(name).Trim();
+            company.ImageUrl = string.IsNullOrEmpty(imageUrl) ? Path.Combine(hostName, "/images/company.jpg") : sanitizer.Sanitize(imageUrl).Trim();
+            company.WebsiteUrl = sanitizer.Sanitize(websiteUrl)?.Trim();
             company.Founded = founded;
-            company.Description = sanitizedDescription.Trim();
+            company.Description = sanitizer.Sanitize(description).Trim();
             company.RevenueUSD = revenueUSD;
-            company.CEO = ceo.Trim();
+            company.CEO = sanitizer.Sanitize(ceo).Trim();
             company.EmployeesCount = employeesCount;
             company.IsPublic = isPublic;
             company.IsGovernmentOwned = isGovernmentOwned;
@@ -306,19 +304,25 @@
                 .Where(x => !x.IsDeleted)
                 .AsQueryable();
 
-            if (name != null)
+            var sanitizer = new HtmlSanitizer();
+
+            if (!string.IsNullOrEmpty(name))
             {
+                var sanitizedName = sanitizer
+                    .Sanitize(name)
+                    .Trim();
+
                 companiesQuery = companiesQuery
-                    .Where(x => x.Name.ToLower().Contains(name.ToLower().Trim()));
+                    .Where(x => x.Name.ToLower().Contains(sanitizedName.ToLower()));
             }
 
-            if (specializationId != null)
+            if (!string.IsNullOrEmpty(specializationId))
             {
                 companiesQuery = companiesQuery
                     .Where(x => x.SpecializationId == specializationId);
             }
 
-            if (countryId != null)
+            if (!string.IsNullOrEmpty(countryId))
             {
                 companiesQuery = companiesQuery
                     .Where(x => x.CountryId == countryId);
