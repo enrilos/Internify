@@ -2,10 +2,12 @@
 {
     using Common;
     using Infrastructure.Extensions;
+    using Internify.Data.Models;
     using Internify.Models.InputModels.Company;
     using Internify.Models.ViewModels.Country;
     using Internify.Models.ViewModels.Specialization;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
     using Services.Company;
@@ -16,6 +18,7 @@
 
     public class CompanyController : Controller
     {
+        private readonly SignInManager<ApplicationUser> signInManager;
         private readonly ICompanyService companyService;
         private readonly ISpecializationService specializationService;
         private readonly ICountryService countryService;
@@ -23,12 +26,14 @@
         private readonly RoleChecker roleChecker;
 
         public CompanyController(
+            SignInManager<ApplicationUser> signInManager,
             ICompanyService companyService,
             ISpecializationService specializationService,
             ICountryService countryService,
             IMemoryCache cache,
             RoleChecker roleChecker)
         {
+            this.signInManager = signInManager;
             this.companyService = companyService;
             this.specializationService = specializationService;
             this.countryService = countryService;
@@ -100,7 +105,7 @@
                 return View(company);
             }
 
-            var companyId = companyService.Add(
+            companyService.Add(
                 userId,
                 company.Name,
                 company.ImageUrl,
@@ -116,9 +121,16 @@
                 company.CountryId,
                 HttpContext.Request.Host.Value);
 
+            Task.Run(async () =>
+            {
+                await signInManager.SignOutAsync();
+            })
+            .GetAwaiter()
+            .GetResult();
+
             TempData[GlobalMessageKey] = "Thank you for registering your company!";
 
-            return RedirectToAction(nameof(Details), new { id = companyId });
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Details(string id)

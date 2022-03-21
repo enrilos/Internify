@@ -2,11 +2,13 @@
 {
     using Common;
     using Infrastructure.Extensions;
+    using Internify.Data.Models;
     using Internify.Models.InputModels.Candidate;
     using Internify.Models.InputModels.University;
     using Internify.Models.ViewModels.Country;
     using Internify.Models.ViewModels.Specialization;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
     using Services.CandidateUniversity;
@@ -18,6 +20,7 @@
 
     public class UniversityController : Controller
     {
+        private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IUniversityService universityService;
         private readonly ICountryService countryService;
         private readonly ISpecializationService specializationService;
@@ -25,12 +28,14 @@
         private readonly RoleChecker roleChecker;
 
         public UniversityController(
+            SignInManager<ApplicationUser> signInManager,
             IUniversityService universityService,
             ICountryService countryService,
             ISpecializationService specializationService,
             IMemoryCache cache,
             RoleChecker roleChecker)
         {
+            this.signInManager = signInManager;
             this.universityService = universityService;
             this.countryService = countryService;
             this.specializationService = specializationService;
@@ -91,7 +96,7 @@
                 return View(university);
             }
 
-            var universityId = universityService.Add(
+            universityService.Add(
                 userId,
                 university.Name,
                 university.ImageUrl,
@@ -101,9 +106,16 @@
                 university.Description,
                 university.CountryId);
 
+            Task.Run(async () =>
+            {
+                await signInManager.SignOutAsync();
+            })
+            .GetAwaiter()
+            .GetResult();
+
             TempData[GlobalMessageKey] = "Thank you for registering your university!";
 
-            return RedirectToAction(nameof(Details), new { id = universityId });
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Details(string id)
