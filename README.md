@@ -9,6 +9,7 @@ My defense project for the <a href="https://softuni.bg/trainings/3601/asp-dot-ne
 - Entity Framework Core
 - MSSQL
 - Data Model Validation (client + server)
+- AJAX
 - Status Code Pages
 - TOR blocking middleware
 - Pagination & Filtration
