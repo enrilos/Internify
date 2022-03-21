@@ -182,6 +182,20 @@
             return true;
         }
 
+        public string GetEmail(string id)
+        {
+            var candidateUserId = data
+              .Candidates
+              .Where(x => x.Id == id && !x.IsDeleted)
+              .FirstOrDefault()?.UserId;
+
+            var email = data
+                .Users
+                .FirstOrDefault(x => x.Id == candidateUserId && !x.IsDeleted)?.Email;
+
+            return email;
+        }
+
         public bool IsCandidateAlreadyAnIntern(string id)
             => data
             .Candidates

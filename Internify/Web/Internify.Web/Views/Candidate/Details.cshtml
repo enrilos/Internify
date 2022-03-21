@@ -194,6 +194,10 @@
             <p>Country: @Model.Country</p>
             <p>@Model.IsAvailableMessage</p>
             <p>@(@Model.ModifiedOn == null ? $"Created on: {@Model.CreatedOn}" : $"Modified on: {@Model.ModifiedOn}")</p>
+            @{
+                var candidateIdString = $"\"{Model.Id}\"";
+            }
+            <button class="btn btn-primary mt-3" id="email-btn" onclick="getEmail(@candidateIdString)">Email</button>
         </article>
     </section>
     <article class="p-2 m-3 bg-light">
@@ -214,3 +218,7 @@
         <partial name="_UniversitiesPartial" model="@Model.Universities" />
     }
 </section>
+
+@section Scripts {
+    <script src="~/js/main.js"></script>
+}

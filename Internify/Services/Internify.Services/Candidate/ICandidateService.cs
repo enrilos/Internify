@@ -41,6 +41,8 @@
 
         public bool Delete(string id);
 
+        public string GetEmail(string id);
+
         public bool IsCandidateAlreadyAnIntern(string id);
 
         public bool IsCandidateInCompany(
