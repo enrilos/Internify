@@ -6,52 +6,52 @@
 
     public interface IApplicationService
     {
-        public bool Add(
-            string internshipId,
-            string candidateId,
-            string coverLetter);
+        bool Add(
+           string internshipId,
+           string candidateId,
+           string coverLetter);
 
-        public string Edit(
-            string id,
-            string coverLetter);
+        string Edit(
+           string id,
+           string coverLetter);
 
-        public bool HasCandidateApplied(
-            string candidateId,
-            string internshipId);
+        bool HasCandidateApplied(
+           string candidateId,
+           string internshipId);
 
-        public bool Exists(string id);
+        bool Exists(string id);
 
-        public bool IsApplicationOwnedByCandidate(
-            string applicationId,
-            string candidateId);
+        bool IsApplicationOwnedByCandidate(
+           string applicationId,
+           string candidateId);
 
-        public bool DoesApplicationBelongToCompanyInternship(
-            string applicationId,
-            string companyId);
+        bool DoesApplicationBelongToCompanyInternship(
+           string applicationId,
+           string companyId);
 
-        public bool Delete(string id);
+        bool Delete(string id);
 
-        public ApplicationDetailsViewModel GetDetailsModel(string id);
+        ApplicationDetailsViewModel GetDetailsModel(string id);
 
-        public ApplicationForCompanyDetailsViewModel GetDetailsModelForCompany(string id);
+        ApplicationForCompanyDetailsViewModel GetDetailsModelForCompany(string id);
 
-        public ApplicationFormModel GetEditModel(string id);
+        ApplicationFormModel GetEditModel(string id);
 
-        public InternshipApplicantListingQueryModel GetInternshipApplicants(
-            string applicantFirstName,
-            string applicantLastName,
-            string applicantSpecializationId,
-            string applicantCountryId,
-            string internshipId,
-            string internshipRole,
-            int currentPage,
-            int applicantsPerPage);
+        InternshipApplicantListingQueryModel GetInternshipApplicants(
+           string applicantFirstName,
+           string applicantLastName,
+           string applicantSpecializationId,
+           string applicantCountryId,
+           string internshipId,
+           string internshipRole,
+           int currentPage,
+           int applicantsPerPage);
 
-        public MyApplicationListingQueryModel GetCandidateApplications(
-            string candidateId,
-            string role,
-            string companyId,
-            int currentPage,
-            int applicationsPerPage);
+        MyApplicationListingQueryModel GetCandidateApplications(
+           string candidateId,
+           string role,
+           string companyId,
+           int currentPage,
+           int applicationsPerPage);
     }
 }

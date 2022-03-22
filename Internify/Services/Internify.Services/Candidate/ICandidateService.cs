@@ -7,13 +7,15 @@
 
     public interface ICandidateService
     {
-        public bool IsCandidate(string id);
+        bool IsCandidate(string id);
 
-        public bool IsCandidateByUserId(string userId);
+        bool IsCandidateByUserId(string userId);
 
-        public string GetIdByUserId(string userId);
+        string GetIdByUserId(string userId);
 
-        public string Add(
+        int TotalCount();
+
+        string Add(
             string userId,
             string firstName,
             string lastName,
@@ -26,7 +28,7 @@
             string countryId,
             string hostName);
 
-        public bool Edit(
+        bool Edit(
             string id,
             string firstName,
             string lastName,
@@ -39,25 +41,25 @@
             string specializationId,
             string countryId);
 
-        public bool Delete(string id);
+        bool Delete(string id);
 
-        public string GetEmail(string id);
+        string GetEmail(string id);
 
-        public bool IsCandidateAlreadyAnIntern(string id);
+        bool IsCandidateAlreadyAnIntern(string id);
 
-        public bool IsCandidateInCompany(
+        bool IsCandidateInCompany(
             string candidateId,
             string companyId);
 
-        public bool RemoveFromCompany(string candidateId);
+        bool RemoveFromCompany(string candidateId);
 
-        public bool Exists(string id);
+        bool Exists(string id);
 
-        public CandidateDetailsViewModel GetDetailsModel(string id);
+        CandidateDetailsViewModel GetDetailsModel(string id);
 
-        public EditCandidateFormModel GetEditModel(string id);
+        EditCandidateFormModel GetEditModel(string id);
 
-        public CandidateListingQueryModel All(
+        CandidateListingQueryModel All(
             string firstName,
             string lastName,
             string specializationId,
@@ -66,7 +68,7 @@
             int currentPage,
             int candidatesPerPage);
 
-        public InternListingQueryModel GetCandidatesByCompany(
+        InternListingQueryModel GetCandidatesByCompany(
             string companyId,
             string firstName,
             string lastName,

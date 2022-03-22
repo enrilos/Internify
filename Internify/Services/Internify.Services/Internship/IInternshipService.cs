@@ -5,42 +5,42 @@
 
     public interface IInternshipService
     {
-        public string Add(
-            string companyId,
-            string role,
-            bool isPaid,
-            decimal? salaryUSD,
-            bool isRemote,
-            string description,
-            string countryId);
+        string Add(
+           string companyId,
+           string role,
+           bool isPaid,
+           decimal? salaryUSD,
+           bool isRemote,
+           string description,
+           string countryId);
 
-        public bool Edit(
-            string id,
-            bool isPaid,
-            decimal? salaryUSD,
-            string description);
+        bool Edit(
+           string id,
+           bool isPaid,
+           decimal? salaryUSD,
+           string description);
 
-        public bool Delete(string id);
+        bool Delete(string id);
 
-        public bool Exists(string id);
+        bool Exists(string id);
 
-        public bool IsInternshipOwnedByCompany(
-            string internshipId,
-            string companyId);
+        bool IsInternshipOwnedByCompany(
+           string internshipId,
+           string companyId);
 
-        public string GetRoleById(string id);
+        string GetRoleById(string id);
 
-        public InternshipDetailsViewModel GetDetailsModel(string id);
+        InternshipDetailsViewModel GetDetailsModel(string id);
 
-        public EditInternshipFormModel GetEditModel(string id);
+        EditInternshipFormModel GetEditModel(string id);
 
-        public InternshipListingQueryModel All(
-            string role,
-            bool isPaid,
-            bool isRemote,
-            string companyId,
-            string countryId,
-            int currentPage,
-            int internshipsPerPage);
+        InternshipListingQueryModel All(
+           string role,
+           bool isPaid,
+           bool isRemote,
+           string companyId,
+           string countryId,
+           int currentPage,
+           int internshipsPerPage);
     }
 }

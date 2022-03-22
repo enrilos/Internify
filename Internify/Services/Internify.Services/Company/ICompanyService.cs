@@ -5,13 +5,15 @@
 
     public interface ICompanyService
     {
-        public bool IsCompany(string id);
+        bool IsCompany(string id);
 
-        public bool IsCompanyByUserId(string userId);
+        bool IsCompanyByUserId(string userId);
 
-        public string GetIdByUserId(string userId);
+        string GetIdByUserId(string userId);
 
-        public string Add(
+        int TotalCount();
+
+        string Add(
             string userId,
             string name,
             string imageUrl,
@@ -27,7 +29,7 @@
             string countryId,
             string hostName);
 
-        public bool Edit(
+        bool Edit(
             string id,
             string name,
             string imageUrl,
@@ -43,29 +45,29 @@
             string countryId,
             string hostName);
 
-        public bool AddCandidateToInterns(
-            string candidateId,
-            string companyId,
-            string internshipRole);
+        bool AddCandidateToInterns(
+           string candidateId,
+           string companyId,
+           string internshipRole);
 
-        public bool Delete(string id);
+        bool Delete(string id);
 
-        public bool Exists(string id);
+        bool Exists(string id);
 
-        public CompanyDetailsViewModel GetDetailsModel(string id);
+        CompanyDetailsViewModel GetDetailsModel(string id);
 
-        public EditCompanyFormModel GetEditModel(string id);
+        EditCompanyFormModel GetEditModel(string id);
 
-        public IEnumerable<CompanySelectOptionsViewModel> GetCompaniesSelectOptions();
+        IEnumerable<CompanySelectOptionsViewModel> GetCompaniesSelectOptions();
 
-        public CompanyListingQueryModel All(
-            string name,
-            string specializationId,
-            string countryId,
-            int? employeesCount,
-            bool isPublic,
-            bool isGovernmentOwned,
-            int currentPage,
-            int companiesPerPage);
+        CompanyListingQueryModel All(
+           string name,
+           string specializationId,
+           string countryId,
+           int? employeesCount,
+           bool isPublic,
+           bool isGovernmentOwned,
+           int currentPage,
+           int companiesPerPage);
     }
 }

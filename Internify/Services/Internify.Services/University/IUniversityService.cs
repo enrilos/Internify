@@ -7,55 +7,57 @@
 
     public interface IUniversityService
     {
-        public bool IsUniversity(string id);
+        bool IsUniversity(string id);
 
-        public bool IsUniversityByUserId(string userId);
+        bool IsUniversityByUserId(string userId);
 
-        public string GetIdByUserId(string userId);
+        string GetIdByUserId(string userId);
 
-        public string Add(
-            string userId,
-            string name,
-            string imageUrl,
-            string websiteUrl,
-            int founded,
-            Type type,
-            string description,
-            string countryId);
+        int TotalCount();
 
-        public bool Edit(
-            string id,
-            string name,
-            string imageUrl,
-            string websiteUrl,
-            int founded,
-            Type type,
-            string description,
-            string countryId);
+        string Add(
+           string userId,
+           string name,
+           string imageUrl,
+           string websiteUrl,
+           int founded,
+           Type type,
+           string description,
+           string countryId);
 
-        public bool Delete(string id);
+        bool Edit(
+           string id,
+           string name,
+           string imageUrl,
+           string websiteUrl,
+           int founded,
+           Type type,
+           string description,
+           string countryId);
 
-        public bool Exists(string id);
+        bool Delete(string id);
 
-        public UniversityDetailsViewModel GetDetailsModel(string id);
+        bool Exists(string id);
 
-        public EditUniversityFormModel GetEditModel(string id);
+        UniversityDetailsViewModel GetDetailsModel(string id);
 
-        public UniversityListingQueryModel All(
-            string name,
-            Type? type,
-            string countryId,
-            int currentPage,
-            int universitiesPerPage);
+        EditUniversityFormModel GetEditModel(string id);
 
-        public CandidateListingQueryModel Alumni(
-            string universityId,
-            string firstName,
-            string lastName,
-            string specializationId,
-            string countryId,
-            bool isAvailable,
-            int currentPage,
-            int alumniPerPage);
+        UniversityListingQueryModel All(
+           string name,
+           Type? type,
+           string countryId,
+           int currentPage,
+           int universitiesPerPage);
+
+        CandidateListingQueryModel Alumni(
+           string universityId,
+           string firstName,
+           string lastName,
+           string specializationId,
+           string countryId,
+           bool isAvailable,
+           int currentPage,
+           int alumniPerPage);
     }
 }
