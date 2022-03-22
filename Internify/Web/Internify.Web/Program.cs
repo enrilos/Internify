@@ -1,5 +1,6 @@
 using Internify.Data;
 using Internify.Data.Models;
+using Internify.Services.Administrator;
 using Internify.Services.Application;
 using Internify.Services.Article;
 using Internify.Services.Candidate;
@@ -67,6 +68,7 @@ builder.Services.AddTransient<IApplicationService, ApplicationService>();
 builder.Services.AddTransient<IArticleService, ArticleService>();
 builder.Services.AddTransient<ICommentService, CommentService>();
 builder.Services.AddTransient<IReviewService, ReviewService>();
+builder.Services.AddTransient<IAdministratorService, AdministratorService>();
 builder.Services.AddTransient<ICountryService, CountryService>();
 builder.Services.AddTransient<ISpecializationService, SpecializationService>();
 

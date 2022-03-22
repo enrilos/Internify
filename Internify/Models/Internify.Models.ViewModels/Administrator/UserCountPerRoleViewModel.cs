@@ -1,4 +1,4 @@
-﻿namespace Internify.Web.Areas.Administrator.Models
+﻿namespace Internify.Models.ViewModels.Administrator
 {
     public class UserCountPerRoleViewModel
     {
