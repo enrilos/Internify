@@ -34,7 +34,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Administrator\Data\" />
-    <Folder Include="Areas\Administrator\Models\" />
     <Folder Include="Areas\Candidate\Data\" />
     <Folder Include="Areas\Candidate\Models\" />
     <Folder Include="Areas\Company\Data\" />

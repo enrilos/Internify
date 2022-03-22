@@ -1,0 +1,47 @@
+﻿@model UserCountPerRoleViewModel
+
+@{
+    ViewData["Title"] = "All Users Chart";
+}
+
+<p class="h2 heading-margin text-center">@ViewData["Title"]</p>
+
+<section class="text-center p-xl-5">
+    <canvas id="myChart"></canvas>
+</section>
+
+@section Scripts {
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const labels = [
+      'Candidates',
+      'Companies',
+      'Universities',
+    ];
+
+    const data = {
+      labels: labels,
+      datasets: [
+        {
+            label: 'All Users',
+            data: [@Model.Candidates, @Model.Companies, @Model.Universities],
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)'
+            ],
+            hoverOffset: 4
+        },
+      ]
+    };
+
+    const config = {
+      type: 'doughnut',
+      data: data
+    };
+</script>
+
+<script>
+    const myChart = new Chart(document.getElementById('myChart'), config);
+</script>
+}
