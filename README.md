@@ -14,6 +14,7 @@ My defense project for the <a href="https://softuni.bg/trainings/3601/asp-dot-ne
 - TOR blocking middleware
 - Pagination & Filtration
 - CKEditor 4
+- Chart.js
 - HtmlSanitizer
 - Razor Pages + Partial Views
 - Sections
