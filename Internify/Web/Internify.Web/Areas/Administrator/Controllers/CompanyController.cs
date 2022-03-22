@@ -5,7 +5,7 @@
 
     using static Common.WebConstants;
 
-    public class CompanyController : AdministratorController
+    public class CompanyController : AdministratorControllerBase
     {
         private readonly ICompanyService companyService;
 
