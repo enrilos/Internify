@@ -19,6 +19,7 @@ My defense project for the <a href="https://softuni.bg/trainings/3601/asp-dot-ne
 - Razor Pages + Partial Views
 - Sections
 - Dependency Injection
+- Caching
 - Extension Methods
 - HTML5
 - CSS3
