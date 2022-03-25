@@ -96,7 +96,7 @@
                 return View(university);
             }
 
-            universityService.Add(
+            var result = universityService.Add(
                 userId,
                 university.Name,
                 university.ImageUrl,
@@ -105,6 +105,11 @@
                 university.Type,
                 university.Description,
                 university.CountryId);
+
+            if (result == null)
+            {
+                return BadRequest();
+            }
 
             Task.Run(async () =>
             {

@@ -13,8 +13,6 @@
 
         string GetIdByUserId(string userId);
 
-        int TotalCount();
-
         string Add(
             string userId,
             string firstName,

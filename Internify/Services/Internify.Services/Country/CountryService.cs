@@ -8,9 +8,7 @@
         private readonly InternifyDbContext data;
 
         public CountryService(InternifyDbContext data)
-        {
-            this.data = data;
-        }
+            => this.data = data;
 
         public IEnumerable<CountryListingViewModel> All()
             => data

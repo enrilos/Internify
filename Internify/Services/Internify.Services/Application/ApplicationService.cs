@@ -7,22 +7,15 @@
     using Models.InputModels.Internship;
     using Models.ViewModels.Application;
     using Models.ViewModels.Internship;
-    using Services.Internship;
 
     using static Common.GlobalConstants;
 
     public class ApplicationService : IApplicationService
     {
         private readonly InternifyDbContext data;
-        private readonly IInternshipService internshipService;
 
-        public ApplicationService(
-            InternifyDbContext data,
-            IInternshipService internshipService)
-        {
-            this.data = data;
-            this.internshipService = internshipService;
-        }
+        public ApplicationService(InternifyDbContext data)
+            => this.data = data;
 
         public bool Add(
             string internshipId,
@@ -198,7 +191,7 @@
 
             if (string.IsNullOrEmpty(internshipRole))
             {
-                internshipRole = internshipService.GetRoleById(internshipId);
+                internshipRole = data.Internships.FirstOrDefault(x => x.Id == internshipId)?.Role;
             }
 
             if (!string.IsNullOrEmpty(applicantFirstName))

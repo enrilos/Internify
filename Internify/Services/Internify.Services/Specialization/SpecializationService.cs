@@ -8,9 +8,7 @@
         private readonly InternifyDbContext data;
 
         public SpecializationService(InternifyDbContext data)
-        {
-            this.data = data;
-        }
+            => this.data = data;
 
         public IEnumerable<SpecializationListingViewModel> All()
             => data

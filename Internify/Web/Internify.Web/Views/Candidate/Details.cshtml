@@ -200,14 +200,14 @@
             <button class="btn btn-primary mt-3" id="email-btn" onclick="getEmail(@candidateIdString)">Email</button>
         </article>
     </section>
-    <article class="p-2 m-3 bg-light">
+    <article class="p-2 m-3 bg-light text-center" style="word-wrap: break-word;">
         @if (string.IsNullOrEmpty(Model.Description))
         {
-            <p class="text-center">Apparently, this user prefers to keep an air of mystery about them.</p>
+            <p>Apparently, this user prefers to keep an air of mystery about them.</p>
         }
         else
         {
-            <p class="text-center" style="word-wrap: break-word;">@Html.Raw(Model.Description)</p>
+            <p>@Html.Raw(Model.Description)</p>
         }
     </article>
 </section>

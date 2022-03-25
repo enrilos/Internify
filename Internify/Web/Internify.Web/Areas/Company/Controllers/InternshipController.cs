@@ -149,6 +149,11 @@
                 internship.Description,
                 internship.CountryId);
 
+            if (internshipId == null)
+            {
+                return BadRequest();
+            }
+
             TempData[GlobalMessageKey] = "Internship published successfully.";
 
             return RedirectToAction("Details", "Internship", new { id = internshipId });

@@ -96,6 +96,8 @@
                    Id = x.Id,
                    CandidateFullName = x.Candidate.FirstName + " " + x.Candidate.LastName,
                    CandidateId = x.CandidateId,
+                   CompanyName = x.Company.Name,
+                   CompanyId = x.CompanyId,
                    Title = x.Title,
                    Rating = x.Rating,
                    Content = x.Content,

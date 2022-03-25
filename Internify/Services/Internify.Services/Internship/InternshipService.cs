@@ -38,7 +38,12 @@
 
             data.Internships.Add(internship);
 
-            data.SaveChanges();
+            var result = data.SaveChanges();
+
+            if (result == 0)
+            {
+                return null;
+            }
 
             return internship.Id;
         }

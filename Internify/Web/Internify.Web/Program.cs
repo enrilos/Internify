@@ -72,7 +72,6 @@ builder.Services.AddTransient<IAdministratorService, AdministratorService>();
 builder.Services.AddTransient<ICountryService, CountryService>();
 builder.Services.AddTransient<ISpecializationService, SpecializationService>();
 
-// Singleton?
 builder.Services.AddTransient<RoleChecker>();
 
 builder.Services.Configure<CookiePolicyOptions>(options =>

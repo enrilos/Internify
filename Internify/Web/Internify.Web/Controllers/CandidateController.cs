@@ -14,6 +14,7 @@
     using Services.Candidate;
     using Services.Country;
     using Services.Specialization;
+
     using static Common.WebConstants;
 
     public class CandidateController : Controller
@@ -116,7 +117,7 @@
                 return View(candidate);
             }
 
-            candidateService.Add(
+            var result = candidateService.Add(
                 userId,
                 candidate.FirstName,
                 candidate.LastName,
@@ -128,6 +129,11 @@
                 candidate.SpecializationId,
                 candidate.CountryId,
                 HttpContext.Request.Host.Value);
+
+            if (result == null)
+            {
+                return BadRequest();
+            }
 
             Task.Run(async () =>
             {

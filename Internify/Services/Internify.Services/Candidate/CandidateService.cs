@@ -43,12 +43,6 @@
             .Where(x => x.UserId == userId && !x.IsDeleted)
             .FirstOrDefault()?.Id;
 
-        public int TotalCount()
-            => data
-            .Candidates
-            .Where(x => !x.IsDeleted)
-            .Count();
-
         public string Add(
             string userId,
             string firstName,
@@ -88,7 +82,12 @@
             .GetAwaiter()
             .GetResult();
 
-            data.SaveChanges();
+            var result = data.SaveChanges();
+
+            if (result == 0)
+            {
+                return null;
+            }
 
             return candidate.Id;
         }

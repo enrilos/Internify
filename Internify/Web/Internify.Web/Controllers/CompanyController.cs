@@ -105,7 +105,7 @@
                 return View(company);
             }
 
-            companyService.Add(
+            var result = companyService.Add(
                 userId,
                 company.Name,
                 company.ImageUrl,
@@ -120,6 +120,11 @@
                 company.SpecializationId,
                 company.CountryId,
                 HttpContext.Request.Host.Value);
+
+            if (result == null)
+            {
+                return BadRequest();
+            }
 
             Task.Run(async () =>
             {
