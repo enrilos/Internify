@@ -101,7 +101,7 @@
                 application.CandidateId,
                 application.CoverLetter);
 
-            if (!result)
+            if (result == null)
             {
                 return BadRequest();
             }

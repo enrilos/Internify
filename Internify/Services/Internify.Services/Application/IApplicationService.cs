@@ -6,7 +6,7 @@
 
     public interface IApplicationService
     {
-        bool Add(
+        string Add(
            string internshipId,
            string candidateId,
            string coverLetter);

@@ -50,7 +50,7 @@
         }
 
 
-        public async Task OnGetAsync(string returnUrl = "/")
+        public void OnGetAsync(string returnUrl = "/")
         {
             ReturnUrl = "/";
         }

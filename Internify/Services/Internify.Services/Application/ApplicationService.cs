@@ -17,7 +17,7 @@
         public ApplicationService(InternifyDbContext data)
             => this.data = data;
 
-        public bool Add(
+        public string Add(
             string internshipId,
             string candidateId,
             string coverLetter)
@@ -37,10 +37,10 @@
 
             if (result == 0)
             {
-                return false;
+                return null;
             }
 
-            return true;
+            return application.Id;
         }
 
         public string Edit(

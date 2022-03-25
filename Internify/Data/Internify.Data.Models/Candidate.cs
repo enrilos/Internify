@@ -34,7 +34,6 @@
 
         public DateTime BirthDate { get; set; }
 
-
         [EnumDataType(typeof(Gender))]
         public Gender Gender { get; set; }
 
