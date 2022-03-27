@@ -40,7 +40,29 @@
         }
 
         [Test]
-        public void Add_ShouldReturn_True()
+        public void Add_ShouldReturn_FalseWhenInternshipIdDoesNotMatch()
+        {
+            var actualResult = applicationService.Add(
+                "",
+                candidateId,
+                "This is cover letter This is a cover letter This is a cover letter");
+
+            Assert.IsNull(actualResult);
+        }
+
+        [Test]
+        public void Add_ShouldReturn_FalseWhenCandidateIdDoesNotMatch()
+        {
+            var actualResult = applicationService.Add(
+                internshipId,
+                "",
+                "This is cover letter This is a cover letter This is a cover letter");
+
+            Assert.IsNull(actualResult);
+        }
+
+        [Test]
+        public void Add_ShouldReturn_ApplicationId()
         {
             SeedDatabase();
 

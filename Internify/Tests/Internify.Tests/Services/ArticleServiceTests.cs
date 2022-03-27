@@ -37,6 +37,19 @@
         }
 
         [Test]
+        public void Add_ShouldReturn_NullWhenCompanyIdDoesNotMatch()
+        {
+            var actualResult = articleService.Add(
+                "",
+                "Fake News",
+                null,
+                "Extra! Extra! Real All About It!",
+                "somecooldomain.com");
+
+            Assert.IsNull(actualResult);
+        }
+
+        [Test]
         public void Add_ShouldReturn_ArticleId()
         {
             SeedDatabase();
@@ -309,6 +322,8 @@
         [Test]
         public void GetCompanyArticles_ShouldReturn_ArticleListingQueryModel_WithEmptyArticlesCollection_WhenCompanyIdDoesNotMatch()
         {
+            SeedDatabase();
+
             var actualResult = articleService.GetCompanyArticles(
                 "",
                 "Payhawk",
