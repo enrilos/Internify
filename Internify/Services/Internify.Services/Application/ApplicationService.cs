@@ -24,6 +24,12 @@
         {
             var sanitizer = new HtmlSanitizer();
 
+            if (!data.Internships.Any(x => x.Id == internshipId && !x.IsDeleted)
+                || !data.Candidates.Any(x => x.Id == candidateId && !x.IsDeleted))
+            {
+                return null;
+            }
+
             var application = new Application
             {
                 InternshipId = internshipId,
@@ -103,7 +109,7 @@
 
         public bool Delete(string id)
         {
-            var application = data.Applications.Find(id);
+            var application = data.Applications.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
 
             if (application == null)
             {
@@ -149,7 +155,7 @@
                 InternshipRole = x.Internship.Role,
                 CandidateId = x.CandidateId,
                 CandidateFullName = x.Candidate.FirstName + " " + x.Candidate.LastName,
-                CandidateAge = (int)((DateTime.Now - x.Candidate.BirthDate).TotalDays / DaysInAYear),
+                CandidateAge = (int)((DateTime.UtcNow - x.Candidate.BirthDate).TotalDays / DaysInAYear),
                 CandidateImageUrl = x.Candidate.ImageUrl,
                 CandidateCoverLetter = x.CoverLetter
             })

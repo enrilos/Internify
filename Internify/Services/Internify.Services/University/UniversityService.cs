@@ -54,6 +54,12 @@
         {
             var sanitizer = new HtmlSanitizer();
 
+            if (!data.Users.Any(x => x.Id == userId && !x.IsDeleted)
+                || !data.Countries.Any(x => x.Id == countryId))
+            {
+                return null;
+            }
+
             var university = new University
             {
                 UserId = userId,
@@ -68,13 +74,16 @@
 
             data.Universities.Add(university);
 
-            Task.Run(async () =>
+            if (userManager != null)
             {
-                var user = await userManager.FindByIdAsync(userId);
-                await userManager.AddToRoleAsync(user, UniversityRoleName);
-            })
-            .GetAwaiter()
-            .GetResult();
+                Task.Run(async () =>
+                {
+                    var user = await userManager.FindByIdAsync(userId);
+                    await userManager.AddToRoleAsync(user, UniversityRoleName);
+                })
+                .GetAwaiter()
+                .GetResult();
+            }
 
             var result = data.SaveChanges();
 
@@ -124,8 +133,9 @@
         {
             var university = data
                 .Universities
+                .Where(x => x.Id == id && !x.IsDeleted)
                 .Include(x => x.Alumni)
-                .FirstOrDefault(x => x.Id == id && !x.IsDeleted);
+                .FirstOrDefault();
 
             if (university == null)
             {
@@ -140,14 +150,17 @@
                 data.CandidateUniversities.Remove(candidateUniversity);
             }
 
-            Task.Run(async () =>
+            if (userManager != null)
             {
-                var user = await userManager.FindByIdAsync(university.UserId);
-                user.IsDeleted = university.IsDeleted;
-                user.DeletedOn = university.DeletedOn;
-            })
-            .GetAwaiter()
-            .GetResult();
+                Task.Run(async () =>
+                {
+                    var user = await userManager.FindByIdAsync(university.UserId);
+                    user.IsDeleted = university.IsDeleted;
+                    user.DeletedOn = university.DeletedOn;
+                })
+                .GetAwaiter()
+                .GetResult();
+            }
 
             data.SaveChanges();
 

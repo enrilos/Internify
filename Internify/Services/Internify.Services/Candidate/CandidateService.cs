@@ -58,6 +58,13 @@
         {
             var sanitizer = new HtmlSanitizer();
 
+            if (!data.Users.Any(x => x.Id == userId && !x.IsDeleted)
+                || !data.Specializations.Any(x => x.Id == specializationId)
+                || !data.Countries.Any(x => x.Id == countryId))
+            {
+                return null;
+            }
+
             var candidate = new Candidate
             {
                 FirstName = sanitizer.Sanitize(firstName).Trim(),
@@ -74,13 +81,17 @@
 
             data.Candidates.Add(candidate);
 
-            Task.Run(async () =>
+            // Used for testing purposes.
+            if (userManager != null)
             {
-                var user = await userManager.FindByIdAsync(userId);
-                await userManager.AddToRoleAsync(user, CandidateRoleName);
-            })
-            .GetAwaiter()
-            .GetResult();
+                Task.Run(async () =>
+                {
+                    var user = await userManager.FindByIdAsync(userId);
+                    await userManager.AddToRoleAsync(user, CandidateRoleName);
+                })
+                .GetAwaiter()
+                .GetResult();
+            }
 
             var result = data.SaveChanges();
 
@@ -122,6 +133,13 @@
             candidate.BirthDate = birthDate;
             candidate.Gender = gender;
             candidate.IsAvailable = isAvailable;
+
+            if (!data.Specializations.Any(x => x.Id == specializationId)
+                || !data.Countries.Any(x => x.Id == countryId))
+            {
+                return false;
+            }
+
             candidate.SpecializationId = specializationId;
             candidate.CountryId = countryId;
 
@@ -136,11 +154,12 @@
         {
             var candidate = data
                 .Candidates
+                .Where(x => x.Id == id && !x.IsDeleted)
                 .Include(x => x.Universities)
                 .Include(x => x.Applications)
                 .Include(x => x.Comments)
                 .Include(x => x.Reviews)
-                .FirstOrDefault(x => x.Id == id && !x.IsDeleted);
+                .FirstOrDefault();
 
             if (candidate == null)
             {
@@ -173,14 +192,18 @@
                 review.DeletedOn = candidate.DeletedOn;
             }
 
-            Task.Run(async () =>
+            // Used for testing purposes.
+            if (userManager != null)
             {
-                var user = await userManager.FindByIdAsync(candidate.UserId);
-                user.IsDeleted = candidate.IsDeleted;
-                user.DeletedOn = candidate.DeletedOn;
-            })
-            .GetAwaiter()
-            .GetResult();
+                Task.Run(async () =>
+                {
+                    var user = await userManager.FindByIdAsync(candidate.UserId);
+                    user.IsDeleted = candidate.IsDeleted;
+                    user.DeletedOn = candidate.DeletedOn;
+                })
+                .GetAwaiter()
+                .GetResult();
+            }
 
             data.SaveChanges();
 

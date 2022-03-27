@@ -57,6 +57,13 @@
         {
             var sanitizer = new HtmlSanitizer();
 
+            if (!data.Users.Any(x => x.Id == userId && !x.IsDeleted)
+                || !data.Specializations.Any(x => x.Id == specializationId)
+                || !data.Countries.Any(x => x.Id == countryId))
+            {
+                return null;
+            }
+
             var company = new Company
             {
                 Name = sanitizer.Sanitize(name).Trim(),
@@ -76,13 +83,17 @@
 
             data.Companies.Add(company);
 
-            Task.Run(async () =>
+            // Used for testing purposes.
+            if (userManager != null)
             {
-                var user = await userManager.FindByIdAsync(userId);
-                await userManager.AddToRoleAsync(user, CompanyRoleName);
-            })
-            .GetAwaiter()
-            .GetResult();
+                Task.Run(async () =>
+                {
+                    var user = await userManager.FindByIdAsync(userId);
+                    await userManager.AddToRoleAsync(user, CompanyRoleName);
+                })
+                .GetAwaiter()
+                .GetResult();
+            }
 
             var result = data.SaveChanges();
 
@@ -112,7 +123,9 @@
         {
             var company = data.Companies.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
 
-            if (company == null)
+            if (company == null
+                || !data.Specializations.Any(x => x.Id == specializationId)
+                || !data.Countries.Any(x => x.Id == countryId))
             {
                 return false;
             }
@@ -180,11 +193,12 @@
         {
             var company = data
                    .Companies
+                   .Where(x => x.Id == id && !x.IsDeleted)
                    .Include(x => x.OpenInternships)
                    .Include(x => x.Interns)
                    .Include(x => x.Articles)
                    .Include(x => x.Reviews)
-                   .FirstOrDefault(x => x.Id == id && !x.IsDeleted);
+                   .FirstOrDefault();
 
             if (company == null)
             {
@@ -219,14 +233,17 @@
 
             data.SaveChanges();
 
-            Task.Run(async () =>
+            if (userManager != null)
             {
-                var user = await userManager.FindByIdAsync(company.UserId);
-                user.IsDeleted = company.IsDeleted;
-                user.DeletedOn = company.DeletedOn;
-            })
-            .GetAwaiter()
-            .GetResult();
+                Task.Run(async () =>
+                {
+                    var user = await userManager.FindByIdAsync(company.UserId);
+                    user.IsDeleted = company.IsDeleted;
+                    user.DeletedOn = company.DeletedOn;
+                })
+                .GetAwaiter()
+                .GetResult();
+            }
 
             data.SaveChanges();
 

@@ -20,6 +20,12 @@
         {
             var sanitizer = new HtmlSanitizer();
 
+            if (!data.Articles.Any(x => x.Id == articleId && !x.IsDeleted)
+                || !data.Candidates.Any(x => x.Id == candidateId && !x.IsDeleted))
+            {
+                return null;
+            }
+
             var comment = new Comment
             {
                 ArticleId = articleId,

@@ -23,6 +23,11 @@
         {
             var sanitizer = new HtmlSanitizer();
 
+            if (!data.Companies.Any(x => x.Id == companyId && !x.IsDeleted))
+            {
+                return null;
+            }
+
             var article = new Article
             {
                 Title = sanitizer.Sanitize(title).Trim(),
@@ -43,7 +48,7 @@
             string title,
             string content)
         {
-            var article = data.Articles.Find(id);
+            var article = data.Articles.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
 
             if (article == null)
             {
@@ -139,7 +144,8 @@
             .Articles
             .Any(x =>
             x.Id == articleId
-            && x.CompanyId == companyId);
+            && x.CompanyId == companyId
+            && !x.IsDeleted);
 
         public ArticleListingQueryModel GetCompanyArticles(
             string companyId,

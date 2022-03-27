@@ -25,6 +25,12 @@
         {
             var sanitizer = new HtmlSanitizer();
 
+            if (!data.Companies.Any(x => x.Id == companyId && !x.IsDeleted)
+                || !data.Countries.Any(x => x.Id == countryId))
+            {
+                return null;
+            }
+
             var internship = new Internship
             {
                 CompanyId = companyId,
@@ -78,8 +84,9 @@
         {
             var internship = data
                 .Internships
+                .Where(x => x.Id == id && !x.IsDeleted)
                 .Include(x => x.Applications)
-                .FirstOrDefault(x => x.Id == id && !x.IsDeleted);
+                .FirstOrDefault();
 
             if (internship == null)
             {

@@ -22,6 +22,12 @@
         {
             var sanitizer = new HtmlSanitizer();
 
+            if (!data.Candidates.Any(x => x.Id == candidateId && !x.IsDeleted)
+                || !data.Companies.Any(x => x.Id == companyId && !x.IsDeleted))
+            {
+                return false;
+            }
+
             var review = new Review
             {
                 CandidateId = candidateId,
