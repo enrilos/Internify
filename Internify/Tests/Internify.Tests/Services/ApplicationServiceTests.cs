@@ -362,6 +362,23 @@
         }
 
         [Test]
+        public void Delete_ShouldReturn_FalseWhenApplicationIsDeleted()
+        {
+            SeedDatabase();
+
+            var id = applicationService.Add(
+              internshipId,
+              candidateId,
+              "This is cover letter This is a cover letter This is a cover letter");
+
+            applicationService.Delete(id);
+
+            var actualResult = applicationService.Delete(id);
+
+            Assert.IsFalse(actualResult);
+        }
+
+        [Test]
         public void Delete_ShouldReturn_True()
         {
             SeedDatabase();
