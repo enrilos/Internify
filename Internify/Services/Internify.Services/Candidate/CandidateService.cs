@@ -248,7 +248,8 @@
                 .Candidates
                 .FirstOrDefault(x => x.Id == candidateId && !x.IsDeleted);
 
-            if (candidate == null)
+            if (candidate == null
+                || candidate?.CompanyId == null)
             {
                 return false;
             }

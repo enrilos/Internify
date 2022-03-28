@@ -168,7 +168,8 @@
                 .FirstOrDefault(x => x.Id == companyId && !x.IsDeleted)?.Id;
 
             if (candidate == null
-                || companyDataId == null)
+                || companyDataId == null
+                || candidate?.CompanyId != null)
             {
                 return false;
             }
@@ -233,6 +234,7 @@
 
             data.SaveChanges();
 
+            // Used for testing purposes.
             if (userManager != null)
             {
                 Task.Run(async () =>
