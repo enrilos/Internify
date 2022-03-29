@@ -107,7 +107,7 @@
         {
             var university = data.Universities.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
 
-            if (university == null)
+            if (university == null || !data.Countries.Any(x => x.Id == countryId))
             {
                 return false;
             }
