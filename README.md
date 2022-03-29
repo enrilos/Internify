@@ -25,6 +25,7 @@ My defense project for the <a href="https://softuni.bg/trainings/3601/asp-dot-ne
 - CSS3
 - Bootstrap
 - Responsive Design
+- NUnit
 
 # 📝 License
 This project is licensed under the terms of the <a href="https://github.com/enrilos/Internify/blob/main/LICENSE">MIT license</a>.
