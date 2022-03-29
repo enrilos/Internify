@@ -1,8 +1,8 @@
 ﻿namespace Internify.Web.Common
 {
-    using Services.Candidate;
-    using Services.Company;
-    using Services.University;
+    using Services.Data.Candidate;
+    using Services.Data.Company;
+    using Services.Data.University;
 
     public class RoleChecker
     {

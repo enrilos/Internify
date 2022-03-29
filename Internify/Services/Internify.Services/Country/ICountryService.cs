@@ -1,4 +1,4 @@
-﻿namespace Internify.Services.Country
+﻿namespace Internify.Services.Data.Country
 {
     using Models.ViewModels.Country;
 

@@ -1,6 +1,6 @@
-﻿namespace Internify.Services.Administrator
+﻿namespace Internify.Services.Data.Administrator
 {
-    using Data;
+    using Internify.Data;
     using Models.ViewModels.Administrator;
 
     public class AdministratorService : IAdministratorService

@@ -1,6 +1,6 @@
-﻿namespace Internify.Services.Country
+﻿namespace Internify.Services.Data.Country
 {
-    using Data;
+    using Internify.Data;
     using Models.ViewModels.Country;
 
     public class CountryService : ICountryService

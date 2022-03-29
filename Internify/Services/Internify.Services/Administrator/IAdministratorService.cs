@@ -1,4 +1,4 @@
-﻿namespace Internify.Services.Administrator
+﻿namespace Internify.Services.Data.Administrator
 {
     using Models.ViewModels.Administrator;
 

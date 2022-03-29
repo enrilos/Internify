@@ -2,8 +2,8 @@
 {
     using Internify.Models.InputModels.Review;
     using Microsoft.AspNetCore.Mvc;
-    using Services.Company;
-    using Services.Review;
+    using Services.Data.Company;
+    using Services.Data.Review;
 
     public class ReviewController : Controller
     {

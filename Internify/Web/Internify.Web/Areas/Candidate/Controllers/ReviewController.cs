@@ -3,10 +3,12 @@
     using Infrastructure.Extensions;
     using Internify.Models.InputModels.Review;
     using Microsoft.AspNetCore.Mvc;
-    using Services.Candidate;
-    using Services.Company;
-    using Services.Review;
+    using Services.Data.Candidate;
+    using Services.Data.Company;
+    using Services.Data.Review;
 
+    using static Common.WebConstants;
+    
     public class ReviewController : CandidateControllerBase
     {
         private readonly IReviewService reviewService;
@@ -96,6 +98,8 @@
             {
                 return BadRequest();
             }
+
+            TempData[GlobalMessageKey] = "Successfully posted review.";
 
             return RedirectToAction("Details", "Company", new { id = review.CompanyId });
         }

@@ -1,4 +1,4 @@
-﻿namespace Internify.Services.Application
+﻿namespace Internify.Services.Data.Application
 {
     using Models.InputModels.Application;
     using Models.InputModels.Internship;

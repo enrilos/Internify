@@ -1,17 +1,17 @@
 using Internify.Data;
 using Internify.Data.Models;
-using Internify.Services.Administrator;
-using Internify.Services.Application;
-using Internify.Services.Article;
-using Internify.Services.Candidate;
-using Internify.Services.CandidateUniversity;
-using Internify.Services.Comment;
-using Internify.Services.Company;
-using Internify.Services.Country;
-using Internify.Services.Internship;
-using Internify.Services.Review;
-using Internify.Services.Specialization;
-using Internify.Services.University;
+using Internify.Services.Data.Administrator;
+using Internify.Services.Data.Application;
+using Internify.Services.Data.Article;
+using Internify.Services.Data.Candidate;
+using Internify.Services.Data.CandidateUniversity;
+using Internify.Services.Data.Comment;
+using Internify.Services.Data.Company;
+using Internify.Services.Data.Country;
+using Internify.Services.Data.Internship;
+using Internify.Services.Data.Review;
+using Internify.Services.Data.Specialization;
+using Internify.Services.Data.University;
 using Internify.Web.Common;
 using Internify.Web.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Identity;
@@ -73,6 +73,7 @@ builder.Services.AddTransient<ICountryService, CountryService>();
 builder.Services.AddTransient<ISpecializationService, SpecializationService>();
 
 builder.Services.AddTransient<RoleChecker>();
+builder.Services.AddScoped<InternifyDbContext>();
 
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
@@ -82,7 +83,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 
 var app = builder.Build();
 
-//app.PrepareDatabase();
+app.PrepareDatabase();
 
 app.Use(async (context, next) =>
 {

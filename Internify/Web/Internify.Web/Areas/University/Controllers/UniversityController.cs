@@ -6,9 +6,9 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
-    using Services.CandidateUniversity;
-    using Services.Country;
-    using Services.University;
+    using Services.Data.CandidateUniversity;
+    using Services.Data.Country;
+    using Services.Data.University;
 
     using static Internify.Common.GlobalConstants;
     using static Web.Common.WebConstants;

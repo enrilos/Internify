@@ -1,8 +1,8 @@
-﻿namespace Internify.Tests.Services
+﻿namespace Internify.Tests.Data.Services
 {
-    using Data;
-    using Data.Models;
-    using Internify.Services.CandidateUniversity;
+    using Internify.Data;
+    using Internify.Data.Models;
+    using Internify.Services.Data.CandidateUniversity;
     using Microsoft.EntityFrameworkCore;
     using NUnit.Framework;
     using System;
@@ -258,7 +258,7 @@
                 ImageUrl = "www.somedomain.com/img.jpg",
                 WebsiteUrl = "www.somedomain.com",
                 Founded = 2013,
-                Type = Data.Models.Enums.Type.Private,
+                Type = Internify.Data.Models.Enums.Type.Private,
                 Description = "Quality education at an affordable price.",
                 CountryId = country.Id
             };
@@ -274,7 +274,7 @@
                 LastName = "Ereceb",
                 UserId = candidateAppUser.Id,
                 BirthDate = DateTime.UtcNow.AddYears(-20),
-                Gender = Data.Models.Enums.Gender.Male,
+                Gender = Internify.Data.Models.Enums.Gender.Male,
                 SpecializationId = specialization.Id,
                 CountryId = country.Id
             };

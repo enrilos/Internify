@@ -1,4 +1,4 @@
-﻿namespace Internify.Services.Review
+﻿namespace Internify.Services.Data.Review
 {
     using Models.InputModels.Review;
 
@@ -25,7 +25,5 @@
             int? rating,
             int currentPage,
             int reviewsPerPage);
-
-        // company average rating? (in details page)
     }
 }

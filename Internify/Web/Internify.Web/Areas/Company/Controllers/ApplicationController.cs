@@ -2,10 +2,10 @@
 {
     using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Mvc;
-    using Services.Application;
-    using Services.Candidate;
-    using Services.Company;
-    using Services.Internship;
+    using Services.Data.Application;
+    using Services.Data.Candidate;
+    using Services.Data.Company;
+    using Services.Data.Internship;
 
     using static Common.WebConstants;
 

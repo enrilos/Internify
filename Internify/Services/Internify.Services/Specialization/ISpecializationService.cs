@@ -1,4 +1,4 @@
-﻿namespace Internify.Services.Specialization
+﻿namespace Internify.Services.Data.Specialization
 {
     using Models.ViewModels.Specialization;
 

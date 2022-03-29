@@ -1,9 +1,9 @@
-﻿namespace Internify.Services.Candidate
+﻿namespace Internify.Services.Data.Candidate
 {
-    using Data;
-    using Data.Models;
-    using Data.Models.Enums;
     using Ganss.XSS;
+    using Internify.Data;
+    using Internify.Data.Models;
+    using Internify.Data.Models.Enums;
     using Internify.Models.ViewModels.Intern;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
@@ -93,12 +93,7 @@
                 .GetResult();
             }
 
-            var result = data.SaveChanges();
-
-            if (result == 0)
-            {
-                return null;
-            }
+            data.SaveChanges();
 
             return candidate.Id;
         }

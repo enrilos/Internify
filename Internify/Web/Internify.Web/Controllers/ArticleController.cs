@@ -2,7 +2,7 @@
 {
     using Internify.Models.InputModels.Article;
     using Microsoft.AspNetCore.Mvc;
-    using Services.Article;
+    using Services.Data.Article;
 
     public class ArticleController : Controller
     {

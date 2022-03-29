@@ -3,10 +3,12 @@
     using Infrastructure.Extensions;
     using Internify.Models.InputModels.Application;
     using Microsoft.AspNetCore.Mvc;
-    using Services.Application;
-    using Services.Candidate;
-    using Services.Company;
-    using Services.Internship;
+    using Services.Data.Application;
+    using Services.Data.Candidate;
+    using Services.Data.Company;
+    using Services.Data.Internship;
+
+    using static Common.WebConstants;
 
     public class ApplicationController : CandidateControllerBase
     {
@@ -106,6 +108,8 @@
                 return BadRequest();
             }
 
+            TempData[GlobalMessageKey] = "Successfully applied for internship.";
+
             return RedirectToAction("Details", "Internship", new { id = application.InternshipId });
         }
 
@@ -163,6 +167,8 @@
                 return BadRequest();
             }
 
+            TempData[GlobalMessageKey] = "Successfully edited application.";
+
             return RedirectToAction(nameof(Details), new { id = application.Id });
         }
 
@@ -193,6 +199,8 @@
             }
 
             var candidateId = candidateService.GetIdByUserId(User.Id());
+
+            TempData[GlobalMessageKey] = "Successfully deleted application.";
 
             return RedirectToAction(nameof(MyApplications), new { candidateId = candidateId });
         }

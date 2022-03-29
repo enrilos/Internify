@@ -1,4 +1,4 @@
-﻿namespace Internify.Services.Comment
+﻿namespace Internify.Services.Data.Comment
 {
     using Internify.Models.InputModels.Comment;
 

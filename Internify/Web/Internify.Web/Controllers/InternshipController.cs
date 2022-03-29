@@ -4,9 +4,9 @@
     using Internify.Models.ViewModels.Country;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
-    using Services.Company;
-    using Services.Country;
-    using Services.Internship;
+    using Services.Data.Company;
+    using Services.Data.Country;
+    using Services.Data.Internship;
 
     using static Common.WebConstants;
 

@@ -1,6 +1,6 @@
-﻿namespace Internify.Services.University
+﻿namespace Internify.Services.Data.University
 {
-    using Data.Models.Enums;
+    using Internify.Data.Models.Enums;
     using Models.InputModels.Candidate;
     using Models.InputModels.University;
     using Models.ViewModels.University;

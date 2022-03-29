@@ -3,8 +3,10 @@
     using Infrastructure.Extensions;
     using Internify.Models.InputModels.Intern;
     using Microsoft.AspNetCore.Mvc;
-    using Services.Candidate;
-    using Services.Company;
+    using Services.Data.Candidate;
+    using Services.Data.Company;
+
+    using static Common.WebConstants;
 
     public class InternController : CompanyControllerBase
     {
@@ -55,6 +57,8 @@
             {
                 return BadRequest();
             }
+
+            TempData[GlobalMessageKey] = "Successfully removed intern from company.";
 
             return RedirectToAction(nameof(MyInterns), new { companyId = companyId });
         }

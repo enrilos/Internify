@@ -1,4 +1,4 @@
-﻿namespace Internify.Services.CandidateUniversity
+﻿namespace Internify.Services.Data.CandidateUniversity
 {
     public interface ICandidateUniversityService
     {

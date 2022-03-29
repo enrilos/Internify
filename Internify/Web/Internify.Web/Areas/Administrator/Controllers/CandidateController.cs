@@ -1,6 +1,6 @@
 ﻿namespace Internify.Web.Areas.Administrator.Controllers
 {
-    using Services.Candidate;
+    using Services.Data.Candidate;
     using Microsoft.AspNetCore.Mvc;
 
     using static Common.WebConstants;

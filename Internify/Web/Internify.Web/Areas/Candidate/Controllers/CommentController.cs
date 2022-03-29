@@ -3,9 +3,11 @@
     using Infrastructure.Extensions;
     using Internify.Models.InputModels.Comment;
     using Microsoft.AspNetCore.Mvc;
-    using Services.Article;
-    using Services.Candidate;
-    using Services.Comment;
+    using Services.Data.Article;
+    using Services.Data.Candidate;
+    using Services.Data.Comment;
+
+    using static Common.WebConstants;
 
     public class CommentController : CandidateControllerBase
     {
@@ -64,6 +66,8 @@
             {
                 return BadRequest();
             }
+
+            TempData[GlobalMessageKey] = "Successfully posted comment.";
 
             return RedirectToAction("ArticleComments", "Comment", new { articleId = comment.ArticleId });
         }

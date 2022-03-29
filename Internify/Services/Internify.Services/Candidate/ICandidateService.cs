@@ -1,6 +1,6 @@
-﻿namespace Internify.Services.Candidate
+﻿namespace Internify.Services.Data.Candidate
 {
-    using Data.Models.Enums;
+    using Internify.Data.Models.Enums;
     using Models.InputModels.Intern;
     using Models.InputModels.Candidate;
     using Models.ViewModels.Candidate;

@@ -1,6 +1,6 @@
-﻿namespace Internify.Services.Specialization
+﻿namespace Internify.Services.Data.Specialization
 {
-    using Data;
+    using Internify.Data;
     using Models.ViewModels.Specialization;
 
     public class SpecializationService : ISpecializationService

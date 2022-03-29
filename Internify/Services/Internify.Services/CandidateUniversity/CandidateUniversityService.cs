@@ -1,7 +1,7 @@
-﻿namespace Internify.Services.CandidateUniversity
+﻿namespace Internify.Services.Data.CandidateUniversity
 {
-    using Data;
-    using Data.Models;
+    using Internify.Data;
+    using Internify.Data.Models;
 
     public class CandidateUniversityService : ICandidateUniversityService
     {

@@ -4,13 +4,13 @@
     using Internify.Models.InputModels.Internship;
     using Internify.Models.ViewModels.Country;
     using Internify.Models.ViewModels.Specialization;
-    using Internify.Services.Specialization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
-    using Services.Application;
-    using Services.Company;
-    using Services.Country;
-    using Services.Internship;
+    using Services.Data.Application;
+    using Services.Data.Company;
+    using Services.Data.Country;
+    using Services.Data.Internship;
+    using Services.Data.Specialization;
 
     using static Common.WebConstants;
 

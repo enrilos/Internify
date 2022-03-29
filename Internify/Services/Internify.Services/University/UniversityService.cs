@@ -1,9 +1,9 @@
-﻿namespace Internify.Services.University
+﻿namespace Internify.Services.Data.University
 {
-    using Data;
-    using Data.Models;
-    using Data.Models.Enums;
     using Ganss.XSS;
+    using Internify.Data;
+    using Internify.Data.Models;
+    using Internify.Data.Models.Enums;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Candidate;
@@ -85,12 +85,7 @@
                 .GetResult();
             }
 
-            var result = data.SaveChanges();
-
-            if (result == 0)
-            {
-                return null;
-            }
+            data.SaveChanges();
 
             return university.Id;
         }

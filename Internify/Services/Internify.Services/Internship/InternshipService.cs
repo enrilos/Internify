@@ -1,8 +1,8 @@
-﻿namespace Internify.Services.Internship
+﻿namespace Internify.Services.Data.Internship
 {
-    using Data;
-    using Data.Models;
     using Ganss.XSS;
+    using Internify.Data;
+    using Internify.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Internship;
     using Models.ViewModels.Internship;
@@ -26,7 +26,7 @@
             var sanitizer = new HtmlSanitizer();
 
             if (!data.Companies.Any(x => x.Id == companyId && !x.IsDeleted)
-                || !data.Countries.Any(x => x.Id == countryId))
+                || (!isRemote && !data.Countries.Any(x => x.Id == countryId)))
             {
                 return null;
             }
@@ -44,12 +44,7 @@
 
             data.Internships.Add(internship);
 
-            var result = data.SaveChanges();
-
-            if (result == 0)
-            {
-                return null;
-            }
+            data.SaveChanges();
 
             return internship.Id;
         }

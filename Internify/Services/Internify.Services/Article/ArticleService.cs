@@ -1,8 +1,8 @@
-﻿namespace Internify.Services.Article
+﻿namespace Internify.Services.Data.Article
 {
-    using Data;
-    using Data.Models;
     using Ganss.XSS;
+    using Internify.Data;
+    using Internify.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Article;
     using Models.ViewModels.Article;
@@ -61,12 +61,7 @@
             article.Content = sanitizer.Sanitize(content).Trim();
             article.ModifiedOn = DateTime.UtcNow;
 
-            var result = data.SaveChanges();
-
-            if (result == 0)
-            {
-                return false;
-            }
+            data.SaveChanges();
 
             return true;
         }
@@ -93,12 +88,7 @@
                 comment.DeletedOn = article.DeletedOn;
             }
 
-            var result = data.SaveChanges();
-
-            if (result == 0)
-            {
-                return false;
-            }
+            data.SaveChanges();
 
             return true;
         }

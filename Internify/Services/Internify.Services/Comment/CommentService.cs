@@ -1,8 +1,8 @@
-﻿namespace Internify.Services.Comment
+﻿namespace Internify.Services.Data.Comment
 {
-    using Data;
-    using Data.Models;
     using Ganss.XSS;
+    using Internify.Data;
+    using Internify.Data.Models;
     using Internify.Models.InputModels.Comment;
     using Internify.Models.ViewModels.Comment;
 

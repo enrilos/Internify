@@ -1,8 +1,8 @@
-﻿namespace Internify.Tests.Services
+﻿namespace Internify.Tests.Data.Services
 {
-    using Data;
-    using Data.Models;
-    using Internify.Services.Application;
+    using Internify.Data;
+    using Internify.Data.Models;
+    using Internify.Services.Data.Application;
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Application;
     using Models.ViewModels.Application;
@@ -959,7 +959,7 @@
                 LastName = "Ereceb",
                 UserId = candidateAppUser.Id,
                 BirthDate = DateTime.UtcNow.AddYears(-20),
-                Gender = Data.Models.Enums.Gender.Male,
+                Gender = Internify.Data.Models.Enums.Gender.Male,
                 SpecializationId = specialization.Id,
                 CountryId = country.Id
             };

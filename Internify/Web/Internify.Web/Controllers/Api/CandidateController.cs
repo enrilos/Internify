@@ -1,7 +1,7 @@
 ﻿namespace Internify.Web.Controllers.Api
 {
-    using Internify.Services.Candidate;
     using Microsoft.AspNetCore.Mvc;
+    using Services.Data.Candidate;
 
     [Route("api/[controller]")]
     [ApiController]

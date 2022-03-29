@@ -1,6 +1,6 @@
 ﻿namespace Internify.Web.Areas.Administrator.Controllers
 {
-    using Internify.Services.Administrator;
+    using Services.Data.Administrator;
     using Microsoft.AspNetCore.Mvc;
 
     public class AdministratorController : AdministratorControllerBase

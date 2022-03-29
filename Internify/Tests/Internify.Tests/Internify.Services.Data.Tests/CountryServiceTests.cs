@@ -1,8 +1,8 @@
-﻿namespace Internify.Tests.Services
+﻿namespace Internify.Tests.Data.Services
 {
-    using Data;
-    using Data.Models;
-    using Internify.Services.Country;
+    using Internify.Data;
+    using Internify.Data.Models;
+    using Internify.Services.Data.Country;
     using Microsoft.EntityFrameworkCore;
     using NUnit.Framework;
     using System.Linq;

@@ -6,9 +6,9 @@
     using Internify.Models.ViewModels.Specialization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
-    using Services.Candidate;
-    using Services.Country;
-    using Services.Specialization;
+    using Services.Data.Candidate;
+    using Services.Data.Country;
+    using Services.Data.Specialization;
 
     using static Common.WebConstants;
 

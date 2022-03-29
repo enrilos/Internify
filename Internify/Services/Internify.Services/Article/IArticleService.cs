@@ -1,4 +1,4 @@
-﻿namespace Internify.Services.Article
+﻿namespace Internify.Services.Data.Article
 {
     using Models.InputModels.Article;
     using Models.ViewModels.Article;

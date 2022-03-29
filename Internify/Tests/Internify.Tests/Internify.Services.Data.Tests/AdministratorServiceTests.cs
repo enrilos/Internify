@@ -1,8 +1,8 @@
-﻿namespace Internify.Tests.Services
+﻿namespace Internify.Tests.Data.Services
 {
-    using Data;
-    using Data.Models;
-    using Internify.Services.Administrator;
+    using Internify.Data;
+    using Internify.Data.Models;
+    using Internify.Services.Data.Administrator;
     using Microsoft.EntityFrameworkCore;
     using NUnit.Framework;
     using System;
@@ -90,7 +90,7 @@
                 LastName = "Ereceb",
                 UserId = candidateAppUser.Id,
                 BirthDate = DateTime.UtcNow.AddYears(-20),
-                Gender = Data.Models.Enums.Gender.Male,
+                Gender = Internify.Data.Models.Enums.Gender.Male,
                 SpecializationId = specialization.Id,
                 CountryId = country.Id
             };
@@ -101,7 +101,7 @@
                 LastName = "Vasilev",
                 UserId = candidateTwoAppUser.Id,
                 BirthDate = DateTime.UtcNow.AddYears(-20),
-                Gender = Data.Models.Enums.Gender.Male,
+                Gender = Internify.Data.Models.Enums.Gender.Male,
                 SpecializationId = specialization.Id,
                 CountryId = country.Id
             };
@@ -126,7 +126,7 @@
                 ImageUrl = "https://yt3.ggpht.com/ytc/AKedOLSp0TNfguM4s9wg2yTKv-_wzdu9VAZxAPnWSNYWKo4=s900-c-k-c0x00ffffff-no-rj",
                 WebsiteUrl = "softuni.bg",
                 Founded = 2013,
-                Type = Data.Models.Enums.Type.Private,
+                Type = Internify.Data.Models.Enums.Type.Private,
                 Description = "fttgththth",
                 CountryId = country.Id
             };

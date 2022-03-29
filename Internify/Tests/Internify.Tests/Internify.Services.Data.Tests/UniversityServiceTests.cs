@@ -1,8 +1,8 @@
-﻿namespace Internify.Tests.Services
+﻿namespace Internify.Tests.Data.Services
 {
-    using Data;
-    using Data.Models;
-    using Internify.Services.University;
+    using Internify.Data;
+    using Internify.Data.Models;
+    using Internify.Services.Data.University;
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.University;
     using Models.ViewModels.University;
@@ -135,7 +135,7 @@
                 "somedomain.com/avatar.jpg",
                 "somedomain.com",
                 1885,
-                Data.Models.Enums.Type.Private,
+                Internify.Data.Models.Enums.Type.Private,
                 "fpwoekfwopef",
                 countryId);
 
@@ -153,7 +153,7 @@
                 "somedomain.com/avatar.jpg",
                 "somedomain.com",
                 1885,
-                Data.Models.Enums.Type.Private,
+                Internify.Data.Models.Enums.Type.Private,
                 "fpwoekfwopef",
                 "238rj023fj03");
 
@@ -171,7 +171,7 @@
                 "somedomain.com/avatar.jpg",
                 "somedomain.com",
                 1885,
-                Data.Models.Enums.Type.Private,
+                Internify.Data.Models.Enums.Type.Private,
                 "fpwoekfwopef",
                 countryId);
 
@@ -189,7 +189,7 @@
                 "ffff.com/avatar.jpg",
                 "ffff.com",
                 2022,
-                Data.Models.Enums.Type.Public,
+                Internify.Data.Models.Enums.Type.Public,
                 "fwpekfwope",
                 countryId);
 
@@ -209,7 +209,7 @@
                 "ffff.com/avatar.jpg",
                 "ffff.com",
                 2022,
-                Data.Models.Enums.Type.Public,
+                Internify.Data.Models.Enums.Type.Public,
                 "fwpekfwope",
                 countryId);
 
@@ -227,7 +227,7 @@
                 "ffff.com/avatar.jpg",
                 "ffff.com",
                 2022,
-                Data.Models.Enums.Type.Public,
+                Internify.Data.Models.Enums.Type.Public,
                 "fwpekfwope",
                 "f093j3f029");
 
@@ -245,7 +245,7 @@
                 "ffff.com/avatar.jpg",
                 "ffff.com",
                 2022,
-                Data.Models.Enums.Type.Public,
+                Internify.Data.Models.Enums.Type.Public,
                 "f-23fk2-3fk",
                 countryId);
 
@@ -400,7 +400,7 @@
                 ImageUrl = "www.somedomain.com/img.jpg",
                 WebsiteUrl = "www.somedomain.com",
                 Founded = 2013,
-                Type = Data.Models.Enums.Type.Private,
+                Type = Internify.Data.Models.Enums.Type.Private,
                 Description = "Quality education at an affordable price.",
                 CountryId = countryId
             };
@@ -624,7 +624,7 @@
                 ImageUrl = "www.somedomain.com/img.jpg",
                 WebsiteUrl = "www.somedomain.com",
                 Founded = 2013,
-                Type = Data.Models.Enums.Type.Private,
+                Type = Internify.Data.Models.Enums.Type.Private,
                 Description = "Quality education at an affordable price.",
                 CountryId = country.Id
             };

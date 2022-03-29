@@ -1,7 +1,6 @@
 ﻿namespace Internify.Web.Controllers
 {
     using Common;
-    using Data;
     using Data.Models;
     using Infrastructure.Extensions;
     using Internify.Models.InputModels.Candidate;
@@ -11,16 +10,15 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
-    using Services.Candidate;
-    using Services.Country;
-    using Services.Specialization;
+    using Services.Data.Candidate;
+    using Services.Data.Country;
+    using Services.Data.Specialization;
 
     using static Common.WebConstants;
 
     public class CandidateController : Controller
     {
         private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly InternifyDbContext data;
         private readonly RoleChecker roleChecker;
         private readonly IMemoryCache cache;
         private readonly ICountryService countryService;
@@ -29,7 +27,6 @@
 
         public CandidateController(
             SignInManager<ApplicationUser> signInManager,
-            InternifyDbContext data,
             RoleChecker roleChecker,
             IMemoryCache cache,
             ICountryService countryService,
@@ -37,7 +34,6 @@
             ICandidateService candidateService)
         {
             this.signInManager = signInManager;
-            this.data = data;
             this.roleChecker = roleChecker;
             this.cache = cache;
             this.countryService = countryService;

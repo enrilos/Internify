@@ -31,11 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Internify.Data.Common", "Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Internify.Tests", "Tests\Internify.Tests\Internify.Tests.csproj", "{222AF71A-CDF3-4387-9B15-9FE40E2C8B85}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Internify.Services", "Services\Internify.Services\Internify.Services.csproj", "{06A50C4C-2A64-47AD-91D4-176EC027A4D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Internify.Services.Data", "Services\Internify.Services\Internify.Services.Data.csproj", "{06A50C4C-2A64-47AD-91D4-176EC027A4D6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{FC28BA85-B81B-443E-A5B2-A8342F71C80A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Internify.Common", "Common\Internify.Common\Internify.Common.csproj", "{88FAFE76-7095-4602-BDCC-E6390AA440E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Internify.Common", "Common\Internify.Common\Internify.Common.csproj", "{88FAFE76-7095-4602-BDCC-E6390AA440E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

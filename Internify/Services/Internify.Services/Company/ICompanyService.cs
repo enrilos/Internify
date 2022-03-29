@@ -1,4 +1,4 @@
-﻿namespace Internify.Services.Company
+﻿namespace Internify.Services.Data.Company
 {
     using Models.InputModels.Company;
     using Models.ViewModels.Company;

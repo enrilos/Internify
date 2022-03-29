@@ -1,9 +1,9 @@
-﻿namespace Internify.Tests.Services
+﻿namespace Internify.Tests.Data.Services
 {
-    using Data;
-    using Data.Models;
-    using Internify.Services.Company;
-    using Internify.Services.Internship;
+    using Internify.Data;
+    using Internify.Data.Models;
+    using Internify.Services.Data.Company;
+    using Internify.Services.Data.Internship;
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Internship;
     using Models.ViewModels.Internship;

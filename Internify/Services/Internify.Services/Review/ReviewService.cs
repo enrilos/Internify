@@ -1,8 +1,8 @@
-﻿namespace Internify.Services.Review
+﻿namespace Internify.Services.Data.Review
 {
-    using Data;
-    using Data.Models;
     using Ganss.XSS;
+    using Internify.Data;
+    using Internify.Data.Models;
     using Models.InputModels.Review;
     using Models.ViewModels.Review;
 
@@ -39,12 +39,7 @@
 
             data.Reviews.Add(review);
 
-            var result = data.SaveChanges();
-
-            if (result == 0)
-            {
-                return false;
-            }
+            data.SaveChanges();
 
             return true;
         }

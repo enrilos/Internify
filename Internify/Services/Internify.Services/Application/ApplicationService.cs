@@ -1,8 +1,8 @@
-﻿namespace Internify.Services.Application
+﻿namespace Internify.Services.Data.Application
 {
-    using Data;
-    using Data.Models;
     using Ganss.XSS;
+    using Internify.Data;
+    using Internify.Data.Models;
     using Models.InputModels.Application;
     using Models.InputModels.Internship;
     using Models.ViewModels.Application;
@@ -39,12 +39,7 @@
 
             data.Applications.Add(application);
 
-            var result = data.SaveChanges();
-
-            if (result == 0)
-            {
-                return null;
-            }
+            data.SaveChanges();
 
             return application.Id;
         }

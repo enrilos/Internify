@@ -1,8 +1,8 @@
-﻿namespace Internify.Services.Company
+﻿namespace Internify.Services.Data.Company
 {
-    using Data;
-    using Data.Models;
     using Ganss.XSS;
+    using Internify.Data;
+    using Internify.Data.Models;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Company;
@@ -95,12 +95,7 @@
                 .GetResult();
             }
 
-            var result = data.SaveChanges();
-
-            if (result == 0)
-            {
-                return null;
-            }
+            data.SaveChanges();
 
             return company.Id;
         }

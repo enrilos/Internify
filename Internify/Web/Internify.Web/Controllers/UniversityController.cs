@@ -11,10 +11,9 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
-    using Services.CandidateUniversity;
-    using Services.Country;
-    using Services.Specialization;
-    using Services.University;
+    using Services.Data.Country;
+    using Services.Data.Specialization;
+    using Services.Data.University;
 
     using static Common.WebConstants;
 

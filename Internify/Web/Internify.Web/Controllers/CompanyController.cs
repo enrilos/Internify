@@ -10,9 +10,9 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
-    using Services.Company;
-    using Services.Country;
-    using Services.Specialization;
+    using Services.Data.Company;
+    using Services.Data.Country;
+    using Services.Data.Specialization;
 
     using static Common.WebConstants;
 

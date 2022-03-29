@@ -1,14 +1,13 @@
-﻿namespace Internify.Tests.Services
+﻿namespace Internify.Tests.Data.Services
 {
-    using Data;
-    using Data.Models;
-    using Internify.Services.Candidate;
+    using Internify.Data;
+    using Internify.Data.Models;
+    using Internify.Services.Data.Candidate;
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Candidate;
     using Models.ViewModels.Candidate;
     using NUnit.Framework;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
 
     public class CandidateServiceTests
@@ -143,7 +142,7 @@
                 null,
                 null,
                 DateTime.UtcNow.AddYears(-20),
-                Data.Models.Enums.Gender.Male,
+                Internify.Data.Models.Enums.Gender.Male,
                 specializationId,
                 countryId,
                 "somewebsite.com");
@@ -164,7 +163,7 @@
                 null,
                 null,
                 DateTime.UtcNow.AddYears(-20),
-                Data.Models.Enums.Gender.Male,
+                Internify.Data.Models.Enums.Gender.Male,
                 "",
                 countryId,
                 "somewebsite.com");
@@ -185,7 +184,7 @@
                 null,
                 null,
                 DateTime.UtcNow.AddYears(-20),
-                Data.Models.Enums.Gender.Male,
+                Internify.Data.Models.Enums.Gender.Male,
                 specializationId,
                 "",
                 "somewebsite.com");
@@ -206,7 +205,7 @@
                 null,
                 null,
                 DateTime.UtcNow.AddYears(-20),
-                Data.Models.Enums.Gender.Male,
+                Internify.Data.Models.Enums.Gender.Male,
                 specializationId,
                 countryId,
                 "somewebsite.com");
@@ -227,7 +226,7 @@
                 null,
                 null,
                 DateTime.UtcNow.AddYears(-21),
-                Data.Models.Enums.Gender.NotSay,
+                Internify.Data.Models.Enums.Gender.NotSay,
                 false,
                 specializationId,
                 countryId);
@@ -250,7 +249,7 @@
                 null,
                 null,
                 DateTime.UtcNow.AddYears(-21),
-                Data.Models.Enums.Gender.NotSay,
+                Internify.Data.Models.Enums.Gender.NotSay,
                 false,
                 specializationId,
                 countryId);
@@ -273,7 +272,7 @@
                 null,
                 null,
                 DateTime.UtcNow.AddYears(-21),
-                Data.Models.Enums.Gender.NotSay,
+                Internify.Data.Models.Enums.Gender.NotSay,
                 false,
                 "",
                 countryId);
@@ -296,7 +295,7 @@
                 null,
                 null,
                 DateTime.UtcNow.AddYears(-21),
-                Data.Models.Enums.Gender.NotSay,
+                Internify.Data.Models.Enums.Gender.NotSay,
                 false,
                 specializationId,
                 "");
@@ -317,7 +316,7 @@
                 null,
                 null,
                 DateTime.UtcNow.AddYears(-21),
-                Data.Models.Enums.Gender.NotSay,
+                Internify.Data.Models.Enums.Gender.NotSay,
                 false,
                 specializationId,
                 countryId);
@@ -524,6 +523,12 @@
         public void RemoveFromCompany_ShouldReturn_True()
         {
             SeedDatabase();
+            SeedCompany();
+
+            var candidate = data.Candidates.Find(candidateId);
+            candidate.CompanyId = companyId;
+
+            data.SaveChanges();
 
             var actualResult = candidateService.RemoveFromCompany(candidateId);
             var actualCompanyId = candidateService.GetDetailsModel(candidateId)?.CompanyId;
@@ -595,7 +600,7 @@
                 null,
                 null,
                 DateTime.UtcNow.AddYears(-21),
-                Data.Models.Enums.Gender.Male,
+                Internify.Data.Models.Enums.Gender.Male,
                 false,
                 specializationId,
                 countryId);
@@ -668,7 +673,7 @@
                 Id = candidateId,
                 FirstName = "Emre",
                 LastName = "Ereceb",
-                Gender = Data.Models.Enums.Gender.Male,
+                Gender = Internify.Data.Models.Enums.Gender.Male,
                 IsAvailable = true,
                 SpecializationId = specializationId,
                 CountryId = countryId
@@ -959,7 +964,7 @@
                 LastName = "Ereceb",
                 UserId = candidateAppUser.Id,
                 BirthDate = DateTime.UtcNow.AddYears(-20),
-                Gender = Data.Models.Enums.Gender.Male,
+                Gender = Internify.Data.Models.Enums.Gender.Male,
                 SpecializationId = specialization.Id,
                 CountryId = country.Id
             };

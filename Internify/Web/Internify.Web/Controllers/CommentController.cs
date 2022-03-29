@@ -2,8 +2,8 @@
 {
     using Internify.Models.InputModels.Comment;
     using Microsoft.AspNetCore.Mvc;
-    using Services.Article;
-    using Services.Comment;
+    using Services.Data.Article;
+    using Services.Data.Comment;
 
     public class CommentController : Controller
     {

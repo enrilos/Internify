@@ -3,8 +3,10 @@
     using Infrastructure.Extensions;
     using Internify.Models.InputModels.Article;
     using Microsoft.AspNetCore.Mvc;
-    using Services.Article;
-    using Services.Company;
+    using Services.Data.Article;
+    using Services.Data.Company;
+
+    using static Common.WebConstants;
 
     public class ArticleController : CompanyControllerBase
     {
@@ -54,6 +56,8 @@
                 return BadRequest();
             }
 
+            TempData[GlobalMessageKey] = "Successfully published article.";
+
             return RedirectToAction("Details", "Article", new { id = id });
         }
 
@@ -101,6 +105,8 @@
                 return BadRequest();
             }
 
+            TempData[GlobalMessageKey] = "Successfully edited article.";
+
             return RedirectToAction("Details", "Article", new { id = article.Id });
         }
 
@@ -119,6 +125,8 @@
             {
                 return BadRequest();
             }
+
+            TempData[GlobalMessageKey] = "Successfully deleted article.";
 
             return RedirectToAction("CompanyArticles", "Article", new { companyId = companyId });
         }
