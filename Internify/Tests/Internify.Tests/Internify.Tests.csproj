@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Internify.Data\Internify.Data.csproj" />
-    <ProjectReference Include="..\..\Services\Internify.Services.Data\Internify.Services.Data\Internify.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Services\Internify.Services.Data\Internify.Services.Data.csproj" />
   </ItemGroup>
 
 </Project>

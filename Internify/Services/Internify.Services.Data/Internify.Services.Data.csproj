@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlSanitizer" Version="7.1.488" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Internify.Common\Internify.Common.csproj" />
+    <ProjectReference Include="..\..\Data\Internify.Data.Models\Internify.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\Internify.Data\Internify.Data.csproj" />
+    <ProjectReference Include="..\..\Models\Internify.Models.InputModels\Internify.Models.InputModels.csproj" />
+    <ProjectReference Include="..\..\Models\Internify.Models.ViewModels\Internify.Models.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

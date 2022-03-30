@@ -27,7 +27,7 @@
     <ProjectReference Include="..\..\Common\Internify.Common\Internify.Common.csproj" />
     <ProjectReference Include="..\..\Data\Internify.Data\Internify.Data.csproj" />
     <ProjectReference Include="..\..\Models\Internify.Models.InputModels\Internify.Models.InputModels.csproj" />
-    <ProjectReference Include="..\..\Services\Internify.Services.Data\Internify.Services.Data\Internify.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Services\Internify.Services.Data\Internify.Services.Data.csproj" />
     <ProjectReference Include="..\Internify.Web.Common\Internify.Web.Common.csproj" />
     <ProjectReference Include="..\Internify.Web.Infrastructure\Internify.Web.Infrastructure.csproj" />
   </ItemGroup>
