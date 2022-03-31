@@ -41,7 +41,7 @@
         [Range(minimum: 0, maximum: 999999999)]
         public int EmployeesCount { get; set; }
 
-        // E.g. People can own part of the company (shares)
+        // I.e. People can own part of the company (shares)
         public bool IsPublic { get; set; }
 
         public bool IsGovernmentOwned { get; set; }
