@@ -30,6 +30,8 @@
 
         public DbSet<Review> Reviews { get; set; }
 
+        public DbSet<Message> Messages { get; set; }
+
         public DbSet<Specialization> Specializations { get; set; }
 
         public DbSet<Country> Countries { get; set; }

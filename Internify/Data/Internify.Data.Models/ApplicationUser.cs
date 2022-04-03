@@ -6,6 +6,8 @@
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
+        public ICollection<Message> SentMessages { get; set; } = new List<Message>();
+
         public DateTime CreatedOn { get; init; } = DateTime.UtcNow;
 
         public DateTime? ModifiedOn { get; set; }

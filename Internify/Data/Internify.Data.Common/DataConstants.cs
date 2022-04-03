@@ -14,6 +14,11 @@
             public const int FoundedMaxYear = 2050;
         }
 
+        public class Message
+        {
+            public const int ContentMaxLength = 1000;
+        }
+
         public class University
         {
             public const int FoundedMinYear = 1088;
