@@ -11,6 +11,10 @@
     background: #00ffd9;
 }
 
+ul li {
+    list-style-type: none;
+}
+
 a:hover {
     text-decoration: none;
     color: #00ffd9;
@@ -74,6 +78,18 @@ a:hover {
 .container-home-main-services-card p {
     color: #6B4748;
     margin-top: 1em;
+}
+
+#messagesList {
+    margin: 0;
+    padding: 0;
+}
+
+#messagesList li {
+    margin: 10px;
+    padding: 10px 12px;
+    border: 1px solid black;
+    word-break: break-all;
 }
 
 @media screen and (max-width: 580px) {
