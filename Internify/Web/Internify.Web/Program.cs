@@ -9,10 +9,12 @@ using Internify.Services.Data.Comment;
 using Internify.Services.Data.Company;
 using Internify.Services.Data.Country;
 using Internify.Services.Data.Internship;
+using Internify.Services.Data.Message;
 using Internify.Services.Data.Review;
 using Internify.Services.Data.Specialization;
 using Internify.Services.Data.University;
 using Internify.Web.Common;
+using Internify.Web.Hubs;
 using Internify.Web.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -69,6 +71,7 @@ builder.Services.AddTransient<IArticleService, ArticleService>();
 builder.Services.AddTransient<ICommentService, CommentService>();
 builder.Services.AddTransient<IReviewService, ReviewService>();
 builder.Services.AddTransient<IAdministratorService, AdministratorService>();
+builder.Services.AddTransient<IMessageService, MessageService>();
 builder.Services.AddTransient<ICountryService, CountryService>();
 builder.Services.AddTransient<ISpecializationService, SpecializationService>();
 
@@ -80,6 +83,8 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.CheckConsentNeeded = context => true;
     options.MinimumSameSitePolicy = SameSiteMode.Strict;
 });
+
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -137,5 +142,6 @@ app.UseEndpoints(endpoints =>
 });
 
 app.MapRazorPages();
+app.MapHub<ChatHub>("/chathub");
 
 app.Run();
