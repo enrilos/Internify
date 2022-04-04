@@ -88,7 +88,7 @@ builder.Services.AddSignalR();
 
 var app = builder.Build();
 
-app.PrepareDatabase();
+//app.PrepareDatabase();
 
 app.Use(async (context, next) =>
 {

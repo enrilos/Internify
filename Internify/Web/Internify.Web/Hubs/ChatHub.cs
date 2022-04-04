@@ -12,6 +12,11 @@
 
         public async Task SendMessage(string user, string message)
         {
+            if (message.Length > 1000)
+            {
+                return;
+            }
+
             var sanitizedMessage = messageService.Add(user, message);
 
             if (sanitizedMessage == null)

@@ -12,7 +12,28 @@ connection.on("ReceiveMessage", function (user, message) {
     // We can assign user-supplied strings to an element's textContent because it
     // is not interpreted as markup. If you're assigning in any other way, you 
     // should be aware of possible script injection concerns.
-    li.textContent = `${user}: ${message}`;
+
+    let senderParagraph = document.createElement('p');
+    let strongElement = document.createElement('strong');
+    let spanElement = document.createElement('span');
+
+    strongElement.textContent = user;
+    spanElement.textContent = ` at ${new Date().toLocaleString()}`;
+
+    senderParagraph.appendChild(strongElement);
+    senderParagraph.appendChild(spanElement);
+
+    senderParagraph.classList.add('text-left');
+
+    let messageParagraph = document.createElement('p');
+
+    messageParagraph.textContent = message;
+    messageParagraph.classList.add('text-left');
+
+    li.appendChild(senderParagraph);
+    li.appendChild(messageParagraph);
+
+    li.classList.add('message-list-element');
 
     if (messagesList.children.length > 100) {
         messagesList.removeChild(messagesList.lastElementChild);
