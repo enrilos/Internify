@@ -1,8 +1,8 @@
 ﻿namespace Internify.Services.Data.Tests
 {
+    using Article;
     using Internify.Data;
     using Internify.Data.Models;
-    using Internify.Services.Data.Article;
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Article;
     using Models.ViewModels.Article;

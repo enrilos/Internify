@@ -2,9 +2,9 @@
 {
     using Internify.Data;
     using Internify.Data.Models;
-    using Internify.Services.Data.Specialization;
     using Microsoft.EntityFrameworkCore;
     using NUnit.Framework;
+    using Specialization;
     using System.Linq;
 
     public class SpecializationServiceTests

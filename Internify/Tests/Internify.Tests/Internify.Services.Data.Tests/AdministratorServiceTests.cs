@@ -1,8 +1,8 @@
 ﻿namespace Internify.Services.Data.Tests
 {
+    using Administrator;
     using Internify.Data;
     using Internify.Data.Models;
-    using Internify.Services.Data.Administrator;
     using Microsoft.EntityFrameworkCore;
     using NUnit.Framework;
     using System;

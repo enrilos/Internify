@@ -1,8 +1,8 @@
 ﻿namespace Internify.Services.Data.Tests
 {
+    using CandidateUniversity;
     using Internify.Data;
     using Internify.Data.Models;
-    using Internify.Services.Data.CandidateUniversity;
     using Microsoft.EntityFrameworkCore;
     using NUnit.Framework;
     using System;

@@ -1,12 +1,12 @@
 ﻿namespace Internify.Services.Data.Tests
 {
+    using Application;
     using Internify.Data;
     using Internify.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Application;
     using Models.ViewModels.Application;
     using NUnit.Framework;
-    using Services.Data.Application;
     using System;
     using System.Linq;
 

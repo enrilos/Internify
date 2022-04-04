@@ -2,12 +2,12 @@
 {
     using Internify.Data;
     using Internify.Data.Models;
-    using Internify.Services.Data.University;
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.University;
     using Models.ViewModels.University;
     using NUnit.Framework;
     using System.Linq;
+    using University;
 
     public class UniversityServiceTests
     {
