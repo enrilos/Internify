@@ -1,4 +1,4 @@
-﻿namespace Internify.Tests.Data.Services
+﻿namespace Internify.Services.Data.Tests
 {
     using Internify.Data;
     using Internify.Data.Models;

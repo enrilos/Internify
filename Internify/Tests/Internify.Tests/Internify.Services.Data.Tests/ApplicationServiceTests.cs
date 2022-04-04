@@ -1,12 +1,12 @@
-﻿namespace Internify.Tests.Data.Services
+﻿namespace Internify.Services.Data.Tests
 {
     using Internify.Data;
     using Internify.Data.Models;
-    using Internify.Services.Data.Application;
     using Microsoft.EntityFrameworkCore;
     using Models.InputModels.Application;
     using Models.ViewModels.Application;
     using NUnit.Framework;
+    using Services.Data.Application;
     using System;
     using System.Linq;
 
@@ -40,7 +40,7 @@
         }
 
         [Test]
-        public void Add_ShouldReturn_FalseWhenInternshipIdDoesNotMatch()
+        public void Add_ShouldReturn_NullWhenInternshipIdDoesNotMatch()
         {
             var actualResult = applicationService.Add(
                 "",
@@ -51,7 +51,7 @@
         }
 
         [Test]
-        public void Add_ShouldReturn_FalseWhenCandidateIdDoesNotMatch()
+        public void Add_ShouldReturn_NullWhenCandidateIdDoesNotMatch()
         {
             var actualResult = applicationService.Add(
                 internshipId,
