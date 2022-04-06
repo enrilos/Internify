@@ -13,6 +13,7 @@ Are you looking for the perfect intern(ship)? Internify is a platform where regi
 - Entity Framework Core
 - MSSQL
 - SignalR
+- SendGrid
 - Data Model Validation (client + server)
 - AJAX
 - Status Code Pages
