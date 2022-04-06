@@ -88,13 +88,13 @@ builder.Services.AddSignalR();
 
 var app = builder.Build();
 
-//app.PrepareDatabase();
+app.PrepareDatabase();
 
 app.Use(async (context, next) =>
 {
     var clientIP = context.Connection.RemoteIpAddress.ToString();
 
-    var torIps = await File.ReadAllTextAsync("wwwroot/tor/torbulkexitlist.txt");
+    var torIps = await File.ReadAllTextAsync("./wwwroot/tor/torbulkexitlist.txt");
 
     if (torIps.Contains(clientIP))
     {
