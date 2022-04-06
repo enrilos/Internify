@@ -13,6 +13,7 @@ using Internify.Services.Data.Message;
 using Internify.Services.Data.Review;
 using Internify.Services.Data.Specialization;
 using Internify.Services.Data.University;
+using Internify.Services.Messaging;
 using Internify.Web.Common;
 using Internify.Web.Hubs;
 using Internify.Web.Infrastructure.Extensions;
@@ -61,6 +62,8 @@ builder.Services
 
 builder.Services.AddMemoryCache();
 
+builder.Configuration["SendGridKey"] = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
+
 builder.Services.AddTransient<ICandidateService, CandidateService>();
 builder.Services.AddTransient<ICompanyService, CompanyService>();
 builder.Services.AddTransient<IUniversityService, UniversityService>();
@@ -88,7 +91,7 @@ builder.Services.AddSignalR();
 
 var app = builder.Build();
 
-app.PrepareDatabase();
+//app.PrepareDatabase();
 
 app.Use(async (context, next) =>
 {
@@ -111,13 +114,8 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    //app.UseExceptionHandler("/Home/Error");
-    //app.UseHsts();
-
     app.UseStatusCodePagesWithReExecute("/Error/{0}");
 }
-
-//app.UseWebSockets();
 
 app.UseCookiePolicy();
 
