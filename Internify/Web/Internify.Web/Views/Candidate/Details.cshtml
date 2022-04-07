@@ -19,7 +19,7 @@
        asp-action="Edit"
        asp-route-id="@Model.Id">Edit</a>
 
-       <a class="btn btn-primary rounded m-1"
+        <a class="btn btn-primary rounded m-1"
        asp-area="Candidate"
        asp-controller="Review"
        asp-action="CandidateReviews"
@@ -210,6 +210,11 @@
             <p>@Html.Raw(Model.Description)</p>
         }
     </article>
+    @if (Model.Id == candidateService.GetIdByUserId(User?.Id()))
+    {
+        <section id='map' style='width: 400px; height: 300px; margin: auto;'></section>
+        <script src="~/js/mapbox.js" defer></script>
+    }
 </section>
 <section>
     @if (Model.Universities.Any())
@@ -220,5 +225,5 @@
 </section>
 
 @section Scripts {
-    <script src="~/js/main.js"></script>
+<script src="~/js/main.js"></script>
 }

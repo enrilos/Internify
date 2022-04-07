@@ -126,3 +126,9 @@
 <article class="p-2 m-3 bg-light text-center" style="word-wrap: break-word;">
     <p>@Html.Raw(Model.Description)</p>
 </article>
+
+@if (Model.Id == companyService.GetIdByUserId(User?.Id()))
+{
+    <section id='map' style='width: 400px; height: 300px; margin: auto;'></section>
+    <script src="~/js/mapbox.js" defer></script>
+}
