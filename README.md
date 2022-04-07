@@ -14,6 +14,7 @@ Are you looking for the perfect intern(ship)? Internify is a platform where regi
 - MSSQL
 - SignalR
 - SendGrid
+- Mapbox
 - Data Model Validation (client + server)
 - AJAX
 - Status Code Pages
