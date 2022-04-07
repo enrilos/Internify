@@ -774,7 +774,7 @@ Chartered by Connecticut Colony, the Collegiate School was established in 1701 b
                 new University
                 {
                     Name = "Software University",
-                    ImageUrl = "https://yt3.ggpht.com/ytc/AKedOLSp0TNfguM4s9wg2yTKv-_wzdu9VAZxAPnWSNYWKo4=s900-c-k-c0x00ffffff-no-rj",
+                    ImageUrl = "https://softuni.bg/Content/images/open-graph/university-default-og.png",
                     WebsiteUrl = "softuni.bg",
                     Founded = 2013,
                     Type = Type.Private,
@@ -917,7 +917,7 @@ Using modern technologies and methodologies we are constantly seeking to improve
                 new Company
                 {
                     Name = "Motion Software",
-                    ImageUrl = "https://lh3.ggpht.com/p/AF1QipP-2bH32lsbcKL8AhAj2FUzAu1uC0lAA9PBHdhx=s1536",
+                    ImageUrl = "https://media-exp1.licdn.com/dms/image/C4D1BAQH9tHDuc685OA/company-background_10000/0/1643890527386?e=2147483647&v=beta&t=BvQplmyHMqaCB0u1uENiBHol-ach2rmOxNhk5kFSzh8",
                     WebsiteUrl = "motion-software.com",
                     Founded = 2015,
                     Description = @"Motion Software started as a small collective of software specialists truly passionate about creating an organization where everyone is encouraged to develop the skills and personal qualities required to achieve one’s life goals and make dreams come true. Today, we are grateful to be trusted by the world’s leading companies in providing top talent and critical remote work infrastructure when they need it the most.",
