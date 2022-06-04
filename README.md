@@ -1,6 +1,6 @@
 # 👨‍💼 Internify
 My defense project for the <a href="https://softuni.bg/trainings/3601/asp-dot-net-core-february-2022">ASP.NET Core</a> course at Software University.<br />
-This project is in TOP 5 of all 200+ projects.
+This project is in TOP 5 of all 350+ projects.
 
 # 📄 Abstract
 
